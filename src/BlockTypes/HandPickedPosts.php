@@ -74,7 +74,7 @@ class HandPickedPosts extends Base
         }
 
         /**
-         * Post grid arguments
+         * Posts render arguments
          */
 
         $query_args = [
@@ -140,7 +140,7 @@ class HandPickedPosts extends Base
          */
 
         $wrapper = [
-            'class' => 'post-grid',
+            'class' => 'posts-list',
         ];
 
         /**
