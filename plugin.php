@@ -14,8 +14,6 @@
 * @package My/Blocks
 */
 
-defined('ABSPATH') || exit;
-
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 $plugin = get_plugin_data(__FILE__);
@@ -27,9 +25,28 @@ $plugin = get_plugin_data(__FILE__);
 $autoloader = __DIR__ . '/vendor/autoload.php';
 
 if (!is_readable($autoloader)) {
-    // translators: %1$s: The name of the application. %2$s: The code to run.
     error_log(
-        sprintf(__('%1$s is not ready. Run %2$s.', 'my-blocks'), $plugin['Name'], '<code>composer install</code>')
+        sprintf(
+            // translators: %1$s: The name of the application. %2$s: The code to run.
+            __('%1$s is not ready. Run %2$s.', 'my-blocks'),
+            $plugin['Name'],
+            '<code>composer install</code>'
+        )
+    );
+    return;
+}
+
+/**
+ * Check WordPress blocks API.
+ */
+if (!function_exists('register_block_type')) {
+    error_log(
+        sprintf(
+            // translators: %1$s: Application name. %2$s: CMS name.
+            __('%1$s needs %2$s blocks API.', 'my-blocks'),
+            $plugin['Name'],
+            __('WordPress')
+        )
     );
     return;
 }
@@ -37,18 +54,15 @@ if (!is_readable($autoloader)) {
 /**
  * Check ACF blocks API.
  */
-if (!function_exists('register_block_type')) {
-    // translators: %1$s: The name of the application.
-    error_log(sprintf(__('%1$s needs WordPress blocks API.', 'my-blocks'), $plugin['Name']));
-    return;
-}
-
-/**
- * Check ACF blocks API.
- */
 if (!function_exists('acf_register_block_type')) {
-    // translators: %1$s: The name of the application.
-    error_log(sprintf(__('%1$s needs Advanced Custom Fields PRO blocks API.', 'my-blocks'), $plugin['Name']));
+    error_log(
+        sprintf(
+            // translators: %1$s: Application name. %2$s: plugin name.
+            __('%1$s needs %2$s blocks API.', 'my-blocks'),
+            $plugin['Name'],
+            __('Advanced Custom Fields PRO', 'my-blocks')
+        )
+    );
     return;
 }
 
@@ -56,18 +70,8 @@ if (!function_exists('acf_register_block_type')) {
  * Fire up the application.
  */
 
-/**
- * Get Single instance of main class.
- *
- * @return \My\Blocks\App
- */
-function my_blocks()
-{
-    return \My\Blocks\App::instance();
-}
-
 defined('MY_BLOCKS_PLUGIN_FILE') || define('MY_BLOCKS_PLUGIN_FILE', __FILE__);
 
 require $autoloader;
 
-add_action('plugins_loaded', [my_blocks(), 'init']);
+add_action('plugins_loaded', [\My\Blocks\App::instance(), 'init']);

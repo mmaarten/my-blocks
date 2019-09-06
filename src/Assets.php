@@ -66,21 +66,21 @@ final class Assets
             'my-blocks',
             plugins_url('dist/styles/main.css', MY_BLOCKS_PLUGIN_FILE),
             [],
-            my_blocks()->getVersion()
+            MY_BLOCKS_VERSION
         );
 
         wp_register_script(
             'my-blocks',
             plugins_url('dist/scripts/main.js', MY_BLOCKS_PLUGIN_FILE),
             [ 'jquery' ],
-            my_blocks()->getVersion(),
+            MY_BLOCKS_VERSION,
             true
         );
     }
 
     public static function acfJSONLoadPoint($paths)
     {
-        $paths[] = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE) . 'acf-json';
+        $paths[] = MY_BLOCKS_ABSPATH . 'acf-json';
 
         return $paths;
     }

@@ -30,7 +30,7 @@ final class App
     }
 
     /**
-     * Version
+     * Version.
      *
      * @var string
      */
@@ -58,19 +58,25 @@ final class App
 
         $this->did_init = true;
 
+        $this->define('MY_BLOCKS_VERSION', $this->version);
+        $this->define('MY_BLOCKS_ABSPATH', dirname(MY_BLOCKS_PLUGIN_FILE) . '/');
+
         Library::init();
         Assets::init();
         Fields::init();
     }
 
     /**
-     * Get version.
+     * Define constant
+     *
+     * @param string $name The constant name.
+     * @param mixed  $value The constant value.
      *
      * @return string
      */
-    public function getVersion()
+    private function define($name, $value)
     {
-        return $this->version;
+        return defined($name) || define($name, $value);
     }
 
     /**
