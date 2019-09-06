@@ -2,7 +2,7 @@
 /**
  * Abstract dynamic block class.
  *
- * @package Blocks
+ * @package My/Blocks
  */
 
 namespace My\Blocks\BlockTypes;

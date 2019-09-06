@@ -2,7 +2,7 @@
 /**
  * Hero Image block.
  *
- * @package MY\Blocks
+ * @package MY/Blocks
  */
 
 namespace MY\Blocks\BlockTypes;

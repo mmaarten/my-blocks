@@ -1,15 +1,17 @@
 <?php
-/*
-Plugin Name:  My Blocks
-Plugin URI:   https://github.com/mmaarten/my-blocks
-Description:  Block Library
-Version:      1.0.0
-Author:       Maarten Menten
-Author URI:   https://profiles.wordpress.org/maartenm/
-License:      GPL2 or later
-License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  my-blocks
-Domain Path:  /languages
+/**
+* Plugin Name:  My Blocks
+* Plugin URI:   https://github.com/mmaarten/my-blocks
+* Description:  Block Library
+* Version:      1.0.0
+* Author:       Maarten Menten
+* Author URI:   https://profiles.wordpress.org/maartenm/
+* License:      GPL2 or later
+* License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+* Text Domain:  my-blocks
+* Domain Path:  /languages
+*
+* @package My/Blocks
 */
 
 defined('ABSPATH') || exit;

@@ -1,4 +1,9 @@
 <?php
+/**
+ * [Description]
+ *
+ * @package My/Blocks
+ */
 
 namespace My\Blocks;
 

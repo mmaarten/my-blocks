@@ -1,4 +1,9 @@
 <?php
+/**
+ * [Description]
+ *
+ * @package My/Blocks
+ */
 
 namespace My\Blocks;
 
@@ -7,7 +12,7 @@ final class App
     /**
      * Instance
      *
-     * @var Blocks
+     * @var App
      */
     private static $instance = null;
 
