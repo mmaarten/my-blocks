@@ -49,7 +49,11 @@ abstract class Base
 
     public function enqueueAssets()
     {
-        wp_enqueue_script("my-{$this->block_name}-block");
+        wp_enqueue_style('my-blocks');
+        wp_enqueue_script('my-blocks');
+
+        wp_enqueue_style("my-blocks-{$this->block_name}-block");
+        wp_enqueue_script("my-blocks-{$this->block_name}-block");
     }
 
     /**

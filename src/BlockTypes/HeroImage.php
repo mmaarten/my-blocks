@@ -62,7 +62,7 @@ class HeroImage extends Base
          */
 
         $jumbotron = [
-            'class' => 'jumbotron jumbotron-fluid',
+            'class' => 'hero-image jumbotron jumbotron-fluid',
         ];
 
         if ($attributes['image'] && 'attachment' == get_post_type($attributes['image'])) {

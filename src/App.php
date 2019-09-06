@@ -55,6 +55,7 @@ final class App
 
         Library::init();
         Assets::init();
+        Fields::init();
     }
 
     /**

@@ -7,6 +7,8 @@
 
 namespace My\Blocks\BlockTypes;
 
+use My\Blocks\Common;
+
 class OWLCarousel extends Base
 {
     /**
@@ -85,7 +87,7 @@ class OWLCarousel extends Base
             'post_status'    => 'publish',
             'order'          => 'DESC',
             'orderby'        => 'post__in',
-            'posts_per_page' => min(ELIXIR_MAX_NUMBERPOSTS, $attributes['posts']),
+            'posts_per_page' => count($attributes['posts']),
             'post__in'       => $attributes['posts'],
         );
 
@@ -204,7 +206,7 @@ class OWLCarousel extends Base
         while ($the_query->have_posts()) {
             $the_query->the_post();
 
-            Common::getTemplatePart('owl-item', $args['post_template']);
+            $this->renderCarouselItem();
         }
 
         wp_reset_postdata();
@@ -230,9 +232,10 @@ class OWLCarousel extends Base
      */
     public function enqueueAssets()
     {
+        parent::enqueueAssets();
+
         wp_enqueue_script('owl-carousel');
         wp_enqueue_style('owl-carousel');
         wp_enqueue_style('owl-carousel-theme');
-        wp_enqueue_script('my-blocks');
     }
 }

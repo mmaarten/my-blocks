@@ -1,0 +1,33 @@
+
+/**
+ * Hero image block
+ */
+.wp-block-acf-hero-image {
+  .hero-image {
+    background: no-repeat center;
+    background-size: cover;
+  }
+}
+
+/**
+ * Modal block
+ */
+.wp-block-acf-modal {
+  .acf-block-preview & {
+    .modal {
+      opacity: 1 !important;
+      position: static !important;
+      display: block !important;
+    }
+    .modal-dialog {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .modal-dialog-centered {
+      min-height: auto !important;
+      &::before{
+        height : auto !important;
+      }
+    }
+  }
+}

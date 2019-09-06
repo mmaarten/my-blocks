@@ -53,7 +53,7 @@
         },
         {
             "key": "field_5d5dd3474a365",
-            "label": "Item Template",
+            "label": "Post Template",
             "name": "post_template",
             "type": "select",
             "instructions": "",
@@ -61,7 +61,7 @@
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "my-blocks-post-templates-field",
                 "id": ""
             },
             "choices": [],

@@ -80,14 +80,12 @@ class Gallery extends Base
 
         echo '<div ' . acf_esc_attr($wrapper) . '>';
 
-        $this->renderGallery(
-            [
-                'images'  => $attributes['images'],
-                'size'    => $attributes['size'],
-                'link'    => $attributes['link'],
-                'columns' => $attributes['columns'],
-            ]
-        );
+        $this->renderGallery([
+            'images'  => $attributes['images'],
+            'size'    => $attributes['size'],
+            'link'    => $attributes['link'],
+            'columns' => $attributes['columns'],
+        ]);
 
         echo '</div>';
     }
@@ -144,7 +142,7 @@ class Gallery extends Base
                 'order'          => $args['order'],
                 'orderby'        => $args['orderby'],
                 'post__in'       => $args['images'],
-                'numberposts'    => min(1000, count($args['images'])),
+                'numberposts'    => count($args['images']),
             )
         );
 
@@ -173,7 +171,7 @@ class Gallery extends Base
         foreach ($attachments as $attachment) {
             $atts = trim($attachment->post_excerpt) ? array( 'aria-describedby' => "{$gallery['id']}-{$attachment->ID}" ) : '';
 
-            printf('<div class="%s gallery-column">', esc_attr(Common::getColumnClass($args['columns'])));
+            printf('<div class="col-md-%s gallery-column">', $args['columns']);
 
             echo '<figure class="gallery-item">';
 
@@ -221,8 +219,9 @@ class Gallery extends Base
      */
     public function enqueueAssets()
     {
+        parent::enqueueAssets();
+
         wp_enqueue_script('fancybox');
         wp_enqueue_style('fancybox');
-        wp_enqueue_script('my-blocks');
     }
 }

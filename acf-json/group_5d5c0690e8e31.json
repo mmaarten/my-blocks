@@ -23,6 +23,37 @@
             "ui": 1
         },
         {
+            "key": "field_5d5c18d36ac9c",
+            "label": "Columns",
+            "name": "columns",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "my-blocks-columns-field",
+                "id": ""
+            },
+            "choices": {
+                "12": 1,
+                "6": 2,
+                "4": 3,
+                "3": 4,
+                "2": 6,
+                "1": 12
+            },
+            "default_value": [
+                4
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_5d5c211f96873",
             "label": "Post Template",
             "name": "post_template",
@@ -32,7 +63,7 @@
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "my-blocks-post-templates-field",
                 "id": ""
             },
             "choices": [],
@@ -43,25 +74,6 @@
             "return_format": "value",
             "ajax": 0,
             "placeholder": ""
-        },
-        {
-            "key": "field_5d5c18d36ac9c",
-            "label": "Column Width",
-            "name": "columns",
-            "type": "text",
-            "instructions": "Use following format to set width per screen size: xs=1&sm=2&md=3&lg=4&xl=5",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "my-theme-columns-field",
-                "id": ""
-            },
-            "default_value": 4,
-            "placeholder": "",
-            "prepend": "",
-            "append": "\/ 12",
-            "maxlength": ""
         }
     ],
     "location": [
@@ -81,5 +93,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1566652116
+    "modified": 1567758812
 }

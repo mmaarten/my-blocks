@@ -83,7 +83,7 @@ class Carousel extends Base
             'post_status'    => 'publish',
             'order'          => 'DESC',
             'orderby'        => 'post__in',
-            'posts_per_page' => min(ELIXIR_MAX_NUMBERPOSTS, $attributes['posts']),
+            'posts_per_page' => count($attributes['posts']),
             'post__in'       => $attributes['posts'],
         );
 

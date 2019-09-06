@@ -57,6 +57,13 @@ final class Assets
         /**
          * Core
          */
+        wp_register_style(
+            'my-blocks',
+            plugins_url('dist/styles/main.css', MY_BLOCKS_PLUGIN_FILE),
+            [],
+            my_blocks()->getVersion()
+        );
+
         wp_register_script(
             'my-blocks',
             plugins_url('dist/scripts/main.js', MY_BLOCKS_PLUGIN_FILE),

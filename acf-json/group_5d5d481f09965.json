@@ -30,25 +30,6 @@
             "mime_types": ""
         },
         {
-            "key": "field_5d5d481f4836e",
-            "label": "Column Width",
-            "name": "columns",
-            "type": "text",
-            "instructions": "Use following format to set width per screen size: xs=1&sm=2&md=3&lg=4&xl=5",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 4,
-            "placeholder": "",
-            "prepend": "",
-            "append": "\/ 12",
-            "maxlength": ""
-        },
-        {
             "key": "field_5d5d481f483d2",
             "label": "Image Size",
             "name": "size",
@@ -58,7 +39,7 @@
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "my-theme-image-sizes-field",
+                "class": "my-blocks-image-sizes-field",
                 "id": ""
             },
             "choices": {
@@ -103,6 +84,37 @@
             "return_format": "value",
             "ajax": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_5d5d481f4836e",
+            "label": "Columns",
+            "name": "columns",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "my-blocks-columns-field",
+                "id": ""
+            },
+            "choices": {
+                "12": 1,
+                "6": 2,
+                "4": 3,
+                "3": 4,
+                "2": 6,
+                "1": 12
+            },
+            "default_value": [
+                4
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -122,5 +134,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1566651987
+    "modified": 1567758775
 }
