@@ -46,7 +46,7 @@ class Modal extends Base
     {
 
         /**
-         * Field settings
+         * Attributes
          */
         $attributes = get_fields();
 

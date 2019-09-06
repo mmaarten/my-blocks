@@ -41,7 +41,7 @@ class Gallery extends Base
     {
 
         /**
-         * Field settings
+         * Attributes
          *
          * @var array  images
          * @var string columns

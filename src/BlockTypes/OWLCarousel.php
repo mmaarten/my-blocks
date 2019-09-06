@@ -43,7 +43,7 @@ class OWLCarousel extends Base
     public function render($block, $content = '', $is_preview = false, $post_id = 0)
     {
         /**
-         * Field settings
+         * Attributes
          *
          * @var array        posts   A list of post ids.
          * @var array        enable  List of features.

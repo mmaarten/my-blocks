@@ -42,7 +42,7 @@ class Button extends Base
     {
 
         /**
-         * Field settings
+         * Attributes
          *
          * @var string text
          * @var string link

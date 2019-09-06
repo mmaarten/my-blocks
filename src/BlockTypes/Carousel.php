@@ -42,7 +42,7 @@ class Carousel extends Base
     {
 
         /**
-         * Field settings
+         * Attributes
          *
          * @var array  posts
          * @var array  enable

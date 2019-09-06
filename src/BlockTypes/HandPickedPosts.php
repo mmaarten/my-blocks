@@ -41,7 +41,7 @@ class HandPickedPosts extends Base
     {
 
         /**
-         * Field settings
+         * Attributes
          *
          * @var array  posts
          * @var string columns
