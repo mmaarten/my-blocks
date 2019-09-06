@@ -202,6 +202,8 @@ class Carousel extends Base
 
         // Items.
 
+        $post_template = locate_template($args['post_template']);
+
         while ($the_query->have_posts()) {
             $the_query->the_post();
 
@@ -215,7 +217,11 @@ class Carousel extends Base
 
             echo '<div ' . acf_esc_attr($item) . '>';
 
-            $this->renderCarouselItem();
+            if ($post_template) {
+                include $post_template;
+            } else {
+                $this->renderCarouselItem();
+            }
 
             echo '</div><!-- .carousel-item -->';
         }

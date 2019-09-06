@@ -144,6 +144,12 @@ class HandPickedPosts extends Base
         );
 
         /**
+         * Post template
+         */
+
+        $post_template = locate_template($args['post_template']);
+
+        /**
          * Output
          */
 
@@ -160,7 +166,11 @@ class HandPickedPosts extends Base
 
             echo '<div ' . acf_esc_attr($column) . '>';
 
-            $this->renderPost();
+            if ($post_template) {
+                include $post_template;
+            } else {
+                $this->renderPost();
+            }
 
             echo '</div><!-- .col… -->';
         }

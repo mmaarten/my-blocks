@@ -198,6 +198,12 @@ class OWLCarousel extends Base
         $carousel = array_filter($carousel);
 
         /**
+         * Post template
+         */
+
+        $post_template = locate_template($args['post_template']);
+
+        /**
          * Output
          */
 
@@ -206,7 +212,11 @@ class OWLCarousel extends Base
         while ($the_query->have_posts()) {
             $the_query->the_post();
 
-            $this->renderCarouselItem();
+            if ($post_template) {
+                include $post_template;
+            } else {
+                $this->renderCarouselItem();
+            }
         }
 
         wp_reset_postdata();
