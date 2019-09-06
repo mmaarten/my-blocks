@@ -34,7 +34,7 @@ abstract class Base
             'enqueue_assets'  => [$this, 'enqueueAssets'],
             'supports'    => [
                 'anchor' => true,
-                'align'  => array( 'wide', 'full' ),
+                'align'  => [ 'wide', 'full' ],
             ],
         ] + $args;
     }

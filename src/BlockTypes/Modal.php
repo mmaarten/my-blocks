@@ -16,15 +16,15 @@ class Modal extends Base
     {
         parent::__construct(
             'modal',
-            __('Modal', 'elixir'),
-            array(
-                'description' => __('Displays a modal.', 'elixir'),
+            __('Modal', 'my-blocks'),
+            [
+                'description' => __('Displays a modal.', 'my-blocks'),
                 'category'    => 'common',
-                'supports'    => array(
+                'supports'    => [
                     'anchor' => true,
-                    'align'  => array(),
-                ),
-            )
+                    'align'  => [],
+                ],
+            ]
         );
     }
 
@@ -54,7 +54,7 @@ class Modal extends Base
          * Wrapper HTML attributes
          */
 
-        $wrapper = array();
+        $wrapper = [];
 
         // Add block specific class.
         $wrapper['class'] = ' wp-block-' . str_replace('/', '-', $block['name']);
@@ -99,7 +99,7 @@ class Modal extends Base
     {
         $args = wp_parse_args(
             $args,
-            array(
+            [
                 'id'     => '',
                 'title'  => '',
                 'body'   => '',
@@ -107,7 +107,7 @@ class Modal extends Base
                 'size'   => '',
                 'fade'   => true,
                 'center' => false,
-            )
+            ]
         );
 
         /**
@@ -134,7 +134,7 @@ class Modal extends Base
             'type'         => 'button',
             'class'        => 'close',
             'data-dismiss' => 'modal',
-            'aria-label'   => __('Close', 'elixir'),
+            'aria-label'   => __('Close', 'my-blocks'),
         ];
 
         // Apply arguments.

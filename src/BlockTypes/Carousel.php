@@ -16,11 +16,11 @@ class Carousel extends Base
     {
         parent::__construct(
             'carousel',
-            __('Carousel', 'elixir'),
-            array(
-                'description' => __('Displays a carousel.', 'elixir'),
+            __('Carousel', 'my-blocks'),
+            [
+                'description' => __('Displays a carousel.', 'my-blocks'),
                 'category'    => 'common',
-            )
+            ]
         );
     }
 
@@ -54,7 +54,7 @@ class Carousel extends Base
          * Wrapper HTML attributes
          */
 
-        $wrapper = array();
+        $wrapper = [];
 
         // Add block specific class.
         $wrapper['class'] = ' wp-block-' . str_replace('/', '-', $block['name']);
@@ -78,21 +78,21 @@ class Carousel extends Base
          * Carousel arguments
          */
 
-        $query_args = array(
+        $query_args = [
             'post_type'      => 'any',
             'post_status'    => 'publish',
             'order'          => 'DESC',
             'orderby'        => 'post__in',
             'posts_per_page' => count($attributes['posts']),
             'post__in'       => $attributes['posts'],
-        );
+        ];
 
-        $options = array(
+        $options = [
             'autoplay'      => in_array('autplay', $attributes['enable'], true),
             'indicators'    => in_array('indicators', $attributes['enable'], true),
             'controls'      => in_array('controls', $attributes['enable'], true),
             'post_template' => $attributes['post_template'],
-        );
+        ];
 
         /**
          * Output
@@ -115,7 +115,7 @@ class Carousel extends Base
      * @param array $query_args WP_Query arguments.
      * @param array $args       Carousel specific arguments.
      */
-    protected function renderCarousel($query_args, $args = array())
+    protected function renderCarousel($query_args, $args = [])
     {
         static $instance = 0;
 
@@ -127,13 +127,13 @@ class Carousel extends Base
 
         $args = wp_parse_args(
             $args,
-            array(
+            [
                 'id'            => '',
                 'autoplay'      => true,
                 'indicators'    => true,
                 'controls'      => true,
                 'post_template' => '',
-            )
+            ]
         );
 
         /**
@@ -154,10 +154,10 @@ class Carousel extends Base
          * Carousel HTML attributes
          */
 
-        $carousel = array(
+        $carousel = [
             'id'    => $args['id'] ? $args['id'] : "carousel-$instance",
             'class' => 'carousel slide',
-        );
+        ];
 
         if ($args['autoplay']) {
             $carousel['data-ride'] = 'carousel';
@@ -181,10 +181,10 @@ class Carousel extends Base
             while ($the_query->have_posts()) {
                 $the_query->the_post();
 
-                $indicator = array(
+                $indicator = [
                     'data-target'   => "#{$carousel['id']}",
                     'data-slide-to' => $i,
-                );
+                ];
 
                 if (get_the_ID() === $active->ID) {
                     $indicator['class'] = 'active';
@@ -207,9 +207,9 @@ class Carousel extends Base
         while ($the_query->have_posts()) {
             $the_query->the_post();
 
-            $item = array(
+            $item = [
                 'class' => 'carousel-item',
-            );
+            ];
 
             if (get_the_ID() === $active->ID) {
                 $item['class'] .= ' active';
@@ -233,12 +233,12 @@ class Carousel extends Base
         if ($args['controls']) {
             printf('<a class="carousel-control-prev" href="#%s" role="button" data-slide="prev">', esc_attr($carousel['id']));
             echo '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
-            printf('<span class="sr-only">%s</span>', esc_html__('Previous', 'elixir'));
+            printf('<span class="sr-only">%s</span>', esc_html__('Previous', 'my-blocks'));
             echo '</a>';
 
             printf('<a class="carousel-control-next" href="#%s" role="button" data-slide="next">', esc_attr($carousel['id']));
             echo '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
-            printf('<span class="sr-only">%s</span>', esc_html__('Next', 'elixir'));
+            printf('<span class="sr-only">%s</span>', esc_html__('Next', 'my-blocks'));
             echo '</a>';
         }
 

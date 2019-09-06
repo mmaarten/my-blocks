@@ -18,11 +18,11 @@ class OWLCarousel extends Base
     {
         parent::__construct(
             'owl-carousel',
-            __('OWL Carousel', 'elixir'),
-            array(
-                'description' => __('Displays an OWL carousel.', 'elixir'),
+            __('OWL Carousel', 'my-blocks'),
+            [
+                'description' => __('Displays an OWL carousel.', 'my-blocks'),
                 'category'    => 'common',
-            )
+            ]
         );
     }
 
@@ -58,7 +58,7 @@ class OWLCarousel extends Base
          * Wrapper HTML attributes
          */
 
-        $wrapper = array();
+        $wrapper = [];
 
         // Add block specific class.
         $wrapper['class'] = ' wp-block-' . str_replace('/', '-', $block['name']);
@@ -82,25 +82,25 @@ class OWLCarousel extends Base
          * WP Query args
          */
 
-        $query_args = array(
+        $query_args = [
             'post_type'      => 'any',
             'post_status'    => 'publish',
             'order'          => 'DESC',
             'orderby'        => 'post__in',
             'posts_per_page' => count($attributes['posts']),
             'post__in'       => $attributes['posts'],
-        );
+        ];
 
         /**
          * Carousel options
          */
 
-        $responsive = array();
+        $responsive = [];
 
         if (false !== strpos($attributes['items'], '=')) {
             $items = wp_parse_args($attributes['items']);
         } else {
-            $items = array( 'xs' => $attributes['items'] );
+            $items = [ 'xs' => $attributes['items'] ];
         }
 
         $breakpoints = Common::getGridBreakpoints();
@@ -115,13 +115,13 @@ class OWLCarousel extends Base
             }
         }
 
-        $options = array(
+        $options = [
             'loop'       => in_array('loop', $attributes['enable'], true),
             'autoplay'   => in_array('autoplay', $attributes['enable'], true),
             'nav'        => in_array('nav', $attributes['enable'], true),
             'dots'       => in_array('dots', $attributes['enable'], true),
             'responsive' => $responsive,
-        );
+        ];
 
         /**
          * Output
@@ -144,7 +144,7 @@ class OWLCarousel extends Base
      * @param array $query_args WP_Query arguments.
      * @param array $args       Carousel specific arguments.
      */
-    public function renderCarousel($query_args, $args = array())
+    public function renderCarousel($query_args, $args = [])
     {
 
         /**
@@ -153,11 +153,11 @@ class OWLCarousel extends Base
 
         $args = wp_parse_args(
             $args,
-            array(
+            [
                 'id'            => '',
                 'post_template' => '',
                 // … OWL carousel options.
-            )
+            ]
         );
 
         /**
@@ -178,21 +178,21 @@ class OWLCarousel extends Base
         // Get options out of $args.
         $js_options = array_diff_key(
             $args,
-            array(
+            [
                 'id'            => true,
                 'post_template' => true,
-            )
+            ]
         );
 
         /**
          * Carousel HTML attributes
          */
 
-        $carousel = array(
+        $carousel = [
             'id'           => $args['id'],
             'class'        => 'owl-carousel owl-theme',
             'data-options' => $js_options,
-        );
+        ];
 
         // Remove empty attributes.
         $carousel = array_filter($carousel);

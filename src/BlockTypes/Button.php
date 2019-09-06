@@ -16,11 +16,11 @@ class Button extends Base
     {
         parent::__construct(
             'button',
-            __('Button', 'elixir'),
-            array(
-                'description' => __('Displays a button.', 'elixir'),
+            __('Button', 'my-blocks'),
+            [
+                'description' => __('Displays a button.', 'my-blocks'),
                 'category'    => 'common',
-            )
+            ]
         );
     }
 
@@ -60,7 +60,7 @@ class Button extends Base
          * Wrapper HTML attributes
          */
 
-        $wrapper = array();
+        $wrapper = [];
 
         // Add block specific class.
         $wrapper['class'] = ' wp-block-' . str_replace('/', '-', $block['name']);
@@ -103,8 +103,8 @@ class Button extends Base
 
         $args = wp_parse_args(
             $args,
-            array(
-                'text'     => __('Button', 'elixir'),
+            [
+                'text'     => __('Button', 'my-blocks'),
                 'link'     => '#',
                 'link_tab' => false,
                 'type'     => 'primary',
@@ -112,17 +112,17 @@ class Button extends Base
                 'outline'  => false,
                 'block'    => false,
                 'toggle'   => '',
-            )
+            ]
         );
 
         /**
          * HTML attributes
          */
 
-        $button = array(
+        $button = [
             'class' => 'btn',
             'role'  => 'button',
-        );
+        ];
 
         if ($args['link']) {
             $button['href'] = esc_url($args['link']);

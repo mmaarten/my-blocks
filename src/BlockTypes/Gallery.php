@@ -16,11 +16,11 @@ class Gallery extends Base
     {
         parent::__construct(
             'gallery',
-            __('Gallery', 'elixir'),
-            array(
-                'description' => __('Displays an image gallery.', 'elixir'),
+            __('Gallery', 'my-blocks'),
+            [
+                'description' => __('Displays an image gallery.', 'my-blocks'),
                 'category'    => 'common',
-            )
+            ]
         );
     }
 
@@ -54,7 +54,7 @@ class Gallery extends Base
          * Wrapper HTML attributes
          */
 
-        $wrapper = array();
+        $wrapper = [];
 
         // Add block specific class.
         $wrapper['class'] = ' wp-block-' . str_replace('/', '-', $block['name']);
@@ -110,15 +110,15 @@ class Gallery extends Base
 
         $args = wp_parse_args(
             $args,
-            array(
+            [
                 'id'      => '',
-                'images'  => array(),
+                'images'  => [],
                 'size'    => 'thumbnail',
                 'link'    => '',
                 'order'   => 'DESC',
                 'orderby' => 'post__in',
                 'columns' => 4, // Bootstrap column width.
-            )
+            ]
         );
 
         /**
@@ -135,7 +135,7 @@ class Gallery extends Base
 
         // Get attrachments.
         $attachments = get_posts(
-            array(
+            [
                 'post_type'      => 'attachment',
                 'post_status'    => 'inherit',
                 'post_mime_type' => 'image',
@@ -143,7 +143,7 @@ class Gallery extends Base
                 'orderby'        => $args['orderby'],
                 'post__in'       => $args['images'],
                 'numberposts'    => count($args['images']),
-            )
+            ]
         );
 
         // Stop when no attachments.
@@ -155,10 +155,10 @@ class Gallery extends Base
          * HTML attributes
          */
 
-        $gallery = array(
+        $gallery = [
             'id'    => $args['id'] ? $args['id'] : "gallery-$instance",
             'class' => 'gallery',
-        );
+        ];
 
         /**
          * Output
@@ -169,7 +169,7 @@ class Gallery extends Base
         echo '<div class="row">';
 
         foreach ($attachments as $attachment) {
-            $atts = trim($attachment->post_excerpt) ? array( 'aria-describedby' => "{$gallery['id']}-{$attachment->ID}" ) : '';
+            $atts = trim($attachment->post_excerpt) ? [ 'aria-describedby' => "{$gallery['id']}-{$attachment->ID}" ] : '';
 
             printf('<div class="col-md-%s gallery-column">', $args['columns']);
 

@@ -16,11 +16,11 @@ class HandPickedPosts extends Base
     {
         parent::__construct(
             'hand-picked-posts',
-            __('Hand-picked posts', 'elixir'),
-            array(
-                'description' => __('Displays posts.', 'elixir'),
+            __('Hand-picked posts', 'my-blocks'),
+            [
+                'description' => __('Displays posts.', 'my-blocks'),
                 'category'    => 'common',
-            )
+            ]
         );
     }
 
@@ -53,7 +53,7 @@ class HandPickedPosts extends Base
          * Wrapper HTML attributes
          */
 
-        $wrapper = array();
+        $wrapper = [];
 
         // Add block specific class.
         $wrapper['class'] = ' wp-block-' . str_replace('/', '-', $block['name']);
@@ -77,19 +77,19 @@ class HandPickedPosts extends Base
          * Post grid arguments
          */
 
-        $query_args = array(
+        $query_args = [
             'post_type'      => 'any',
             'post_status'    => 'publish',
             'order'          => 'DESC',
             'orderby'        => 'post__in',
             'posts_per_page' => count($attributes['posts']),
             'post__in'       => $attributes['posts'],
-        );
+        ];
 
-        $options = array(
+        $options = [
             'columns'       => $attributes['columns'],
             'post_template' => $attributes['post_template'],
-        );
+        ];
 
         /**
          * Output
@@ -110,7 +110,7 @@ class HandPickedPosts extends Base
      * @param array $query_args WP_Query arguments.
      * @param array $args       Component specific arguments.
      */
-    public function renderPosts($query_args, $args = array())
+    public function renderPosts($query_args, $args = [])
     {
 
         /**
@@ -119,10 +119,10 @@ class HandPickedPosts extends Base
 
         $args = wp_parse_args(
             $args,
-            array(
+            [
                 'columns'       => 4,
                 'post_template' => '',
-            )
+            ]
         );
 
         /**
@@ -139,9 +139,9 @@ class HandPickedPosts extends Base
          * Wrapper HTML Attributes
          */
 
-        $wrapper = array(
+        $wrapper = [
             'class' => 'post-grid',
-        );
+        ];
 
         /**
          * Post template
@@ -160,9 +160,9 @@ class HandPickedPosts extends Base
         while ($the_query->have_posts()) {
             $the_query->the_post();
 
-            $column = array(
+            $column = [
                 'class' => sprintf('col-md-%d', $args['columns']),
-            );
+            ];
 
             echo '<div ' . acf_esc_attr($column) . '>';
 
@@ -188,7 +188,7 @@ class HandPickedPosts extends Base
 
         <article id="post-<?php the_ID(); ?>" <?php post_class('card mb-3'); ?>>
 
-            <?php the_post_thumbnail('large', array( 'class' => 'card-img-top' )); ?>
+            <?php the_post_thumbnail('large', [ 'class' => 'card-img-top' ]); ?>
 
             <div class="card-body">
 
