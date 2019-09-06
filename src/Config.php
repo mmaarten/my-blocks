@@ -35,7 +35,7 @@ final class Config
         if (is_array($key)) {
             $items = $key;
         } else {
-            self::$items = [$key => $value];
+            $items = [$key => $value];
         }
 
         foreach ($items as $key => $value) {
