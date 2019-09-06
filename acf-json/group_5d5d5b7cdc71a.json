@@ -1,0 +1,115 @@
+{
+    "key": "group_5d5d5b7cdc71a",
+    "title": "Block — OWL Carousel",
+    "fields": [
+        {
+            "key": "field_5d5d5b7ce813b",
+            "label": "Items",
+            "name": "posts",
+            "type": "post_object",
+            "instructions": "Select the items to display.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 1,
+            "return_format": "id",
+            "ui": 1
+        },
+        {
+            "key": "field_5d5d5b7ce8228",
+            "label": "Enable",
+            "name": "enable",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "loop": "Loop",
+                "autoplay": "Autoplay",
+                "nav": "Previous-next navigation",
+                "dots": "Dots navigation"
+            },
+            "allow_custom": 0,
+            "default_value": [
+                "loop",
+                "autoplay",
+                "dots"
+            ],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "value",
+            "save_custom": 0
+        },
+        {
+            "key": "field_5d5d9d9c76a6a",
+            "label": "Items on canvas",
+            "name": "items",
+            "type": "text",
+            "instructions": "Per screen size e.g.: xs=1&sm=2&md=3&lg=4&xl=5",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5d5e987464431",
+            "label": "Item Template",
+            "name": "post_template",
+            "type": "select",
+            "instructions": "Template to use for displaying the item.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": [],
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/owl-carousel"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1566485038
+}
