@@ -61,6 +61,7 @@ final class App
         $this->define('MY_BLOCKS_VERSION', $this->version);
         $this->define('MY_BLOCKS_ABSPATH', dirname(MY_BLOCKS_PLUGIN_FILE) . '/');
 
+        Config::init();
         Library::init();
         Assets::init();
         Fields::init();

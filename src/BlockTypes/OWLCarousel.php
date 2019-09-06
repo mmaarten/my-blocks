@@ -7,7 +7,7 @@
 
 namespace My\Blocks\BlockTypes;
 
-use My\Blocks\Common;
+use My\Blocks\Config;
 
 class OWLCarousel extends Base
 {
@@ -103,7 +103,7 @@ class OWLCarousel extends Base
             $items = [ 'xs' => $attributes['items'] ];
         }
 
-        $breakpoints = Common::getGridBreakpoints();
+        $breakpoints = Config::get('grid_breakpoints');
 
         foreach ($breakpoints as $breakpoint => $width) {
             // Set items.

@@ -20,17 +20,7 @@ final class Fields
     public static function colors($field)
     {
         if (preg_match('/(^| )my-blocks-colors-field( |$)/', $field['wrapper']['class'])) {
-            $field['choices'] = [
-                'primary'   => __('Primary'),
-                'secondary' => __('Secondary'),
-                'success'   => __('Success'),
-                'info'      => __('Info'),
-                'warning'   => __('Warning'),
-                'danger'    => __('Danger'),
-                'light'     => __('Light'),
-                'dark'      => __('Dark'),
-                'white'     => __('white'),
-            ];
+            $field['choices'] = Config::get('color_names');
         }
 
         return $field;
@@ -39,14 +29,7 @@ final class Fields
     public static function columns($field)
     {
         if (preg_match('/(^| )my-blocks-columns-field( |$)/', $field['wrapper']['class'])) {
-            $field['choices'] = [
-                12 => 1,
-                6  => 2,
-                4  => 3,
-                3  => 4,
-                2  => 6,
-                1  => 12,
-            ];
+            $field['choices'] = Config::get('columns');
         }
 
         return $field;
@@ -55,16 +38,7 @@ final class Fields
     public static function imageSizes($field)
     {
         if (preg_match('/(^| )my-blocks-image-sizes-field( |$)/', $field['wrapper']['class'])) {
-            $sizes = [
-                'thumbail' => __('Thumbnail'),
-                'medium'   => __('Medium'),
-                'large'    => __('Large'),
-                'full'     => __('Full'),
-            ];
-
-            $custom_sizes = apply_filters('image_size_names_choose', []);
-
-            $field['choices'] = $sizes + $custom_sizes;
+            $field['choices'] = Config::get('image_size_names');
         }
 
         return $field;
@@ -73,7 +47,7 @@ final class Fields
     public static function postTemplates($field)
     {
         if (preg_match('/(^| )my-blocks-post-templates-field( |$)/', $field['wrapper']['class'])) {
-            $field['choices'] = apply_filters('my_blocks/post_templates', []);
+            $field['choices'] = Config::get('post_templates');
         }
 
         return $field;
