@@ -7,40 +7,59 @@
 
 $config = [];
 
-$config['grid_breakpoints'] = [
-    'xs' => 0,
-    'sm' => 576,
-    'md' => 768,
-    'lg' => 992,
-    'xl' => 1200,
+/**
+ * Block types to load.
+ *
+ * @var array
+ */
+$config['blocks'] = [
+    'button',
 ];
 
-$config['color_names'] = [
-    'primary'   => __('Primary'),
-    'secondary' => __('Secondary'),
-    'success'   => __('Success'),
-    'info'      => __('Info'),
-    'warning'   => __('Warning'),
-    'danger'    => __('Danger'),
-    'light'     => __('Light'),
-    'dark'      => __('Dark'),
-    'white'     => __('white'),
+/**
+ * Theme colors.
+ *
+ * @var array
+ */
+$config['theme_colors'] = [
+    'primary'   => [
+        'name'  => __('Primary', 'elixir'),
+        'slug'  => 'primary',
+        'color' => '#007bff',
+    ],
+    'secondary'   => [
+        'name'  => __('Secondary', 'elixir'),
+        'slug'  => 'secondary',
+        'color' => '#6c757d',
+    ],
+    'success'   => [
+        'name'  => __('Success', 'elixir'),
+        'slug'  => 'success',
+        'color' => '#28a745',
+    ],
+    'info'   => [
+        'name'  => __('Info', 'elixir'),
+        'slug'  => 'info',
+        'color' => '#17a2b8',
+    ],
+    'warning'   => [
+        'name'  => __('Warning', 'elixir'),
+        'slug'  => 'warning',
+        'color' => '#ffc107',
+    ],
+    'danger'   => [
+        'name'  => __('Danger', 'elixir'),
+        'slug'  => 'danger',
+        'color' => '#dc3545',
+    ],
+    'light'   => [
+        'name'  => __('Light', 'elixir'),
+        'slug'  => 'light',
+        'color' => '#f8f9fa',
+    ],
+    'dark'   => [
+        'name'  => __('Dark', 'elixir'),
+        'slug'  => 'dark',
+        'color' => '#343a40',
+    ],
 ];
-
-$config['columns'] = [
-    12 => 1,
-    6  => 2,
-    4  => 3,
-    3  => 4,
-    2  => 6,
-    1  => 12,
-];
-
-$config['post_templates'] = [];
-
-$config['image_size_names'] = [
-    'thumbail' => __('Thumbnail'),
-    'medium'   => __('Medium'),
-    'large'    => __('Large'),
-    'full'     => __('Full'),
-] + apply_filters('image_size_names_choose', []);

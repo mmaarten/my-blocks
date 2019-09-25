@@ -1,6 +1,6 @@
 <?php
 /**
- * [Description]
+ * Config.
  *
  * @package My/Blocks
  */
@@ -9,27 +9,43 @@ namespace My\Blocks;
 
 final class Config
 {
-    protected static $items = [];
-
+    /**
+     * Init.
+     */
     public static function init()
     {
-        if (is_readable(MY_BLOCKS_ABSPATH . 'config.php')) {
-            include MY_BLOCKS_ABSPATH . 'config.php';
-            if (isset($config)) {
-                self::set($config);
-            }
+        $app = App::getInstance();
+
+        // Load items from config file.
+        include $app->getAbsPath() . 'config.php';
+        if (isset($config) && is_array($config)) {
+            self::set($config);
         }
     }
 
+    /**
+     * Items
+     *
+     * @var array
+     */
+    private static $items = [];
+
+    /**
+     * Get item.
+     *
+     * @return mixed
+     */
     public static function get($key)
     {
         if (isset(self::$items[$key])) {
             return self::$items[$key];
         }
-
         return null;
     }
 
+    /**
+     * Set item(s).
+     */
     public static function set($key, $value = null)
     {
         if (is_array($key)) {
@@ -39,8 +55,6 @@ final class Config
         }
 
         foreach ($items as $key => $value) {
-            $value = apply_filters("my/blocks/config/key=$key", $value, $key);
-
             self::$items[$key] = $value;
         }
     }

@@ -1,77 +1,70 @@
 <?php
 /**
- * Plugin Name:  My Blocks
- * Plugin URI:   https://github.com/mmaarten/my-blocks
- * Description:  Block Library
- * Version:      1.0.0
- * Author:       Maarten Menten
- * Author URI:   https://profiles.wordpress.org/maartenm/
- * License:      GPL2 or later
- * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:  my-blocks
- * Domain Path:  /languages
+ * My Blocks
  *
  * @package My/Blocks
+ *
+ * Plugin Name:       My Blocks
+ * Plugin URI:        https://github.com/mmaarten/my-blocks
+ * Description:       Block library.
+ * Version:           1.0.0
+ * Requires at least: 5.2
+ * Requires PHP:      5.4
+ * Author:            Maarten Menten
+ * Author URI:        https://profiles.wordpress.org/maartenm/
+ * Text Domain:       my-blocks
+ * License:           GPL v2 or later
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
-
-require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-
-$plugin = get_plugin_data(__FILE__);
 
 /**
- * Check if autoloader is available.
+ * Check autoloader
  */
 
-$autoloader = __DIR__ . '/vendor/autoload.php';
+$autoloader = dirname(__FILE__) . '/vendor/autoload.php';
 
-if (!is_readable($autoloader)) {
-    error_log(
+/**
+ * Check autoloader.
+ */
+if (! is_readable($autoloader)) {
+    trigger_error(
         sprintf(
-            // translators: %1$s: The name of the application. %2$s: The code to run.
-            __('%1$s is not ready. Run %2$s.', 'my-blocks'),
-            $plugin['Name'],
+            // translators: %1$s Code to run.
+            __('Autoloader not found. Run %1$s', 'my-blocks'),
             '<code>composer install</code>'
-        )
+        ),
+        E_USER_WARNING
     );
+    // TODO: admin notice
+    add_action('admin_notices', function () {
+    });
     return;
 }
 
 /**
  * Check WordPress blocks API.
  */
-if (!function_exists('register_block_type')) {
-    error_log(
+if (! function_exists('register_block_type')) {
+    trigger_error(
         sprintf(
-            // translators: %1$s: Application name. %2$s: CMS name.
-            __('%1$s needs %2$s blocks API.', 'my-blocks'),
-            $plugin['Name'],
+            // translators: %1$s Application name.
+            __('%1$s blocks API is not available.', 'my-blocks'),
             __('WordPress')
-        )
+        ),
+        E_USER_WARNING
     );
+    // TODO: admin notice
+    add_action('admin_notices', function () {
+    });
     return;
 }
 
 /**
- * Check ACF blocks API.
- */
-if (!function_exists('acf_register_block_type')) {
-    error_log(
-        sprintf(
-            // translators: %1$s: Application name. %2$s: plugin name.
-            __('%1$s needs %2$s blocks API.', 'my-blocks'),
-            $plugin['Name'],
-            __('Advanced Custom Fields PRO', 'my-blocks')
-        )
-    );
-    return;
-}
-
-/**
- * Fire up the application.
+ * Fire up the application
  */
 
 defined('MY_BLOCKS_PLUGIN_FILE') || define('MY_BLOCKS_PLUGIN_FILE', __FILE__);
 
 require $autoloader;
 
-add_action('plugins_loaded', [\My\Blocks\App::instance(), 'init']);
+add_action('plugins_loaded', [\My\Blocks\App::getInstance(), 'init']);
