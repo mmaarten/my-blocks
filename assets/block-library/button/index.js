@@ -15,7 +15,6 @@ registerBlockType( 'my/button', {
 	keywords: [ __( 'My Blocks', 'my-blocks' ) ],
 	supports: {
 		align: ['wide', 'full'],
-    anchor: true,
 	},
   attributes: {
 		text: {

@@ -15,7 +15,6 @@ import {
   BlockControls,
   AlignmentToolbar,
   RichText,
-  URLInput,
 } from '@wordpress/block-editor';
 import {
 	getBlockType,
@@ -24,38 +23,15 @@ import {
 	URLControl,
 } from './../../components';
 import {
-	map,
+	first,
+  filter,
 } from 'lodash';
 import
   classnames
   from 'classnames';
 
-
 const REL_TAB = 'noreferrer noopener';
-
-const getColorObject = ( color, colors ) => {
-  let _return = null;
-
-  map( colors, ( obj ) => {
-    if ( color === obj.color ) {
-      _return = obj;
-    }
-  } );
-
-  return _return;
-};
-
-const getColorBySlug = ( slug, colors ) => {
-  let color = null;
-
-  map( colors, ( obj ) => {
-    if ( slug === obj.slug ) {
-      color = obj.color;
-    }
-  } );
-
-  return color;
-};
+const DEFAULT_BUTTON_TYPE = 'primary';
 
 const ButtonEdit = ( { ...props } ) => {
   const {
@@ -78,9 +54,6 @@ const ButtonEdit = ( { ...props } ) => {
     align,
   } = attributes;
 
-  const blockType = getBlockType( name );
-  const defaultType = blockType.attributes.type.default;
-
   const handleLinkTabChange = ( isChecked ) => {
     let update = {
       linkTab : isChecked,
@@ -89,18 +62,16 @@ const ButtonEdit = ( { ...props } ) => {
     if ( isChecked ) {
       if (! rel) update.rel = REL_TAB;
     } else if ( REL_TAB === rel ) {
-      update.rel = '';
+      update.rel = null;
     }
     setAttributes( update );
   };
 
-  const handleColorChange = ( color ) => {
+  const colors = myBlocks.themeColors;
 
-  };
-
-  const setColor = ( slug ) => {
-
-  };
+  // Find color with slug equal to `type`.
+  const _colors = filter( colors, data => type === data.slug );
+  const color = _colors.length ? first( _colors ).color : null;
 
   return (
     <div className={ className }>
@@ -108,11 +79,14 @@ const ButtonEdit = ( { ...props } ) => {
         <PanelBody title={ __( 'Color Settings', 'my-blocks' ) } initialOpen={ false }>
           <BaseControl label={ __('Color', 'elixir') }>
             <ColorPalette
-              colors={ myBlocks.themeColors }
-              value={ getColorBySlug( type, myBlocks.themeColors ) }
+              colors={ colors }
+              value={ color }
               onChange={ ( color ) => {
-                const colorObject = getColorObject( color, myBlocks.themeColors );
-                setAttributes( { type : colorObject ? colorObject.slug : defaultType } )
+                // Find color slug
+                const _colors = filter( colors, data => color === data.color );
+                const _slug = _colors.length ? first( _colors ).slug : DEFAULT_BUTTON_TYPE;
+                // Update type
+                setAttributes( { type : _slug } );
               } }
               disableCustomColors={ true }
               clearable={ false }
@@ -131,7 +105,7 @@ const ButtonEdit = ( { ...props } ) => {
             onChange={ ( size ) => setAttributes( { size } ) }
             options={ [
               { label: __( 'Small', 'elixir' ), value: 'sm' },
-              { label: __( 'Normal', 'elixir' ), value: '' },
+              { label: __( 'Normal', 'elixir' ), value: null },
               { label: __( 'Large', 'elixir' ), value: 'lg' },
             ] }
           />
@@ -165,27 +139,24 @@ const ButtonEdit = ( { ...props } ) => {
           onChange={ ( align ) => setAttributes( { align } ) }
         />
       </BlockControls>
-      <div className="my-blocks-block-preview">
-        <div className={ classnames( { [`text-${align}`] : align } ) }>
-          <div className={ className } style={ { textAlign : align } }>
-            <RichText
-      				placeholder={ __( 'Add text…', 'my-blocks' ) }
-      				value={ text }
-      				onChange={ ( text ) => setAttributes( { text } ) }
-      				withoutInteractiveFormatting
-      				className={ classnames(
-      					'btn', {
-      						[`btn-${ type }`]: type && ! outline,
-      						[`btn-outline-${ type }`]: type && outline,
-      						[`btn-${ size }`]: size,
-      					}
-      				) }
-      				/>
-            </div>
-        </div>
+      <div className={ `${className}__preview` } style={ { textAlign : align } } >
+        <RichText
+  				placeholder={ __( 'Add text…', 'my-blocks' ) }
+  				value={ text }
+  				onChange={ ( text ) => setAttributes( { text } ) }
+  				withoutInteractiveFormatting
+  				className={ classnames(
+  					'btn', {
+  						[`btn-${ type }`]: type && ! outline,
+  						[`btn-outline-${ type }`]: type && outline,
+  						[`btn-${ size }`]: size,
+  					}
+  				) }
+  			/>
       </div>
       { isSelected && (
         <URLControl
+          className={ `${className}__inline-link` }
 					label={ __( 'Link', 'my-blocks' ) }
           value={ link }
           onChange={ ( link ) => setAttributes( { link } ) }

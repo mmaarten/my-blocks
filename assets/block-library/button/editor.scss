@@ -1,8 +1,11 @@
 
-.wp-block-my-button {
-  .components-base-control {
-    height: auto;
-    overflow: visible;
-    margin-top: 16px;
-  }
+.wp-block-my-button__inline-link {
+  height: auto;
+  overflow: visible;
+  margin-top: 16px;
+}
+
+.wp-block-my-button__preview {
+  @include reset-text();
+  @import "~bootstrap/scss/buttons";
 }
