@@ -4,7 +4,7 @@
  *
  * @package My/Blocks
  *
- * Plugin Name:       My Blocks
+ * Plugin Name:       My Blocks (New)
  * Plugin URI:        https://github.com/mmaarten/my-blocks
  * Description:       Block library.
  * Version:           1.0.0
@@ -32,6 +32,27 @@ if (! is_readable($autoloader)) {
             // translators: %1$s Code to run.
             __('Autoloader not found. Run %1$s', 'my-blocks'),
             '<code>composer install</code>'
+        ),
+        E_USER_WARNING
+    );
+    // TODO: admin notice
+    add_action('admin_notices', function () {
+    });
+    return;
+}
+
+/**
+ * Check build.
+ */
+
+$build_file = dirname(__FILE__) . '/build/editor.js';
+
+if (! is_readable($build_file)) {
+    trigger_error(
+        sprintf(
+            // translators: %1$s Code to run.
+            __('Not build. Run %1$s', 'my-blocks'),
+            '<code>npm install</code>'
         ),
         E_USER_WARNING
     );

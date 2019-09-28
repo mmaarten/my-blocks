@@ -17,9 +17,12 @@ final class Config
         $app = App::getInstance();
 
         // Load items from config file.
-        include $app->getAbsPath() . 'config.php';
-        if (isset($config) && is_array($config)) {
-            self::set($config);
+        $file = $app->getAbsPath() . 'config.php';
+        if (file_exists($file)) {
+            include $file;
+            if (isset($config) && is_array($config)) {
+                self::set($config);
+            }
         }
     }
 

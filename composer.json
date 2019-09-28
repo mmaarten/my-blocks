@@ -5,8 +5,8 @@
 	"minimum-stability": "stable",
 	"keywords": [
 		"wordpress",
-        "plugin",
-        "blocks"
+    "plugin",
+    "blocks"
 	],
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",

@@ -1,0 +1,54 @@
+//
+// Variables
+//
+
+//
+// Colors
+//
+
+$editor-colors: () !default;
+$editor-colors: map-merge($theme-colors, $editor-colors);
+
+//
+// Font sizes
+//
+// Slug: letter and numbers need to be seperated by a dash `-`.
+//
+
+$editor-font-sizes: () !default;
+$editor-font-sizes: map-merge(
+  (
+    "small":    $font-size-sm,
+    "normal":   $font-size-base,
+    "large":    $font-size-lg,
+    "h-1":       $h1-font-size,
+    "h-2":       $h2-font-size,
+    "h-3":       $h3-font-size,
+    "h-4":       $h4-font-size,
+    "h-5":       $h5-font-size,
+    "h-6":       $h6-font-size,
+    "display-1": $display1-size,
+    "display-2": $display2-size,
+    "display-3": $display3-size,
+    "display-4": $display4-size,
+  ),
+  $editor-font-sizes
+);
+
+//
+// Font weights
+//
+// Slug: letter and numbers need to be seperated by a dash `-`.
+//
+
+$editor-font-weights: () !default;
+$editor-font-weights: map-merge(
+  (
+    "lighter": $font-weight-lighter,
+    "light":   $font-weight-light,
+    "normal":  $font-weight-normal,
+    "bold":    $font-weight-bold,
+    "bolder":  $font-weight-bolder,
+  ),
+  $editor-font-weights
+);

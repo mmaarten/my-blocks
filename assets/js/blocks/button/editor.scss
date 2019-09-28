@@ -1,0 +1,10 @@
+
+.wp-block-my-button {
+  @import "~bootstrap/scss/buttons";
+}
+
+.wp-block-my-button__inline-link {
+  height: auto;
+  overflow: visible;
+  margin-top: 16px;
+}

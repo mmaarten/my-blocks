@@ -1,0 +1,12 @@
+//
+// Colors
+//
+
+@each $slug, $color in $editor-colors {
+  .has-#{$slug}-color {
+    color: $color !important;
+  }
+  .has-#{$slug}-background-color {
+    background-color: $color !important;
+  }
+}

@@ -64,7 +64,8 @@ final class App
         $this->did_init = true;
 
         Config::init();
-        Blocks::init();
+        Library::init();
+        Assets::init();
     }
 
     /**

@@ -1,0 +1,9 @@
+//
+// Font sizes
+//
+
+@each $slug, $font-size in $editor-font-sizes {
+  .has-#{$slug}-font-size {
+    font-size: $font-size !important;
+  }
+}

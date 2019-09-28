@@ -6,9 +6,10 @@ const config = require("@wordpress/scripts/config/webpack.config");
 module.exports = {
   ...config,
   entry : {
-    'style': './assets/style.scss',
-    'editor': './assets/editor.js',
-    'block-button': './assets/block-library/button/index.js',
+    'style': './assets/css/style.scss',
+    'editor': './assets/js/editor.js',
+    'button': './assets/js/blocks/button/index.js',
+    'heading': './assets/js/blocks/heading/index.js',
   },
   module: {
     ...config.module,
