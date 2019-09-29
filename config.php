@@ -20,7 +20,7 @@ $config['blocks'] = [
 /**
  * Editor colors.
  *
- * Slugs: See `$editor-colors` scss variable.
+ * Available slugs: See `$editor-colors` scss variable.
  *
  * @var array
  */
@@ -34,7 +34,7 @@ $config['editor_colors'] = [
 /**
  * Editor font sizes.
  *
- * Slugs: See `$editor-font-sizes` scss variable.
+ * Available slugs: See `$editor-font-sizes` scss variable.
  *
  * @var array
  */

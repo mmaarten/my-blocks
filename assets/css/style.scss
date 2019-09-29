@@ -12,7 +12,7 @@
 /**
  * Button Block
  */
- .wp-block-my-button {
-   @import "~bootstrap/scss/buttons";
-   @import 'components/buttons';
- }
+.wp-block-my-button {
+  @import "~bootstrap/scss/buttons";
+  @import 'components/buttons';
+}

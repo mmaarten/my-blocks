@@ -16,9 +16,9 @@ $editor-colors: map-merge($theme-colors, $editor-colors);
 $editor-font-sizes: () !default;
 $editor-font-sizes: map-merge(
   (
-    "small":     $font-size-sm,
-    "normal":    $font-size-base,
-    "large":     $font-size-lg,
+    "small":  $font-size-sm,
+    "normal": $font-size-base,
+    "large":  $font-size-lg,
   ),
   $editor-font-sizes
 );
