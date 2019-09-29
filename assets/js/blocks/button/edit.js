@@ -67,7 +67,8 @@ const ButtonEdit = ( { ...props } ) => {
   };
 
   const { colors } = select( 'core/block-editor' ).getSettings();
-  const { color } = getColorObjectByAttributeValues( colors, type );
+  const colorObject = getColorObjectByAttributeValues( colors, type );
+  const color = get( colorObject, 'color' );
 
   return (
     <div className={ className } style={ { textAlign : align } }>

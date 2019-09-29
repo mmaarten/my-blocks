@@ -32,7 +32,7 @@ const ButtonSave = ( { ...props } ) => {
     <div className={ blockClasses }>
       <a
         className={ buttonClasses }
-        href={ link }
+        href={ link ? link : undefined }
         target={ linkTab ? '_blank' : undefined }
         rel={ rel ? rel : undefined }
         data-toggle={ toggle ? toggle : undefined }
