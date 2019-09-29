@@ -7,22 +7,28 @@ import {
 	ToggleControl,
 	TextControl,
   Toolbar,
+  ColorPalette,
 } from '@wordpress/components';
+import {
+	select,
+} from '@wordpress/data';
 import {
   InspectorControls,
   BlockControls,
   AlignmentToolbar,
   RichText,
+  getColorObjectByColorValue,
+  getColorObjectByAttributeValues,
 } from '@wordpress/block-editor';
+import {
+  get,
+} from 'lodash';
 import
   classnames
   from 'classnames';
 import {
 	URLControl,
 } from './../../components';
-import {
-  themeColorOptions,
-} from './../../config';
 
 const REL_TAB = 'noreferrer noopener';
 
@@ -60,15 +66,23 @@ const ButtonEdit = ( { ...props } ) => {
     setAttributes( update );
   };
 
+  const { colors } = select( 'core/block-editor' ).getSettings();
+  const { color } = getColorObjectByAttributeValues( colors, type );
+
   return (
     <div className={ className } style={ { textAlign : align } }>
       <InspectorControls>
-        <PanelBody title={ __( 'Type Settings', 'my-blocks' ) } initialOpen={ false }>
-          <SelectControl
-            label={ __( 'Type', 'my-blocks' ) }
-            value={ type }
-            onChange={ ( type ) => setAttributes( { type } ) }
-            options={ themeColorOptions }
+        <PanelBody title={ __( 'Color Settings', 'my-blocks' ) } initialOpen={ false }>
+          <ColorPalette
+            colors={ colors }
+            value={ color }
+            onChange={ ( value ) => {
+              const colorObject = getColorObjectByColorValue( colors, value );
+              const type = get( colorObject, 'slug', 'primary' );
+              setAttributes( { type } );
+            } }
+            clearable={ false }
+            disableCustomColors={ true }
           />
           <ToggleControl
             label={ __( 'Outline', 'my-blocks' ) }

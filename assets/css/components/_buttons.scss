@@ -1,0 +1,15 @@
+//
+// Buttons
+//
+
+// Add extra button variants.
+@each $color, $value in $editor-colors {
+  @if not map-has-key($theme-colors, $color) {
+    .btn-#{$color} {
+      @include button-variant($value, $value);
+    }
+    .btn-outline-#{$color} {
+      @include button-outline-variant($value);
+    }
+  }
+}

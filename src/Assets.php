@@ -16,6 +16,7 @@ final class Assets
     {
         add_action('init', [__CLASS__, 'registerBlockAssets']);
         add_action('admin_enqueue_scripts', [__CLASS__, 'adminEnqueueScripts']);
+        add_action('admin_print_scripts', [__CLASS__, 'printSettingsScript']);
     }
 
     /**
@@ -61,10 +62,25 @@ final class Assets
     }
 
     /**
-     * admin Enqueue Scripts.
+     * Admin Enqueue Scripts.
      */
     public static function adminEnqueueScripts()
     {
+        // TODO: Check if editor page.
         wp_enqueue_script('my-block-editor');
+    }
+
+    /**
+     * Print settings script.
+     */
+    public static function printSettingsScript()
+    {
+        // TODO: Check if editor page.
+        $settings = [
+            'editorColors'    => Config::get('editor_colors'),
+            'editorFontSizes' => Config::get('editor_font_sizes'),
+        ];
+
+        printf('<script>var elixir = elixir || %s;</script>', json_encode($settings));
     }
 }

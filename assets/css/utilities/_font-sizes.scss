@@ -2,8 +2,8 @@
 // Font sizes
 //
 
-@each $slug, $font-size in $editor-font-sizes {
-  .has-#{$slug}-font-size {
-    font-size: $font-size !important;
+@each $size, $value in $editor-font-sizes {
+  .has-#{$size}-font-size {
+    @include font-size($value);
   }
 }

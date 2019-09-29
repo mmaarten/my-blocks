@@ -1,9 +1,0 @@
-//
-// Font weights
-//
-
-@each $slug, $font-weight in $editor-font-weights {
-  .has-#{$slug}-font-weight {
-    font-weight: $font-weight !important;
-  }
-}

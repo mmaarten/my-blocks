@@ -19,15 +19,20 @@ const URLControl = ( {
   ...props
 } ) => {
 	const id = `inspector-text-control-${ instanceId }`;
-	const onChangeValue = ( event ) => onChange( event.target.value );
 
 	return (
-		<BaseControl label={ label } hideLabelFromVision={ hideLabelFromVision } id={ id } help={ help } className={ className }>
+		<BaseControl
+      label={ label }
+      hideLabelFromVision={ hideLabelFromVision }
+      id={ id }
+      help={ help }
+      className={ className }
+    >
       <URLInput
         className="elixir-url-control__input"
         id={ id }
         value={ value }
-        onChange={ onChange }
+        onChange={ ( event ) => onChange( event.target.value ) }
         autoFocus={ false }
         hasBorder
         { ...props }

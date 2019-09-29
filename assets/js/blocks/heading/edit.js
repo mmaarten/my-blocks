@@ -24,13 +24,6 @@ import
   classnames
   from 'classnames';
 import {
-  FontWeightControl,
-  ColorControl,
-} from './../../components';
-import {
-  colors,
-} from './../../config';
-import {
   map,
   filter,
   first,
@@ -61,24 +54,6 @@ const HeadingEdit = ( { ...props } ) => {
   return (
     <div className={ className }>
       <InspectorControls>
-        <ColorControl
-          color={ color }
-          onChange={ ( value ) => setAttributes( { color: value } ) }
-          slugs={
-            [
-              'primary',
-              'secondary',
-              'success',
-              'info',
-              'warning',
-              'danger',
-              'light',
-              'dark',
-              'muted',
-              'white',
-            ]
-          }
-        />
         <PanelBody title={ __('Heading Settings') }>
           <SelectControl
             label={ __( 'Level', 'my-blocks' ) }
@@ -100,12 +75,6 @@ const HeadingEdit = ( { ...props } ) => {
             fallbackFontSize={ 16 }
             value={ fontSize.size }
             onChange={ setFontSize }
-          />
-        </PanelBody>
-        <PanelBody title={ __('Font Weight Settings') }>
-          <FontWeightControl
-            fontWeight={ fontWeight }
-            onChange={ ( value ) => setAttributes( { fontWeight : value } ) }
           />
         </PanelBody>
       </InspectorControls>

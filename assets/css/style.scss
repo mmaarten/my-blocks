@@ -6,11 +6,13 @@
  * @package My/Blocks
  */
 
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import 'variables';
-@import '~bootstrap/scss/mixins';
+@import 'autoload';
+@import 'utilities';
 
-@import 'utilities/colors';
-@import 'utilities/font-sizes';
-@import 'utilities/font-weights';
+/**
+ * Button Block
+ */
+ .wp-block-my-button {
+   @import "~bootstrap/scss/buttons";
+   @import 'components/buttons';
+ }

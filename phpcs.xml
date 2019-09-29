@@ -4,6 +4,7 @@
 
   <!-- Scan these files -->
   <file>plugin.php</file>
+  <file>config.php</file>
   <file>src</file>
 
   <!-- Show colors in console -->

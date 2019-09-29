@@ -2,11 +2,7 @@
 // Colors
 //
 
-@each $slug, $color in $editor-colors {
-  .has-#{$slug}-color {
-    color: $color !important;
-  }
-  .has-#{$slug}-background-color {
-    background-color: $color !important;
-  }
+@each $color, $value in $editor-colors {
+  @include text-emphasis-variant(".has-#{$color}-color", $value);
+  @include bg-variant(".has-#{$color}-background-color", $value);
 }
