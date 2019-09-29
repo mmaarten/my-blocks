@@ -8,6 +8,7 @@ import {
 	ToggleControl,
 	TextControl,
   Toolbar,
+  ColorPalette,
 } from '@wordpress/components';
 import {
   InspectorControls,
@@ -24,7 +25,18 @@ import
   from 'classnames';
 import {
   FontWeightControl,
+  ColorControl,
 } from './../../components';
+import {
+  colors,
+} from './../../config';
+import {
+  map,
+  filter,
+  first,
+  get,
+  kebabCase,
+} from 'lodash';
 
 const HeadingEdit = ( { ...props } ) => {
   const {
@@ -41,6 +53,7 @@ const HeadingEdit = ( { ...props } ) => {
     level,
     align,
     fontWeight,
+    color,
   } = attributes;
 
   const tagName = `h${level}`;
@@ -48,6 +61,24 @@ const HeadingEdit = ( { ...props } ) => {
   return (
     <div className={ className }>
       <InspectorControls>
+        <ColorControl
+          color={ color }
+          onChange={ ( value ) => setAttributes( { color: value } ) }
+          slugs={
+            [
+              'primary',
+              'secondary',
+              'success',
+              'info',
+              'warning',
+              'danger',
+              'light',
+              'dark',
+              'muted',
+              'white',
+            ]
+          }
+        />
         <PanelBody title={ __('Heading Settings') }>
           <SelectControl
             label={ __( 'Level', 'my-blocks' ) }
@@ -92,6 +123,7 @@ const HeadingEdit = ( { ...props } ) => {
         className={ classnames( {
           [ fontSize.class ]: fontSize.class,
           [ fontWeight.class ] : fontWeight.class,
+          [ color.class ] : color.class,
         } ) }
 			/>
     </div>

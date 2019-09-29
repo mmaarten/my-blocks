@@ -32,6 +32,10 @@ registerBlockType( 'my/heading', {
     fontWeight : {
       type: 'object',
       default: null,
+    },
+    color : {
+      type: 'object',
+      default: null,
     }
   },
 	edit,

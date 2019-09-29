@@ -13,3 +13,7 @@
 
 @import 'common/editor-styles';
 @import './../js/blocks/button/editor';
+
+.my-blocks-text-utilities {
+  @import '~bootstrap/scss/utilities/text';
+}
