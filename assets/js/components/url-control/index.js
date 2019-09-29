@@ -15,7 +15,6 @@ const URLControl = ( {
   help,
   className,
   instanceId,
-  onChange,
   ...props
 } ) => {
 	const id = `inspector-text-control-${ instanceId }`;
@@ -32,7 +31,6 @@ const URLControl = ( {
         className="elixir-url-control__input"
         id={ id }
         value={ value }
-        onChange={ ( event ) => onChange( event.target.value ) }
         autoFocus={ false }
         hasBorder
         { ...props }

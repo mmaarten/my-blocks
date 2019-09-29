@@ -1,12 +1,8 @@
 
 import '../css/editor.scss';
 
-import domReady from '@wordpress/dom-ready';
 import { dispatch } from '@wordpress/data';
-import {
-	getFontSizeClass,
-  getColorClassName,
-} from '@wordpress/block-editor';
+import { getFontSizeClass, getColorClassName } from '@wordpress/block-editor';
 import { map } from 'lodash';
 import { getComputedStylePropertyValue } from './utils';
 
