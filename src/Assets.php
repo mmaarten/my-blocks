@@ -25,21 +25,23 @@ final class Assets
     {
         $app = App::getInstance();
 
-        // Editor
+        // Common
+
         wp_register_style(
             'my-block-editor',
             plugins_url('build/editor.css', MY_BLOCKS_PLUGIN_FILE),
             [],
             $app->getVersion()
         );
-        // Style
         wp_register_style(
             'my-block-style',
             plugins_url('build/style.css', MY_BLOCKS_PLUGIN_FILE),
             [],
             $app->getVersion()
         );
+
         // Blocks
+
         $blocks = Config::get('blocks');
         foreach ($blocks as $block) {
             self::registerScript("my-$block", $block);
@@ -65,20 +67,16 @@ final class Assets
         }
 
         return [
-            'disableCustomColors'    => (bool) Config::get('disable_custom_colors'),
-            'disableCustomFontSizes' => (bool) Config::get('disable_custom_font_sizes'),
-            'colors'                 => (array) Config::get('editor_colors'),
-            'fontSizes'              => (array) Config::get('editor_font_sizes'),
-            'styles'                 => $styles,
+            'colors'    => (array) Config::get('editor_colors'),
+            'fontSizes' => (array) Config::get('editor_font_sizes'),
+            'styles'    => $styles,
         ] + $settings;
-
-
 
         // Return.
         return $settings;
     }
 
-    protected static function registerScript($handle, $entry)
+    private static function registerScript($handle, $entry)
     {
         $app = App::getInstance();
 

@@ -17,20 +17,6 @@ $config['blocks'] = [
 ];
 
 /**
- * Disable custom colors.
- *
- * @var bool
- */
-$config['disable_custom_colors'] = false;
-
-/**
- * Disable custom font sizes.
- *
- * @var bool
- */
-$config['disable_custom_font_sizes'] = false;
-
-/**
  * Editor styles file.
  *
  * @var string
@@ -40,27 +26,27 @@ $config['editor_styles_file'] = dirname(__FILE__) . '/build/editor-styles.css';
 /**
  * Editor colors.
  *
- * See `$editor-colors` in `assets/css/_variables.scss`.
+ * For available slugs see: `$editor-colors` in `assets/css/_variables.scss`.
  *
  * @var array
  */
 $config['editor_colors'] = [
-    'primary' => [
+    [
         'name'  => __('Primary', 'my-blocks'),
         'slug'  => 'primary',
         'color' => '#007bff',
     ],
-    'secondary' => [
+    [
         'name'  => __('Secondary', 'my-blocks'),
         'slug'  => 'secondary',
         'color' => '#6c757d',
     ],
-    'light' => [
+    [
         'name'  => __('Light', 'my-blocks'),
         'slug'  => 'light',
         'color' => '#f8f9fa',
     ],
-    'dark' => [
+    [
         'name'  => __('Dark', 'my-blocks'),
         'slug'  => 'dark',
         'color' => '#343a40',
@@ -70,9 +56,9 @@ $config['editor_colors'] = [
 /**
  * Editor font sizes.
  *
- * See `$editor-font-sizes` in `assets/css/_variables.scss`.
+ * For available slugs see: `$editor-font-sizes` in `assets/css/_variables.scss`.
  *
- * `normal` slug is required to set default font size.
+ * Use `normal` slug to set default font size.
  *
  * @var array
  */
@@ -80,19 +66,19 @@ $config['editor_colors'] = [
 $font_size_base = 16;
 
 $config['editor_font_sizes'] = [
-    'small' => [
+    [
         'name'      => __('Small', 'my-blocks'),
         'shortName' => __('SM', 'my-blocks'),
         'slug'      => 'small',
         'size'      => $font_size_base * 0.875,
     ],
-    'normal' => [
+    [
         'name'      => __('Normal', 'my-blocks'),
         'shortName' => __('N', 'my-blocks'),
         'slug'      => 'normal',
         'size'      => $font_size_base,
     ],
-    'large' => [
+    [
         'name'      => __('Large', 'my-blocks'),
         'shortName' => __('LG', 'my-blocks'),
         'slug'      => 'large',
