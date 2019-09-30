@@ -7,7 +7,27 @@
 //
 
 $editor-colors: () !default;
+// Add common colors.
+$editor-colors: map-merge($colors, $editor-colors);
+// Add theme colors.
 $editor-colors: map-merge($theme-colors, $editor-colors);
+// Add extra colors.
+$editor-colors: map-merge(
+  (
+    "white": $white,
+    "black": $black,
+    // See `~bootstrap/utilities/text`.
+    "body":  $body-color,
+    "muted": $text-muted,
+    "black-50": rgba($black, .5),
+    "white-50": rgba($white, .5),
+  ),
+  $editor-colors
+);
+// Add grays.
+@each $num, $value in $grays {
+  $editor-colors: map-merge(("gray-#{$num}": $value), $editor-colors);
+}
 
 //
 // Font sizes
@@ -16,9 +36,19 @@ $editor-colors: map-merge($theme-colors, $editor-colors);
 $editor-font-sizes: () !default;
 $editor-font-sizes: map-merge(
   (
-    "small":  $font-size-sm,
-    "normal": $font-size-base,
-    "large":  $font-size-lg,
+    "small":     $font-size-sm,
+    "normal":    $font-size-base,
+    "large":     $font-size-lg,
+    "h-1":       $h1-font-size,
+    "h-2":       $h2-font-size,
+    "h-3":       $h3-font-size,
+    "h-4":       $h4-font-size,
+    "h-5":       $h5-font-size,
+    "h-6":       $h6-font-size,
+    "display-1": $display1-size,
+    "display-2": $display2-size,
+    "display-3": $display3-size,
+    "display-4": $display4-size,
   ),
   $editor-font-sizes
 );
