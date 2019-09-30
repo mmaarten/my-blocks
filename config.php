@@ -40,7 +40,7 @@ $config['editor_styles_file'] = dirname(__FILE__) . '/build/editor-styles.css';
 /**
  * Editor colors.
  *
- * Available slugs: See `$editor-colors` scss variable.
+ * See `$editor-colors` in `assets/css/_variables.scss`.
  *
  * @var array
  */
@@ -70,7 +70,7 @@ $config['editor_colors'] = [
 /**
  * Editor font sizes.
  *
- * Available slugs: See `$editor-font-sizes` scss variable.
+ * See `$editor-font-sizes` in `assets/css/_variables.scss`.
  *
  * `normal` slug is required to set default font size.
  *
