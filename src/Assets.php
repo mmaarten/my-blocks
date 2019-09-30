@@ -26,14 +26,6 @@ final class Assets
         $app = App::getInstance();
 
         // Editor
-        $asset = include $app->getAbsPath() . 'build/editor.asset.php';
-        wp_register_script(
-            'my-block-editor',
-            plugins_url('build/editor.js', MY_BLOCKS_PLUGIN_FILE),
-            $asset['dependencies'],
-            $app->getVersion() . $asset['version'],
-            true
-        );
         wp_register_style(
             'my-block-editor',
             plugins_url('build/editor.css', MY_BLOCKS_PLUGIN_FILE),
@@ -50,13 +42,7 @@ final class Assets
         // Blocks
         $blocks = Config::get('blocks');
         foreach ($blocks as $block) {
-            $asset = include $app->getAbsPath() . "build/$block.asset.php";
-            wp_register_script(
-                "my-$block",
-                plugins_url("build/$block.js", MY_BLOCKS_PLUGIN_FILE),
-                $asset['dependencies'],
-                $app->getVersion() . $asset['version']
-            );
+            self::registerScript("my-$block", $block);
         }
     }
 
@@ -90,5 +76,25 @@ final class Assets
 
         // Return.
         return $settings;
+    }
+
+    protected static function registerScript($handle, $entry)
+    {
+        $app = App::getInstance();
+
+        // Get asset data.
+        $asset_file = $app->getAbsPath() . "build/$entry.asset.php";
+        if (is_readable($asset_file)) {
+            $asset = include $asset_file;
+        } else {
+            $asset = ['dependencies' => [], 'version' => false];
+        }
+
+        wp_register_script(
+            $handle,
+            plugins_url("build/$entry.js", MY_BLOCKS_PLUGIN_FILE),
+            $asset['dependencies'],
+            $app->getVersion() . $asset['version']
+        );
     }
 }
