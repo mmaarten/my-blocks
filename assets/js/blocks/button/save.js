@@ -1,6 +1,5 @@
-import
-  classnames
-from 'classnames';
+import classnames from 'classnames';
+import { getFontWeightClass } from './../../components';
 
 const ButtonSave = ( { ...props } ) => {
   const { attributes, className } = props;
@@ -14,6 +13,7 @@ const ButtonSave = ( { ...props } ) => {
     toggle,
     rel,
     align,
+    fontWeight,
   } = attributes;
 
   const blockClasses = classnames( {
@@ -21,11 +21,14 @@ const ButtonSave = ( { ...props } ) => {
     [`text-${align}`]: align,
   } );
 
+  const fontWeightClass = getFontWeightClass( fontWeight );
+
   const buttonClasses = classnames( {
     'btn' : true,
     [`btn-${type}`]: type && ! outline,
     [`btn-outline-${type}`]: type && outline,
     [`btn-${size}`]: size,
+    [ fontWeightClass ] : fontWeightClass,
   } );
 
   return (

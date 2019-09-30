@@ -22,3 +22,19 @@ $editor-font-sizes: map-merge(
   ),
   $editor-font-sizes
 );
+
+//
+// Font weights
+//
+
+$editor-font-weights: () !default;
+$editor-font-weights: map-merge(
+  (
+    "lighter": $font-weight-lighter,
+    "light":   $font-weight-light,
+    "normal":  $font-weight-normal,
+    "bold":    $font-weight-bold,
+    "bolder":  $font-weight-bolder,
+  ),
+  $editor-font-weights
+);

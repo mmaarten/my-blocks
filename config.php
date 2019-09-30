@@ -43,3 +43,18 @@ $config['editor_font_sizes'] = [
     'normal' => __('Normal', 'my-blocks'),
     'large'  => __('Large', 'my-blocks'),
 ];
+
+/**
+ * Editor font weights.
+ *
+ * Available slugs: See `$editor-font-weight` scss variable.
+ *
+ * @var array
+ */
+$config['editor_font_weights'] = [
+    'lighter' => __('lighter', 'my-blocks'),
+    'light'   => __('light', 'my-blocks'),
+    'normal'  => __('normal', 'my-blocks'),
+    'bold'    => __('bold', 'my-blocks'),
+    'bolder'  => __('bolder', 'my-blocks'),
+];

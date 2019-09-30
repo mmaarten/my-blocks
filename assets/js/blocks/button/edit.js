@@ -28,6 +28,8 @@ import
   from 'classnames';
 import {
 	URLControl,
+  withFontWeights,
+  FontWeightsControl,
 } from './../../components';
 
 const REL_TAB = 'noreferrer noopener';
@@ -39,6 +41,9 @@ const ButtonEdit = ( { ...props } ) => {
     className,
     name,
     isSelected,
+    fontWeights,
+    fontWeight,
+    setFontWeight,
   } = props;
 
   const {
@@ -52,6 +57,8 @@ const ButtonEdit = ( { ...props } ) => {
     rel,
     align,
   } = attributes;
+
+  console.log( props );
 
   const handleLinkTabChange = ( isChecked ) => {
     let update = {
@@ -103,6 +110,14 @@ const ButtonEdit = ( { ...props } ) => {
             ] }
           />
         </PanelBody>
+        <PanelBody title={ __( 'Font Weight Settings', 'my-blocks' ) } initialOpen={ false }>
+          <FontWeightsControl
+            label={ undefined }
+            fontWeights={ fontWeights }
+            fontWeight={ fontWeight }
+            setFontWeight={ setFontWeight }
+          />
+        </PanelBody>
         <PanelBody title={ __( 'Link Settings', 'my-blocks' ) } initialOpen={ false }>
           <ToggleControl
             label={ __( 'Open in new tab', 'my-blocks' ) }
@@ -142,6 +157,7 @@ const ButtonEdit = ( { ...props } ) => {
 						[`btn-${ type }`]: type && ! outline,
 						[`btn-outline-${ type }`]: type && outline,
 						[`btn-${ size }`]: size,
+            [ fontWeight.class ] : fontWeight.class,
 					}
 				) }
 			/>
@@ -158,4 +174,4 @@ const ButtonEdit = ( { ...props } ) => {
   );
 };
 
-export default ButtonEdit;
+export default withFontWeights( ButtonEdit );

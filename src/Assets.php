@@ -77,10 +77,12 @@ final class Assets
     {
         // TODO: Check if editor page.
         $settings = [
-            'editorColors'    => Config::get('editor_colors'),
-            'editorFontSizes' => Config::get('editor_font_sizes'),
+            'editorColors'      => Config::get('editor_colors'),
+            'editorFontSizes'   => Config::get('editor_font_sizes'),
+            'editorFontWeights' => Config::get('editor_font_weights'),
         ];
 
+        // TODO: check for vulnerabilities.
         printf('<script>var elixir = elixir || %s;</script>', json_encode($settings));
     }
 }
