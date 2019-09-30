@@ -29,10 +29,6 @@ import {
 	URLControl,
 } from './../../components';
 
-// import {
-// 	URLControl,
-// } from './../../components';
-
 const REL_TAB = 'noreferrer noopener';
 
 const ButtonEdit = ( { ...props } ) => {
@@ -94,7 +90,6 @@ const ButtonEdit = ( { ...props } ) => {
         </PanelBody>
         <PanelBody title={ __( 'Size Settings', 'my-blocks' ) } initialOpen={ false }>
           <SelectControl
-            label={ __( 'Size', 'my-blocks' ) }
             value={ size }
             onChange={ ( size ) => setAttributes( { size } ) }
             options={ [
