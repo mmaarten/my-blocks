@@ -15,7 +15,6 @@ final class Assets
     public static function init()
     {
         add_action('init', [__CLASS__, 'registerBlockAssets']);
-        add_action('admin_enqueue_scripts', [__CLASS__, 'adminEnqueueScripts']);
         add_filter('block_editor_settings', [__CLASS__, 'blockEditorSettings']);
     }
 
@@ -62,18 +61,6 @@ final class Assets
     }
 
     /**
-     * Admin Enqueue Scripts.
-     */
-    public static function adminEnqueueScripts()
-    {
-        if (! get_current_screen()->is_block_editor) {
-            return;
-        }
-
-        wp_enqueue_script('my-block-editor');
-    }
-
-    /**
      * Block editor settings.
      *
      * Theme can overrule these settings. So no need to check.
@@ -84,27 +71,22 @@ final class Assets
      */
     public static function blockEditorSettings($settings)
     {
-        // Add styles.
+        // Styles.
+        $styles = $settings['styles'];
         $styles_file = Config::get('editor_styles_file');
-
         if (file_exists($styles_file)) {
-            $settings['styles'][] =
-            [
-                'css' => file_get_contents($styles_file),
-            ];
+            $styles[] = ['css' => file_get_contents($styles_file) ];
         }
 
-        // Disable custom colors.
-        $settings['disableCustomColors'] = (bool) Config::get('disable_custom_colors');
+        return [
+            'disableCustomColors'    => (bool) Config::get('disable_custom_colors'),
+            'disableCustomFontSizes' => (bool) Config::get('disable_custom_font_sizes'),
+            'colors'                 => (array) Config::get('editor_colors'),
+            'fontSizes'              => (array) Config::get('editor_font_sizes'),
+            'styles'                 => $styles,
+        ] + $settings;
 
-        // Disable custom font sizes.
-        $settings['disableCustomFontSizes'] = (bool) Config::get('disable_custom_font_sizes');
 
-        // Add Colors.
-        $settings['colors'] = (array) Config::get('editor_colors');
-
-        // Add font sizes.
-        $settings['fontSizes'] = (array) Config::get('editor_font_sizes');
 
         // Return.
         return $settings;
