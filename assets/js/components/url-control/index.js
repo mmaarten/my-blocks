@@ -28,7 +28,7 @@ const URLControl = ( {
       className={ className }
     >
       <URLInput
-        className="elixir-url-control__input"
+        className="my-url-control__input"
         id={ id }
         value={ value }
         autoFocus={ false }

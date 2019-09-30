@@ -53,9 +53,6 @@ registerBlockType( 'my/button', {
       type: 'string',
       default: 'left',
     },
-    fontWeight: {
-      type: 'string',
-    },
   },
 	edit,
 	save,
