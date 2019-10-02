@@ -65,10 +65,11 @@ final class Assets
         $asset_file = $app->getAbsPath() . "build/$entry.asset.php";
         if (file_exists($asset_file)) {
             $asset = include $asset_file;
+            $assets = wp_parse_args($asset, $defaults);
         } else {
-            $asset = [];
+            $asset = $defaults;
         }
 
-        return wp_parse_args($asset, $defaults);
+        return $asset;
     }
 }
