@@ -7,12 +7,27 @@
  */
 
 @import 'autoload';
-@import 'utilities';
 
 /**
  * Button Block
  */
 .wp-block-my-button {
+
+  .btn {
+    //@include unset-all();
+  }
+
   @import "~bootstrap/scss/buttons";
-  @import 'components/buttons';
+
+  // Add extra button variants.
+  @each $color, $value in $editor-colors {
+    @if not map-has-key($theme-colors, $color) {
+      .btn-#{$color} {
+        @include button-variant($value, $value);
+      }
+      .btn-outline-#{$color} {
+        @include button-outline-variant($value);
+      }
+    }
+  }
 }

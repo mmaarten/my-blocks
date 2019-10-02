@@ -49,7 +49,7 @@ const ButtonEdit = ( { ...props } ) => {
     outline,
     toggle,
     rel,
-    align,
+    textAlign,
   } = attributes;
 
   const { color } = getColorObjectByAttributeValues( colors, type );
@@ -124,11 +124,15 @@ const ButtonEdit = ( { ...props } ) => {
       </InspectorControls>
       <BlockControls>
         <AlignmentToolbar
-          value={ align }
-          onChange={ ( align ) => setAttributes( { align } ) }
+          value={ textAlign }
+          onChange={ ( value ) => setAttributes( { textAlign: value } ) }
         />
       </BlockControls>
-      <div style={ { textAlign : align } }>
+      <div
+        className={ classnames( {
+          [ `has-text-align-${ textAlign }` ]: textAlign,
+        } ) }
+      >
         <RichText
   				placeholder={ __( 'Add text…', 'my-blocks' ) }
   				value={ text }

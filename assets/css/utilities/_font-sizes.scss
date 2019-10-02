@@ -1,9 +1,0 @@
-//
-// Font sizes
-//
-
-@each $size, $value in $editor-font-sizes {
-  .has-#{$size}-font-size {
-    @include font-size($value);
-  }
-}

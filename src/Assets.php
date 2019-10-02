@@ -15,7 +15,6 @@ final class Assets
     public static function init()
     {
         add_action('init', [__CLASS__, 'registerBlockAssets']);
-        add_filter('block_editor_settings', [__CLASS__, 'blockEditorSettings']);
     }
 
     /**
@@ -44,55 +43,32 @@ final class Assets
 
         $blocks = Config::get('blocks');
         foreach ($blocks as $block) {
-            self::registerScript("my-$block", $block);
+            $asset = self::getAsset($block);
+            wp_register_script(
+                "my-$block",
+                plugins_url("build/$block.js", MY_BLOCKS_PLUGIN_FILE),
+                $asset['dependencies'],
+                $app->getVersion() . $asset['version']
+            );
         }
     }
 
-    /**
-     * Block editor settings.
-     *
-     * Theme can overrule these settings. So no need to check.
-     *
-     * @param array $settings
-     *
-     * @return array
-     */
-    public static function blockEditorSettings($settings)
-    {
-        // Styles.
-        $styles = $settings['styles'];
-        $styles_file = Config::get('editor_styles_file');
-        if (file_exists($styles_file)) {
-            $styles[] = ['css' => file_get_contents($styles_file) ];
-        }
-
-        return [
-            'colors'    => (array) Config::get('editor_colors'),
-            'fontSizes' => (array) Config::get('editor_font_sizes'),
-            'styles'    => $styles,
-        ] + $settings;
-
-        // Return.
-        return $settings;
-    }
-
-    private static function registerScript($handle, $entry)
+    public static function getAsset($entry)
     {
         $app = App::getInstance();
 
-        // Get asset data.
+        $defaults = [
+            'dependencies' => [],
+            'version' => false,
+        ];
+
         $asset_file = $app->getAbsPath() . "build/$entry.asset.php";
-        if (is_readable($asset_file)) {
+        if (file_exists($asset_file)) {
             $asset = include $asset_file;
         } else {
-            $asset = ['dependencies' => [], 'version' => false];
+            $asset = [];
         }
 
-        wp_register_script(
-            $handle,
-            plugins_url("build/$entry.js", MY_BLOCKS_PLUGIN_FILE),
-            $asset['dependencies'],
-            $app->getVersion() . $asset['version']
-        );
+        return wp_parse_args($asset, $defaults);
     }
 }

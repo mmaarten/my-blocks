@@ -1,8 +1,0 @@
-//
-// Colors
-//
-
-@each $color, $value in $editor-colors {
-  @include text-emphasis-variant(".has-#{$color}-color", $value);
-  @include bg-variant(".has-#{$color}-background-color", $value);
-}

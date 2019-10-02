@@ -11,12 +11,12 @@ const ButtonSave = ( { ...props } ) => {
     outline,
     toggle,
     rel,
-    align,
+    textAlign,
   } = attributes;
 
   const blockClasses = classnames( {
     [className] : className,
-    [`text-${align}`]: align,
+    [ `has-text-align-${ textAlign }` ]: textAlign,
   } );
 
   const buttonClasses = classnames( {
