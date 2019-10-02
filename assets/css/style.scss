@@ -12,8 +12,6 @@
  * Button Block
  */
 .wp-block-my-button {
-  @import "~bootstrap/scss/buttons";
-
   // Add extra button variants.
   @each $color, $value in $editor-colors {
     @if not map-has-key($theme-colors, $color) {

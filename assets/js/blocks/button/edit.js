@@ -133,19 +133,22 @@ const ButtonEdit = ( { ...props } ) => {
           [ `has-text-align-${ textAlign }` ]: textAlign,
         } ) }
       >
-        <RichText
-  				placeholder={ __( 'Add text…', 'my-blocks' ) }
-  				value={ text }
-  				onChange={ ( text ) => setAttributes( { text } ) }
-  				withoutInteractiveFormatting
-  				className={ classnames(
-  					'btn', {
-  						[`btn-${ type }`]: type && ! outline,
-  						[`btn-outline-${ type }`]: type && outline,
-  						[`btn-${ size }`]: size,
-  					}
-  				) }
-  			/>
+        <span
+          className={ classnames(
+            'btn', {
+              [`btn-${ type }`]: type && ! outline,
+              [`btn-outline-${ type }`]: type && outline,
+              [`btn-${ size }`]: size,
+            }
+          ) }
+        >
+          <RichText
+    				placeholder={ __( 'Add text…', 'my-blocks' ) }
+    				value={ text }
+    				onChange={ ( text ) => setAttributes( { text } ) }
+    				withoutInteractiveFormatting
+    			/>
+        </span>
       </div>
       { isSelected && (
         <URLControl

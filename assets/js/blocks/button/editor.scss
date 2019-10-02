@@ -1,4 +1,11 @@
 
+.wp-block-my-button {
+  .btn {
+    @include unset-all();
+  }
+  @import "~bootstrap/scss/buttons";
+}
+
 .wp-block-my-button__inline-link {
   display: inline-block;
   height: auto;
