@@ -12,11 +12,6 @@
  * Button Block
  */
 .wp-block-my-button {
-
-  .btn {
-    //@include unset-all();
-  }
-
   @import "~bootstrap/scss/buttons";
 
   // Add extra button variants.
