@@ -17,7 +17,7 @@ const URLControl = ( {
   instanceId,
   ...props
 } ) => {
-	const id = `inspector-text-control-${ instanceId }`;
+	const id = `inspector-url-control-${ instanceId }`;
 
 	return (
 		<BaseControl
