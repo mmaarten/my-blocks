@@ -188,7 +188,7 @@ export default compose( [
 		const { getSettings } = select( 'core/block-editor' );
     const { colors } = getSettings();
 		return {
-			colors : colors,
+			colors,
 		};
 	} ),
 ] )( ButtonEdit );
