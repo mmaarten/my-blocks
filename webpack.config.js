@@ -10,6 +10,7 @@ module.exports = {
     'editor': './assets/css/editor.scss',
     'button': './assets/js/blocks/button/index.js',
     'heading': './assets/js/blocks/heading/index.js',
+    'card': './assets/js/blocks/card/index.js',
   },
   module: {
     ...config.module,

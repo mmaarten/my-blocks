@@ -15,4 +15,5 @@ $config = [];
 $config['blocks'] = [
     'heading',
     'button',
+    'card',
 ];
