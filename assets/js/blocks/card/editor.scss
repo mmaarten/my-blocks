@@ -1,0 +1,7 @@
+
+.wp-block-my-card {
+  .card {
+    @include unset-all();
+  }
+  @import "~bootstrap/scss/card";
+}

@@ -21,6 +21,10 @@ registerBlockType( 'my/card', {
 		image: {
 			type: 'number',
 		},
+    imageSize : {
+      type: 'string',
+      default: 'large',
+    },
   },
 	edit,
 	save,
