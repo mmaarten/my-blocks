@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
-import { Button, Icon } from '@wordpress/components';
+import { BaseControl, Button, Icon } from '@wordpress/components';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
 import { Image } from './../../components';
@@ -62,10 +62,22 @@ class ImageControl extends Component {
   }
 
   render() {
-    const { image, onChange } = this.props;
+    const {
+      label,
+      hideLabelFromVision,
+      help,
+      className,
+      image,
+      onChange
+    } = this.props;
 
     return (
-      <>
+      <BaseControl
+        label={ label }
+        hideLabelFromVision={ hideLabelFromVision }
+        help={ help }
+        className={ className }
+      >
         { ! image && (
           <MediaUploadCheck>
             <MediaUpload
@@ -87,7 +99,7 @@ class ImageControl extends Component {
             />
           </MediaUploadCheck>
         ) }
-      </>
+      </BaseControl>
     );
   }
 }
