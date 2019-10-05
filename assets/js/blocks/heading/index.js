@@ -1,4 +1,3 @@
-
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 import { PanelBody, SelectControl } from '@wordpress/components';
