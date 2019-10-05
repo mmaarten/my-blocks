@@ -25,9 +25,6 @@ registerBlockType( 'my/card', {
       type: 'string',
       default: 'large',
     },
-    post : {
-      type : 'object',
-    }
   },
 	edit,
 	save,

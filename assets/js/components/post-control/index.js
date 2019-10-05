@@ -14,7 +14,7 @@ class PostControl extends Component {
 
     this.state = {
       search: null,
-    }
+    };
   }
 
   onChange( search, post ) {
@@ -55,6 +55,7 @@ class PostControl extends Component {
           <div className="my-post-control__selected">
             <input
               className="block-editor-url-input has-border"
+              id={ id }
               type="text"
               disabled={ true }
               value={ value.title }
