@@ -1,0 +1,25 @@
+
+.my-post-control__input {
+  padding: 0;
+  &.block-editor-url-input input[type=text] {
+    width: 100%;
+  }
+}
+
+.my-post-control__selected {
+  position: relative;
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .components-button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    padding: 4px;
+    background: #fff;
+    border-radius: 3px;
+  }
+}
