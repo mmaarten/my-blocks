@@ -7,7 +7,9 @@
 @import 'autoload';
 
 // Controls
-@import './../js/components/image-control/style';
+@import './../js/components/image-control/style.scss';
+@import './../js/components/url-control/style.scss';
+@import './../js/components/post-control/style.scss';
 
 // Blocks.
 @import './../js/blocks/button/editor';

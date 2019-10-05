@@ -1,12 +1,6 @@
-import {
-  BaseControl,
-} from '@wordpress/components';
-import {
-  URLInput,
-} from '@wordpress/block-editor';
-import {
-  withInstanceId,
-} from '@wordpress/compose';
+import { BaseControl } from '@wordpress/components';
+import { URLInput } from '@wordpress/block-editor';
+import { withInstanceId } from '@wordpress/compose';
 
 const URLControl = ( {
   label,
@@ -15,7 +9,7 @@ const URLControl = ( {
   help,
   className,
   instanceId,
-  ...props
+  ...otherProps
 } ) => {
 	const id = `inspector-url-control-${ instanceId }`;
 
@@ -33,7 +27,7 @@ const URLControl = ( {
         value={ value }
         autoFocus={ false }
         hasBorder
-        { ...props }
+        { ...otherProps }
       />
 		</BaseControl>
 	);

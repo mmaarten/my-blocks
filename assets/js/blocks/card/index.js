@@ -19,12 +19,15 @@ registerBlockType( 'my/card', {
 	},
   attributes: {
 		image: {
-			type: 'number',
+			type: 'object',
 		},
     imageSize : {
       type: 'string',
       default: 'large',
     },
+    post : {
+      type : 'object',
+    }
   },
 	edit,
 	save,

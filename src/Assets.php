@@ -15,6 +15,7 @@ final class Assets
     public static function init()
     {
         add_action('init', [__CLASS__, 'registerBlockAssets']);
+        add_action('enqueue_block_editor_assets', [__CLASS__, 'enqueueEditorAssets']);
     }
 
     /**
@@ -25,7 +26,13 @@ final class Assets
         $app = App::getInstance();
 
         // Common
-
+        $asset = self::getAsset('editor');
+        wp_register_script(
+            'my-block-editor',
+            plugins_url('build/editor.js', MY_BLOCKS_PLUGIN_FILE),
+            $asset['dependencies'],
+            $app->getVersion() . $asset['version']
+        );
         wp_register_style(
             'my-block-editor',
             plugins_url('build/editor.css', MY_BLOCKS_PLUGIN_FILE),
@@ -40,7 +47,6 @@ final class Assets
         );
 
         // Blocks
-
         $blocks = Config::get('blocks');
         foreach ($blocks as $block) {
             $asset = self::getAsset($block);
@@ -51,6 +57,14 @@ final class Assets
                 $app->getVersion() . $asset['version']
             );
         }
+    }
+
+    /**
+     * Enqueue Editor assets.
+     */
+    public static function enqueueEditorAssets()
+    {
+        wp_enqueue_script('my-block-editor');
     }
 
     public static function getAsset($entry)
