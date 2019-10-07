@@ -113,7 +113,7 @@ class ButtonEdit extends Component {
               onChange={ ( size ) => setAttributes( { size } ) }
               options={ [
                 { label: __( 'Small', 'my-blocks' ), value: 'sm' },
-                { label: __( 'Normal', 'my-blocks' ), value: null },
+                { label: __( 'Normal', 'my-blocks' ), value: '' },
                 { label: __( 'Large', 'my-blocks' ), value: 'lg' },
               ] }
             />

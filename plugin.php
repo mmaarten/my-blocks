@@ -1,90 +1,102 @@
 <?php
 /**
- * My Blocks
+ * Plugin Name: My Blocks
+ * Plugin URI: https://github.com/mmaarten/my-blocks
+ * Description: Blocks for the Gutenberg editor.
+ * Version: 1.0.0
+ * Author: Maarten Menten
+ * Author URI: https://profiles.wordpress.org/maartenm/
+ * Text Domain:  my-blocks
  *
- * @package My/Blocks
- *
- * Plugin Name:       My Blocks (New)
- * Plugin URI:        https://github.com/mmaarten/my-blocks
- * Description:       Block library.
- * Version:           1.0.0
- * Requires at least: 5.2
- * Requires PHP:      5.4
- * Author:            Maarten Menten
- * Author URI:        https://profiles.wordpress.org/maartenm/
- * Text Domain:       my-blocks
- * License:           GPL v2 or later
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * @package My\Blocks
  */
+
+$plugin_name = __('My Blocks', 'my-blocks');
 
 /**
- * Check autoloader
+ * Check PHP version.
  */
+$php_version = '5.4.0';
+if (version_compare(PHP_VERSION, $php_version, '<')) {
+    error_log(
+        sprintf(
+            // translators: %1$s Plugin name, %2$s PHP version.
+            __('%1$s requires at least PHP version %2$s.', 'my-blocks'),
+            $plugin_name,
+            $php_version
+        )
+    );
+    return;
+}
 
-$autoloader = dirname(__FILE__) . '/vendor/autoload.php';
+/**
+ * Check WordPress version.
+ */
+$wp_version = '5.0.0';
+if (! isset($GLOBALS['wp_version']) || version_compare($GLOBALS['wp_version'], $wp_version, '<')) {
+    error_log(
+        sprintf(
+            // translators: %1$s Plugin name, %2$s WordPress version.
+            __('%1$s requires at least WordPress version %2$s.', 'my-blocks'),
+            $plugin_name,
+            $wp_version
+        )
+    );
+    return;
+}
 
 /**
  * Check autoloader.
  */
+$autoloader = dirname(__FILE__) . '/vendor/autoload.php';
 if (! is_readable($autoloader)) {
-    trigger_error(
+    error_log(
         sprintf(
-            // translators: %1$s Code to run.
-            __('Autoloader not found. Run %1$s', 'my-blocks'),
+            // translators: %1$s Plugin name, %2$s Code to run.
+            __('%1$s installation is not complete. Run %2$s', 'my-blocks'),
+            $plugin_name,
             '<code>composer install</code>'
-        ),
-        E_USER_WARNING
+        )
     );
-    // TODO: admin notice
-    add_action('admin_notices', function () {
-    });
+    return;
+}
+
+/**
+ * Check Node modules.
+ */
+$file = dirname(__FILE__) . '/node_modules';
+if (! is_readable($file)) {
+    error_log(
+        sprintf(
+            // translators: %1$s Plugin name, %2$s Code to run.
+            __('%1$s installation is not complete. Run %2$s', 'my-blocks'),
+            $plugin_name,
+            '<code>npm install</code>'
+        )
+    );
     return;
 }
 
 /**
  * Check build.
  */
-
-$build_file = dirname(__FILE__) . '/build/editor.js';
-
+$build_file = dirname(__FILE__) . '/build/style.css';
 if (! is_readable($build_file)) {
-    trigger_error(
+    error_log(
         sprintf(
-            // translators: %1$s Code to run.
-            __('Not build. Run %1$s', 'my-blocks'),
-            '<code>npm install</code>'
-        ),
-        E_USER_WARNING
+            // translators: %1$s Plugin name, %2$s Code to run.
+            __('%1$s installation is not complete. Run %2$s', 'my-blocks'),
+            $plugin_name,
+            '<code>npm run build</code>'
+        )
     );
-    // TODO: admin notice
-    add_action('admin_notices', function () {
-    });
     return;
 }
 
 /**
- * Check WordPress blocks API.
+ * Fire up the application.
  */
-if (! function_exists('register_block_type')) {
-    trigger_error(
-        sprintf(
-            // translators: %1$s Application name.
-            __('%1$s blocks API is not available.', 'my-blocks'),
-            __('WordPress')
-        ),
-        E_USER_WARNING
-    );
-    // TODO: admin notice
-    add_action('admin_notices', function () {
-    });
-    return;
-}
-
-/**
- * Fire up the application
- */
-
-defined('MY_BLOCKS_PLUGIN_FILE') || define('MY_BLOCKS_PLUGIN_FILE', __FILE__);
+defined('MY_BLOCKS_PLUGIN_FILE') or define('MY_BLOCKS_PLUGIN_FILE', __FILE__);
 
 require $autoloader;
 

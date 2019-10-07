@@ -15,7 +15,6 @@ registerBlockType( 'my/button', {
 	keywords: [ __( 'My Blocks', 'elixir' ) ],
 	supports: {
 		align: ['wide', 'full'],
-    anchor: true,
 	},
   attributes: {
 		text: {

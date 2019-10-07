@@ -63,7 +63,6 @@ final class App
 
         $this->did_init = true;
 
-        Config::init();
         Library::init();
         Assets::init();
     }
@@ -76,16 +75,6 @@ final class App
     public function getVersion()
     {
         return $this->version;
-    }
-
-    /**
-     * Get absolute path.
-     *
-     * @return string
-     */
-    public function getAbsPath()
-    {
-        return dirname(MY_BLOCKS_PLUGIN_FILE) . '/';
     }
 
     /**

@@ -1,16 +1,19 @@
 <?php
 /**
- * Block library.
+ * Initializes blocks in WordPress.
  *
  * @package My/Blocks
  */
 
 namespace My\Blocks;
 
-final class Library
+/**
+ * Library class.
+ */
+class Library
 {
     /**
-     * Init.
+     * Initialize block library features.
      */
     public static function init()
     {
@@ -18,17 +21,18 @@ final class Library
     }
 
     /**
-     * Register blocks.
+     * Register blocks, hooking up assets and render functions as needed.
      */
     public static function registerBlocks()
     {
-        $blocks = Config::get('blocks');
-        foreach ($blocks as $block) {
-            register_block_type("my/$block", [
-                'editor_script' => "my-$block",
-                'editor_style'  => 'my-block-editor',
-                'style'         => 'my-block-style',
-            ]);
+        $blocks = [
+            'Heading',
+            'Button',
+        ];
+        foreach ($blocks as $class) {
+            $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;
+            $instance = new $class();
+            $instance->registerBlockType();
         }
     }
 }
