@@ -26,7 +26,8 @@ class Library
     public static function registerBlocks()
     {
         $blocks = [
-            'Heading',
+            'Row',
+            'Column',
             'Button',
         ];
         foreach ($blocks as $class) {

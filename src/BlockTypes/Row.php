@@ -1,18 +1,18 @@
 <?php
 /**
- * Heading block.
+ * Row block.
  *
  * @package My/Blocks
  */
 
 namespace My\Blocks\BlockTypes;
 
-class Heading extends AbstractBlock
+class Row extends AbstractBlock
 {
     /**
      * Block name.
      *
      * @var string
      */
-    protected $block_name = 'heading';
+    protected $block_name = 'row';
 }

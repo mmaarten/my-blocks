@@ -8,7 +8,8 @@ module.exports = {
   entry : {
     'editor': './assets/css/editor.scss',
     'style': './assets/css/style.scss',
-    'heading': './assets/js/blocks/heading/index.js',
+    'row': './assets/js/blocks/row/index.js',
+    'column': './assets/js/blocks/column/index.js',
     'button': './assets/js/blocks/button/index.js',
   },
   module: {

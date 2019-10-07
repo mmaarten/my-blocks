@@ -9,10 +9,10 @@ import edit from './edit';
 import save from './save';
 
 registerBlockType( 'my/button', {
-	title: __( 'Button', 'elixir' ),
-  description: __( 'Displays a button.', 'elixir' ),
+	title: __( 'Button', 'my-blocks' ),
+  description: __( 'Displays a button.', 'my-blocks' ),
 	category: 'common',
-	keywords: [ __( 'My Blocks', 'elixir' ) ],
+	keywords: [ __( 'My Blocks', 'my-blocks' ) ],
 	supports: {
 		align: ['wide', 'full'],
 	},
