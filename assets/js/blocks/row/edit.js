@@ -62,7 +62,7 @@ class RowEdit extends Component {
         </InspectorControls>
         <div className={ className }>
           <InnerBlocks
-            template={ times( DEFAULT_COLUMNS, () => [ 'my/column' ] ) }
+            template={ times( columns ? columns : DEFAULT_COLUMNS, () => [ 'my/column' ] ) }
             templateLock="all"
             allowedBlocks={ ALLOWED_BLOCKS } />
         </div>
@@ -98,6 +98,8 @@ export default compose( [
         // The removed column will be the last of the inner blocks.
 			  innerBlocks = dropRight( innerBlocks, previousColumns - newColumns );
       }
+
+      console.log( 'innerBlocks', innerBlocks );
 
       replaceInnerBlocks( clientId, innerBlocks, false );
     },
