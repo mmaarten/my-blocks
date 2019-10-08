@@ -30,8 +30,8 @@ class Assets
         self::registerStyle('my-block-style', plugins_url('build/style.css', MY_BLOCKS_PLUGIN_FILE), []);
 
         // Individual blocks.
-        self::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
         self::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
+        self::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
         self::registerScript('my-button', plugins_url('build/button.js', MY_BLOCKS_PLUGIN_FILE));
     }
 

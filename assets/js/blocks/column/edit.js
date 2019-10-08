@@ -12,6 +12,15 @@ import {
   InspectorControls,
   InnerBlocks,
 } from '@wordpress/block-editor';
+import {
+  compose,
+} from '@wordpress/compose';
+import {
+  withSelect,
+} from '@wordpress/data';
+import
+classnames
+from 'classnames';
 
 class ColumnEdit extends Component {
   constructor() {
@@ -23,6 +32,7 @@ class ColumnEdit extends Component {
       attributes,
       setAttributes,
       className,
+      hasChildBlocks,
     } = this.props;
 
     const {
@@ -30,7 +40,7 @@ class ColumnEdit extends Component {
     } = attributes;
 
     return (
-      <>
+      <div className={ className }>
         <InspectorControls>
           <PanelBody>
             <RangeControl
@@ -42,12 +52,26 @@ class ColumnEdit extends Component {
             />
           </PanelBody>
         </InspectorControls>
-        <div className={ className }>
-          <InnerBlocks.Content />
-        </div>
-      </>
+        <InnerBlocks
+          templateLock={ false }
+          renderAppender={ (
+            hasChildBlocks ?
+              undefined :
+              () => <InnerBlocks.ButtonBlockAppender />
+          ) }
+        />
+      </div>
     );
   }
 }
 
-export default ColumnEdit;
+export default compose(
+	withSelect( ( select, ownProps ) => {
+		const { clientId } = ownProps;
+		const { getBlockOrder } = select( 'core/block-editor' );
+
+		return {
+			hasChildBlocks: getBlockOrder( clientId ).length > 0,
+		};
+	} ),
+)( ColumnEdit );

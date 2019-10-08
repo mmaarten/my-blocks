@@ -28,7 +28,7 @@ import
   dropRight,
 } from 'lodash';
 
-const ALLOWED_BLOCKS = [ 'core/column' ];
+const ALLOWED_BLOCKS = [ 'my/column' ];
 const DEFAULT_COLUMNS = 1;
 const MIN_COLUMNS = 1;
 const MAX_COLUMNS = 6;
@@ -62,7 +62,7 @@ class RowEdit extends Component {
         </InspectorControls>
         <div className={ className }>
           <InnerBlocks
-            template={ times( DEFAULT_COLUMNS, () => [ 'core/column' ] ) }
+            template={ times( DEFAULT_COLUMNS, () => [ 'my/column' ] ) }
             templateLock="all"
             allowedBlocks={ ALLOWED_BLOCKS } />
         </div>
@@ -91,7 +91,7 @@ export default compose( [
         innerBlocks = [
   				...innerBlocks,
   				...times( newColumns - previousColumns, () => {
-  					return createBlock( 'core/column' );
+  					return createBlock( 'my/column' );
   				} ),
         ];
       } else {

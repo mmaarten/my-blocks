@@ -26,6 +26,16 @@ registerBlockType( 'my/column', {
       max: 12,
     }
   },
+	getEditWrapperProps( attributes ) {
+		const { width } = attributes;
+		if ( Number.isFinite( width ) ) {
+			return {
+				style: {
+					flexBasis: ( (width / 12 ) * 100 ) + '%',
+				},
+			};
+		}
+	},
 	edit,
 	save,
 });
