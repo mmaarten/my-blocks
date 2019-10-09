@@ -7,7 +7,11 @@ export default ( { ...props } ) => {
 
   return (
     <div className={ className }>
-      <InnerBlocks.Content />
+      <div className="container-fluid">
+        <div className="row">
+          <InnerBlocks.Content />
+        </div>
+      </div>
     </div>
   );
 };
