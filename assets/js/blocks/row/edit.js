@@ -109,7 +109,16 @@ class RowEdit extends Component {
       columns,
     } = this.props;
 
+    const {
+      alignItems,
+    } = attributes;
+
     const showTemplateSelector = template.length ? false : true;
+
+    const classes = classnames( {
+      [ className ]: className,
+      [ `has-align-items-${ alignItems }`]: alignItems,
+    } );
 
     return (
       <>
@@ -124,9 +133,20 @@ class RowEdit extends Component {
                 max={ MAX_COLUMNS }
               />
             </PanelBody>
+            <SelectControl
+              label={ __( 'Align Items' ) }
+              value={ alignItems }
+              onChange={ ( value ) => setAttributes( { alignItems: value } ) }
+              options={ [
+                { label: __( '- Default -', 'my-blocks' ), value: '' },
+                { label: __( 'Top', 'my-blocks' ), value: 'flex-start' },
+                { label: __( 'Center', 'my-blocks' ), value: 'center' },
+                { label: __( 'Bottom', 'my-blocks' ), value: 'flex-end' },
+              ] }
+            />
           </InspectorControls>
         ) }
-        <div className={ className }>
+        <div className={ classes }>
           <InnerBlocks
             __experimentalTemplateOptions={ TEMPLATE_OPTIONS }
   					__experimentalOnSelectTemplateOption={ ( selectedTemplate ) => {
@@ -141,7 +161,6 @@ class RowEdit extends Component {
   					} }
   					__experimentalAllowTemplateOptionSkip
             template={ showTemplateSelector ? null : template }
-            templateLock="all"
             allowedBlocks={ ALLOWED_BLOCKS } />
         </div>
       </>

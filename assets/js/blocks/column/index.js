@@ -4,9 +4,6 @@ import {
 import {
   registerBlockType,
 } from '@wordpress/blocks';
-import
-  classnames
-  from 'classnames';
 
 import edit from './edit';
 import save from './save';
@@ -31,14 +28,42 @@ registerBlockType( 'my/column', {
   },
 	edit,
 	save,
-	getEditWrapperProps( attributes ) {
-		const { width } = attributes;
-		if ( Number.isFinite( width ) ) {
-			return {
-				style: {
-					flexBasis: ( width / 12 * 100 ) + '%',
-				},
-			};
-		}
-	},
+	// getEditWrapperProps( attributes ) {
+	// 	const { width } = attributes;
+	// 	if ( Number.isFinite( width ) ) {
+	// 		return {
+	// 			style: {
+	// 				flexBasis: ( width / 12 * 100 ) + '%',
+	// 			},
+	// 		};
+	// 	}
+	// },
 });
+
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { addFilter } from '@wordpress/hooks';
+import classnames from 'classnames';
+
+const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
+    return ( props ) => {
+        if ( 'my/column' !== props.name ) {
+          return <BlockListBlock { ...props } />
+        }
+
+        const { attributes } = props;
+        const { width } = attributes;
+
+        const classes = classnames( {
+          [ `col-md-${ width }` ] : width,
+          'col-md' : width ? false : true,
+        } );
+
+        return (
+          <div className={ classes }>
+            <BlockListBlock { ...props } />
+          </div>
+        );
+    };
+}, 'withClientIdClassName' );
+
+addFilter( 'editor.BlockListBlock', 'my-plugin/with-client-id-class-name', withClientIdClassName );

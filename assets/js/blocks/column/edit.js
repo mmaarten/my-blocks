@@ -48,7 +48,7 @@ class ColumnEdit extends Component {
               value={ width }
               onChange={ ( value ) => setAttributes( { width: value } ) }
               options={ [
-                { label: __( "- Don't set -" ), value: null },
+                { label: __( "- Don't set -" ), value: '' },
                 { label: __( '1 column - 1/12' ), value: 1 },
                 { label: __( '2 column - 1/6' ), value: 2 },
                 { label: __( '3 column - 1/4' ), value: 3 },

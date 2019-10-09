@@ -17,7 +17,12 @@ registerBlockType( 'my/row', {
 		align: ['wide', 'full'],
     anchor: true,
 	},
-  attributes: {},
+  attributes: {
+    alignItems: {
+      type: 'string',
+      default: '',
+    }
+  },
 	edit,
 	save,
 });

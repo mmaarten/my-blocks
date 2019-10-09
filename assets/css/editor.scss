@@ -4,20 +4,109 @@
  * @package My/Blocks
  */
 
-// Gutenberg variables.
-@import "stylesheets/colors";
-@import "stylesheets/variables";
-@import "stylesheets/mixins";
-@import "stylesheets/breakpoints";
-@import "stylesheets/animations";
-@import "stylesheets/z-index";
+// Gutenberg.
+@import "gutenberg/stylesheets/colors";
+@import "gutenberg/stylesheets/variables";
+@import "gutenberg/stylesheets/mixins";
+@import "gutenberg/stylesheets/breakpoints";
+@import "gutenberg/stylesheets/animations";
+@import "gutenberg/stylesheets/z-index";
 
 // Controls
 @import './../js/components/image-control/style.scss';
 @import './../js/components/url-control/style.scss';
 @import './../js/components/post-control/style.scss';
 
-// Blocks.
-@import 'autoload';
-@import './../js/blocks/row/editor';
-@import './../js/blocks/button/editor';
+// Bootstrap
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+.editor-styles-wrapper {
+  @import '~bootstrap/scss/buttons';
+  @import '~bootstrap/scss/grid';
+}
+//
+// .block-editor-block-list__layout {
+//   .block-editor-block-list__block[data-type="my/row"],
+//   .block-editor-block-list__block[data-type="my/column"] {
+//     > .block-editor-block-list__block-edit {
+//       > [data-block] {
+//         margin-top: 0;
+//         margin-bottom: 0;
+//       }
+//     }
+//   }
+// }
+//
+// .wp-block-my-row {
+//   > .block-editor-inner-blocks {
+//     padding: $block-padding;
+//   }
+// }
+//
+// .block-editor-block-list__layout {
+//   .block-editor-block-list__block[data-type="my/column"] {
+//     > .block-editor-block-list__block-edit {
+//       > [data-block] {
+//         margin-top: $block-padding;
+//         margin-bottom: $block-padding;
+//       }
+//     }
+//   }
+// }
+
+.wp-block-my-row {
+  > .block-editor-inner-blocks {
+    > .block-editor-block-list__layout {
+      @include make-row( $block-padding * 2 );
+      [class*="col"] {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      // Set full heights on Columns to enable vertical alignment preview
+  		> [data-type="my/column"],
+  		> [data-type="my/column"] > .editor-block-list__block-edit,
+  		> [data-type="my/column"] > .editor-block-list__block-edit > div[data-block],
+  		> [data-type="my/column"] > .editor-block-list__block-edit .block-core-columns {
+        display: flex;
+      	flex-direction: column;
+      	flex: 1;
+  		}
+    }
+  }
+}
+
+@each $value in ( "flex-start", "center", "flex-end" ) {
+  .wp-block-my-row.has-align-items-#{ $value } > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    align-items: #{$value} !important;
+  }
+}
+
+// Row block is selected
+.block-editor-block-list__layout {
+  .block-editor-block-list__block[data-type="my/row"] {
+    &.is-selected,
+    &.has-child-selected {
+      // Remove negative horizontal margin to create nice spacing for the innerblocks.
+      > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks > .block-editor-block-list__layout {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+
+
+.block-editor-block-list__layout {
+  .block-editor-block-list__block[data-type="my/column"] {
+    &.is-selected,
+    &.has-child-selected {
+      > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
+        padding: $block-padding;
+      }
+    }
+  }
+}

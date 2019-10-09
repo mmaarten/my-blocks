@@ -72,7 +72,6 @@ class ButtonEdit extends Component {
       attributes,
       setAttributes,
       className,
-      isSelected,
       colors,
     } = this.props;
 
@@ -91,7 +90,7 @@ class ButtonEdit extends Component {
     const { color } = getColorObjectByAttributeValues( colors, type );
 
     return (
-      <div className={ className }>
+      <>
         <InspectorControls>
           <PanelBody title={ __( 'Color Settings', 'my-blocks' ) } initialOpen={ false }>
             <ColorPalette
@@ -119,6 +118,11 @@ class ButtonEdit extends Component {
             />
           </PanelBody>
           <PanelBody title={ __( 'Link Settings', 'my-blocks' ) } initialOpen={ false }>
+            <URLControl
+              label={ __( 'Link', 'my-blocks' ) }
+              value={ link }
+              onChange={ ( link ) => setAttributes( { link } ) }
+            />
             <ToggleControl
               label={ __( 'Open in new tab', 'my-blocks' ) }
               checked={ linkTab }
@@ -149,10 +153,15 @@ class ButtonEdit extends Component {
         </BlockControls>
         <div
           className={ classnames( {
+            [ className ]: className,
             [ `has-text-align-${ textAlign }` ]: textAlign,
           } ) }
         >
-          <span
+          <RichText
+    				placeholder={ __( 'Add text…', 'my-blocks' ) }
+    				value={ text }
+    				onChange={ ( text ) => setAttributes( { text } ) }
+    				withoutInteractiveFormatting
             className={ classnames(
               'btn', {
                 [`btn-${ type }`]: type && ! outline,
@@ -160,25 +169,9 @@ class ButtonEdit extends Component {
                 [`btn-${ size }`]: size,
               }
             ) }
-          >
-            <RichText
-      				placeholder={ __( 'Add text…', 'my-blocks' ) }
-      				value={ text }
-      				onChange={ ( text ) => setAttributes( { text } ) }
-      				withoutInteractiveFormatting
-      			/>
-          </span>
+    			/>
         </div>
-        { isSelected && (
-          <URLControl
-            className="wp-block-my-button__inline-link"
-  					label={ __( 'Link', 'my-blocks' ) }
-            value={ link }
-            onChange={ ( link ) => setAttributes( { link } ) }
-            disableSuggestions={ ! isSelected }
-          />
-        ) }
-      </div>
+      </>
     );
   }
 }
