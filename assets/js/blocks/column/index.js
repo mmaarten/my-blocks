@@ -4,6 +4,9 @@ import {
 import {
   registerBlockType,
 } from '@wordpress/blocks';
+import {
+  getColumnsClasses,
+} from './common';
 
 import edit from './edit';
 import save from './save';
@@ -21,28 +24,26 @@ registerBlockType( 'my/column', {
 	},
   attributes: {
     width : {
-      type: 'number',
-      min: 1,
-      max: 12,
-    }
+      type: 'object',
+      default: {},
+    },
+    offset : {
+      type: 'object',
+      default: {},
+    },
+    order : {
+      type: 'object',
+      default: {},
+    },
   },
 	edit,
 	save,
-	// getEditWrapperProps( attributes ) {
-	// 	const { width } = attributes;
-	// 	if ( Number.isFinite( width ) ) {
-	// 		return {
-	// 			style: {
-	// 				flexBasis: ( width / 12 * 100 ) + '%',
-	// 			},
-	// 		};
-	// 	}
-	// },
 });
 
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 import classnames from 'classnames';
+import { get, map } from 'lodash';
 
 const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
@@ -50,18 +51,13 @@ const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => 
           return <BlockListBlock { ...props } />
         }
 
-        const { attributes } = props;
-        const { width } = attributes;
-
-        const classes = classnames( {
-          [ `col-md-${ width }` ] : width,
-          'col-md' : width ? false : true,
+        let classes = {};
+        map( getColumnsClasses( props.attributes ), ( value, className ) => {
+          classes[ `has-${ className }` ] = value;
         } );
 
         return (
-          <div className={ classes }>
-            <BlockListBlock { ...props } />
-          </div>
+            <BlockListBlock { ...props } className={ classnames( classes ) } />
         );
     };
 }, 'withClientIdClassName' );

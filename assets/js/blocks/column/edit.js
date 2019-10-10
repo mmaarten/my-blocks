@@ -6,7 +6,8 @@ import {
 } from '@wordpress/element';
 import {
 	PanelBody,
-  SelectControl,
+  RangeControl,
+  Toolbar,
 } from '@wordpress/components';
 import {
   InspectorControls,
@@ -18,13 +19,104 @@ import {
 import {
   withSelect,
 } from '@wordpress/data';
+import {
+  get,
+  assign,
+} from 'lodash';
 import
 classnames
 from 'classnames';
+import './common';
 
 class ColumnEdit extends Component {
   constructor() {
     super( ...arguments );
+
+    this.state = {
+      breakpoint: 'md',
+    };
+  }
+
+  getBreakpointNavigation() {
+    const { breakpoint } = this.state;
+
+    const controls = [
+      {
+        icon: 'admin-generic',
+        title: __( 'Extra small' ),
+        isActive: 'xs' === breakpoint,
+        onClick: () => { this.setState( { breakpoint: 'xs' } ) },
+      },
+      {
+        icon: 'admin-generic',
+        title: __( 'Small' ),
+        isActive: 'sm' === breakpoint,
+        onClick: () => { this.setState( { breakpoint: 'sm' } ) },
+      },
+      {
+        icon: 'admin-generic',
+        title: __( 'Medium' ),
+        isActive: 'md' === breakpoint || ! breakpoint,
+        onClick: () => { this.setState( { breakpoint: 'md' } ) },
+      },
+      {
+        icon: 'admin-generic',
+        title: __( 'Large' ),
+        isActive: 'lg' === breakpoint,
+        onClick: () => { this.setState( { breakpoint: 'lg' } ) },
+      },
+      {
+        icon: 'admin-generic',
+        title: __( 'Extra large' ),
+        isActive: 'xl' === breakpoint,
+        onClick: () => { this.setState( { breakpoint: 'xl' } ) },
+      }
+    ];
+
+    return <Toolbar controls={ controls } />
+  }
+
+  getBreakpointSettings() {
+    const { breakpoint } = this.state;
+    const { attributes, setAttributes } = this.props;
+    const { width, offset, order } = attributes;
+
+    console.log( { breakpoint, width } );
+
+    return (
+      <>
+        <RangeControl
+          label={ __( 'Width' ) }
+          value={ get( width, breakpoint, '' ) }
+          onChange={ ( value ) => {
+            const update = { [ breakpoint ]: value };
+            setAttributes( { width: assign( {}, width, update ) } );
+          } }
+          min={ 0 }
+          max={ 12 }
+        />
+        <RangeControl
+          label={ __( 'Offset' ) }
+          value={ get( offset, breakpoint, '' ) }
+          onChange={ ( value ) => {
+            const update = { [ breakpoint ]: value };
+            setAttributes( { offset: assign( {}, offset, update ) } );
+          } }
+          min={ 0 }
+          max={ 12 }
+        />
+        <RangeControl
+          label={ __( 'Order' ) }
+          value={ get( order, breakpoint, '' ) }
+          onChange={ ( value ) => {
+            const update = { [ breakpoint ]: value };
+            setAttributes( { width: assign( {}, order, update ) } );
+          } }
+          min={ 0 }
+          max={ 12 }
+        />
+      </>
+    );
   }
 
   render() {
@@ -42,27 +134,9 @@ class ColumnEdit extends Component {
     return (
       <div className={ className }>
         <InspectorControls>
-          <PanelBody>
-            <SelectControl
-              label={ __( 'Width' ) }
-              value={ width }
-              onChange={ ( value ) => setAttributes( { width: value } ) }
-              options={ [
-                { label: __( "- Don't set -" ), value: '' },
-                { label: __( '1 column - 1/12' ), value: 1 },
-                { label: __( '2 column - 1/6' ), value: 2 },
-                { label: __( '3 column - 1/4' ), value: 3 },
-                { label: __( '4 column - 1/3' ), value: 4 },
-                { label: __( '5 column - 5/12' ), value: 5 },
-                { label: __( '6 column - 1/2' ), value: 6 },
-                { label: __( '7 column - 7/12' ), value: 7 },
-                { label: __( '8 column - 8/12' ), value: 8 },
-                { label: __( '9 column - 9/12' ), value: 9 },
-                { label: __( '10 column - 5/6' ), value: 10 },
-                { label: __( '11 column - 11/12' ), value: 11 },
-                { label: __( '12 column - 1/1' ), value: 12 },
-              ] }
-            />
+          <PanelBody title={ __( 'Column Settings' ) } initialOpen={ true }>
+            { this.getBreakpointNavigation() }
+            { this.getBreakpointSettings() }
           </PanelBody>
         </InspectorControls>
         <InnerBlocks

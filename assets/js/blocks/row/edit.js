@@ -161,6 +161,7 @@ class RowEdit extends Component {
   					} }
   					__experimentalAllowTemplateOptionSkip
             template={ showTemplateSelector ? null : template }
+            templateLock="all"
             allowedBlocks={ ALLOWED_BLOCKS } />
         </div>
       </>
