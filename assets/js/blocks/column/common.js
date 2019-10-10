@@ -1,5 +1,7 @@
 import { map, get } from 'lodash';
 
+export const gridColumns = 12;
+
 export const breakpoints = [
   'xs',
   'sm',

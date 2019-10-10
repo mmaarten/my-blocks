@@ -67,20 +67,6 @@ $grid-breakpoints: (
           }
         }
 
-        // .has-order-{breakpoint}-{order}
-        @for $i from 0 through $grid-columns {
-          .has-order#{$infix}-#{$i} { order: $i; }
-        }
-
-        // .has-offset-{breakpoint}-{offset}
-        @for $i from 0 through ($grid-columns - 1) {
-          @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
-            .has-offset#{$infix}-#{$i} {
-              @include make-col-offset($i, $grid-columns);
-            }
-          }
-        }
-
         /**
          * Above breakpoint
          */
@@ -100,22 +86,34 @@ $grid-breakpoints: (
               @include make-col( $i, $grid-columns );
             }
           }
+
+          // .has-order-{breakpoint}-{order}
+          @for $i from 0 through $grid-columns {
+            &.has-order#{$infix}-#{$i} { order: $i; }
+          }
+
+          // .has-offset-{breakpoint}-{offset}
+          @for $i from 0 through ($grid-columns - 1) {
+            @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+              &.has-offset#{$infix}-#{$i} {
+                @include make-col-offset($i, $grid-columns);
+              }
+            }
+          }
+        }
+      }
+
+      /**
+       * Decrease vertical spacing.
+       */
+      > .block-editor-block-list__block-edit {
+        > [data-block] {
+          margin-top: $block-padding;
+          margin-bottom: $block-padding;
         }
       }
 		}
 	}
-}
-
-// Decrease vertical spacing for columns.
-.block-editor-block-list__layout {
-  .block-editor-block-list__block[data-type="my/column"] {
-    > .block-editor-block-list__block-edit {
-      > [data-block] {
-        margin-top: $block-padding;
-        margin-bottom: $block-padding;
-      }
-    }
-  }
 }
 
 /**

@@ -26,7 +26,9 @@ import {
 import
 classnames
 from 'classnames';
-import './common';
+import {
+  gridColumns,
+} from './common';
 
 class ColumnEdit extends Component {
   constructor() {
@@ -81,8 +83,6 @@ class ColumnEdit extends Component {
     const { attributes, setAttributes } = this.props;
     const { width, offset, order } = attributes;
 
-    console.log( { breakpoint, width } );
-
     return (
       <>
         <RangeControl
@@ -92,8 +92,8 @@ class ColumnEdit extends Component {
             const update = { [ breakpoint ]: value };
             setAttributes( { width: assign( {}, width, update ) } );
           } }
-          min={ 0 }
-          max={ 12 }
+          min={ 1 }
+          max={ gridColumns }
         />
         <RangeControl
           label={ __( 'Offset' ) }
@@ -102,18 +102,18 @@ class ColumnEdit extends Component {
             const update = { [ breakpoint ]: value };
             setAttributes( { offset: assign( {}, offset, update ) } );
           } }
-          min={ 0 }
-          max={ 12 }
+          min={ 1 }
+          max={ gridColumns }
         />
         <RangeControl
           label={ __( 'Order' ) }
           value={ get( order, breakpoint, '' ) }
           onChange={ ( value ) => {
             const update = { [ breakpoint ]: value };
-            setAttributes( { width: assign( {}, order, update ) } );
+            setAttributes( { order: assign( {}, order, update ) } );
           } }
-          min={ 0 }
-          max={ 12 }
+          min={ 1 }
+          max={ gridColumns }
         />
       </>
     );
