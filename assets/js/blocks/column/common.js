@@ -3,7 +3,7 @@ import { map, get } from 'lodash';
 export const gridColumns = 12;
 export const breakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
-export const getColumnsClasses = ( attributes ) => {
+export const getColumnClasses = ( attributes ) => {
   const { width, offset, order } = attributes;
 
   let classes = {};

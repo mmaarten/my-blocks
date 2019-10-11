@@ -64,9 +64,7 @@ class ColumnEdit extends Component {
           templateLock={ false }
           renderAppender={ (
             // Show appender when no inner blocks.
-            hasChildBlocks ?
-              undefined :
-              () => <InnerBlocks.ButtonBlockAppender />
+            hasChildBlocks ? undefined : () => <InnerBlocks.ButtonBlockAppender />
           ) }
         />
       </div>

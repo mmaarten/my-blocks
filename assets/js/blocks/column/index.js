@@ -5,7 +5,7 @@ import {
   registerBlockType,
 } from '@wordpress/blocks';
 import {
-  getColumnsClasses,
+  getColumnClasses,
 } from './common';
 
 import edit from './edit';
@@ -45,21 +45,23 @@ import { addFilter } from '@wordpress/hooks';
 import classnames from 'classnames';
 import { get, map } from 'lodash';
 
-const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
+const withColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
         if ( 'my/column' !== props.name ) {
           return <BlockListBlock { ...props } />
         }
 
-        let classes = {};
-        map( getColumnsClasses( props.attributes ), ( value, className ) => {
-          classes[ `has-${ className }` ] = value;
+        const classes = getColumnClasses( props.attributes );
+
+        let prefixedClasses = {};
+        map( classes, ( value, className ) => {
+          prefixedClasses[`has-${ className }`] = value;
         } );
 
         return (
-            <BlockListBlock { ...props } className={ classnames( classes ) } />
+            <BlockListBlock { ...props } className={ classnames( prefixedClasses ) } />
         );
     };
-}, 'withClientIdClassName' );
+}, 'withColumnClasses' );
 
-addFilter( 'editor.BlockListBlock', 'my-plugin/with-client-id-class-name', withClientIdClassName );
+addFilter( 'editor.BlockListBlock', 'my-blocks/with-column-classes', withColumnClasses );

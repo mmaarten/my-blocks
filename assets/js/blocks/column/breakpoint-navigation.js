@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { Toolbar } from '@wordpress/components';
 import { withState } from '@wordpress/compose';
 
-const BreakpointNavigation = ( { breakpoint, setState, render } ) => {
+const BreakpointNavigation = ( { breakpoint, setState, content } ) => {
 
   const controls = [
     {
