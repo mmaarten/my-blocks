@@ -1,142 +1,63 @@
-import {
-  __,
-} from '@wordpress/i18n';
-import {
-  Component,
-} from '@wordpress/element';
-import {
-	PanelBody,
-  RangeControl,
-  Toolbar,
-} from '@wordpress/components';
-import {
-  InspectorControls,
-  InnerBlocks,
-} from '@wordpress/block-editor';
-import {
-  compose,
-} from '@wordpress/compose';
-import {
-  withSelect,
-} from '@wordpress/data';
-import {
-  get,
-  assign,
-} from 'lodash';
-import
-classnames
-from 'classnames';
-import {
-  gridColumns,
-} from './common';
+import { __ } from '@wordpress/i18n';
+import { Component } from '@wordpress/element';
+import { PanelBody, RangeControl } from '@wordpress/components';
+import { InspectorControls, InnerBlocks } from '@wordpress/block-editor';
+import { compose } from '@wordpress/compose';
+import { withSelect } from '@wordpress/data';
+import { get, assign } from 'lodash';
+import classnames from 'classnames';
+import { gridColumns } from './common';
+import BreakpointNavigation from './breakpoint-navigation';
 
 class ColumnEdit extends Component {
   constructor() {
     super( ...arguments );
-
-    this.state = {
-      breakpoint: 'md',
-    };
-  }
-
-  getBreakpointNavigation() {
-    const { breakpoint } = this.state;
-
-    const controls = [
-      {
-        icon: 'admin-generic',
-        title: __( 'Extra small' ),
-        isActive: 'xs' === breakpoint,
-        onClick: () => { this.setState( { breakpoint: 'xs' } ) },
-      },
-      {
-        icon: 'admin-generic',
-        title: __( 'Small' ),
-        isActive: 'sm' === breakpoint,
-        onClick: () => { this.setState( { breakpoint: 'sm' } ) },
-      },
-      {
-        icon: 'admin-generic',
-        title: __( 'Medium' ),
-        isActive: 'md' === breakpoint || ! breakpoint,
-        onClick: () => { this.setState( { breakpoint: 'md' } ) },
-      },
-      {
-        icon: 'admin-generic',
-        title: __( 'Large' ),
-        isActive: 'lg' === breakpoint,
-        onClick: () => { this.setState( { breakpoint: 'lg' } ) },
-      },
-      {
-        icon: 'admin-generic',
-        title: __( 'Extra large' ),
-        isActive: 'xl' === breakpoint,
-        onClick: () => { this.setState( { breakpoint: 'xl' } ) },
-      }
-    ];
-
-    return <Toolbar controls={ controls } />
-  }
-
-  getBreakpointSettings() {
-    const { breakpoint } = this.state;
-    const { attributes, setAttributes } = this.props;
-    const { width, offset, order } = attributes;
-
-    return (
-      <>
-        <RangeControl
-          label={ __( 'Width' ) }
-          value={ get( width, breakpoint, '' ) }
-          onChange={ ( value ) => {
-            const update = { [ breakpoint ]: value };
-            setAttributes( { width: assign( {}, width, update ) } );
-          } }
-          min={ 1 }
-          max={ gridColumns }
-        />
-        <RangeControl
-          label={ __( 'Offset' ) }
-          value={ get( offset, breakpoint, '' ) }
-          onChange={ ( value ) => {
-            const update = { [ breakpoint ]: value };
-            setAttributes( { offset: assign( {}, offset, update ) } );
-          } }
-          min={ 1 }
-          max={ gridColumns }
-        />
-        <RangeControl
-          label={ __( 'Order' ) }
-          value={ get( order, breakpoint, '' ) }
-          onChange={ ( value ) => {
-            const update = { [ breakpoint ]: value };
-            setAttributes( { order: assign( {}, order, update ) } );
-          } }
-          min={ 1 }
-          max={ gridColumns }
-        />
-      </>
-    );
   }
 
   render() {
-    const {
-      attributes,
-      setAttributes,
-      className,
-      hasChildBlocks,
-    } = this.props;
-
-    const {
-      width,
-    } = attributes;
+    const { attributes, setAttributes, className, hasChildBlocks } = this.props;
+    const { width, offset, order } = attributes;
 
     return (
       <div className={ className }>
         <InspectorControls>
           <PanelBody title={ __( 'Column Settings' ) } initialOpen={ true }>
-            { this.getBreakpointNavigation() }
-            { this.getBreakpointSettings() }
+            <BreakpointNavigation
+              content={ ( breakpoint ) => (
+                <>
+                  <RangeControl
+                    label={ __( 'Width' ) }
+                    value={ get( width, breakpoint, '' ) }
+                    onChange={ ( value ) => {
+                      const update = { [ breakpoint ]: value };
+                      setAttributes( { width: assign( {}, width, update ) } );
+                    } }
+                    min={ 1 }
+                    max={ gridColumns }
+                  />
+                  <RangeControl
+                    label={ __( 'Offset' ) }
+                    value={ get( offset, breakpoint, '' ) }
+                    onChange={ ( value ) => {
+                      const update = { [ breakpoint ]: value };
+                      setAttributes( { offset: assign( {}, offset, update ) } );
+                    } }
+                    min={ 1 }
+                    max={ gridColumns }
+                  />
+                  <RangeControl
+                    label={ __( 'Order' ) }
+                    value={ get( order, breakpoint, '' ) }
+                    onChange={ ( value ) => {
+                      const update = { [ breakpoint ]: value };
+                      setAttributes( { order: assign( {}, order, update ) } );
+                    } }
+                    min={ 1 }
+                    max={ gridColumns }
+                  />
+                </>
+              ) }
+            />
           </PanelBody>
         </InspectorControls>
         <InnerBlocks

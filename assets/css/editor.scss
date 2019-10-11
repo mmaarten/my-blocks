@@ -13,9 +13,9 @@
 @import "gutenberg/stylesheets/z-index";
 
 // Controls
-@import './../js/components/image-control/style.scss';
-@import './../js/components/url-control/style.scss';
-@import './../js/components/post-control/style.scss';
+@import './../js/components/image-control/style';
+@import './../js/components/url-control/style';
+@import './../js/components/post-control/style';
 
 @import '~bootstrap/scss/functions';
 
@@ -30,98 +30,5 @@ $grid-breakpoints: (
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
-// Row block.
-.wp-block-my-row {
-	display: block;
-
-  // Columns wrapper.
-	> .editor-inner-blocks > .editor-block-list__layout {
-
-    // Make row.
-    @include make-row($block-padding * 2);
-
-		// Column block wrapper.
-		> [data-type="my/column"] {
-
-      max-width: none;
-
-      // Loop breakpoints
-      @each $breakpoint in map-keys($grid-breakpoints) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        /**
-         * Below breakpoint
-         */
-
-         // .has-col-{breakpoint}
-         &.has-col#{$infix} {
-           // Make full width.
-           width: 100%;
-         }
-
-        // .has-col-{breakpoint}-{size}
-        @for $i from 1 through $grid-columns {
-          &.has-col#{$infix}-#{$i} {
-            // Make full width.
-            width: 100%;
-          }
-        }
-
-        /**
-         * Above breakpoint
-         */
-        @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-
-          // .has-col-{breakpoint}
-          &.has-col#{$infix} {
-            // Make flexbox column.
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-          }
-
-          // .has-col-{breakpoint}-{size}
-          @for $i from 1 through $grid-columns {
-            &.has-col#{$infix}-#{$i} {
-              @include make-col( $i, $grid-columns );
-            }
-          }
-
-          // .has-order-{breakpoint}-{order}
-          @for $i from 0 through $grid-columns {
-            &.has-order#{$infix}-#{$i} { order: $i; }
-          }
-
-          // .has-offset-{breakpoint}-{offset}
-          @for $i from 0 through ($grid-columns - 1) {
-            @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
-              &.has-offset#{$infix}-#{$i} {
-                @include make-col-offset($i, $grid-columns);
-              }
-            }
-          }
-        }
-      }
-
-      /**
-       * Decrease vertical spacing.
-       */
-      > .block-editor-block-list__block-edit {
-        > [data-block] {
-          margin-top: $block-padding;
-          margin-bottom: $block-padding;
-        }
-      }
-		}
-	}
-}
-
-/**
- * Add extra padding when the parent block is selected, for easier interaction.
- */
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
-	padding: $block-padding;
-}
+// blocks
+@import './../js/blocks/row/editor';
