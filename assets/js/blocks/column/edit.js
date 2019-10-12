@@ -29,8 +29,9 @@ class ColumnEdit extends Component {
                     label={ __( 'Width' ) }
                     value={ get( width, breakpoint, '' ) }
                     onChange={ ( value ) => {
-                      const update = { [ breakpoint ]: value };
-                      setAttributes( { width: assign( {}, width, update ) } );
+                      setAttributes( {
+                        width: assign( {}, width, { [ breakpoint ]: value } )
+                      } );
                     } }
                     min={ 1 }
                     max={ gridColumns }
@@ -40,8 +41,9 @@ class ColumnEdit extends Component {
                     label={ __( 'Offset' ) }
                     value={ get( offset, breakpoint, '' ) }
                     onChange={ ( value ) => {
-                      const update = { [ breakpoint ]: value };
-                      setAttributes( { offset: assign( {}, offset, update ) } );
+                      setAttributes( {
+                        offset: assign( {}, offset, { [ breakpoint ]: value } )
+                      } );
                     } }
                     min={ 1 }
                     max={ gridColumns }
@@ -51,8 +53,9 @@ class ColumnEdit extends Component {
                     label={ __( 'Order' ) }
                     value={ get( order, breakpoint, '' ) }
                     onChange={ ( value ) => {
-                      const update = { [ breakpoint ]: value };
-                      setAttributes( { order: assign( {}, order, update ) } );
+                      setAttributes( {
+                        order: assign( {}, order, { [ breakpoint ]: value } )
+                      } );
                     } }
                     min={ 1 }
                     max={ gridColumns }
