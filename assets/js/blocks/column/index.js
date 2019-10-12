@@ -25,15 +25,12 @@ registerBlockType( 'my/column', {
   attributes: {
     width : {
       type: 'object',
-      default: {},
     },
     offset : {
       type: 'object',
-      default: {},
     },
     order : {
       type: 'object',
-      default: {},
     },
   },
 	edit,
@@ -45,14 +42,17 @@ import { addFilter } from '@wordpress/hooks';
 import classnames from 'classnames';
 import { get, map } from 'lodash';
 
-const withColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
+const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
+        // Return when not our block.
         if ( 'my/column' !== props.name ) {
           return <BlockListBlock { ...props } />
         }
 
+        // Get classes
         const classes = getColumnClasses( props.attributes );
 
+        // Prefix classes.
         let prefixedClasses = {};
         map( classes, ( value, className ) => {
           prefixedClasses[`has-${ className }`] = value;
@@ -64,4 +64,4 @@ const withColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
     };
 }, 'withColumnClasses' );
 
-addFilter( 'editor.BlockListBlock', 'my-blocks/with-column-classes', withColumnClasses );
+addFilter( 'editor.BlockListBlock', 'my-blocks/add-column-classes', addColumnClasses );

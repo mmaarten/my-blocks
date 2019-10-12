@@ -21,20 +21,41 @@ class ColumnEdit extends Component {
     return (
       <div className={ className }>
         <InspectorControls>
-          <PanelBody title={ __( 'Column Settings' ) } initialOpen={ true }>
+          <PanelBody>
+            <RangeControl
+              label={ __( 'Width' ) }
+              value={ get( width, 'md', '' ) }
+              onChange={ ( value ) => {
+                const update = { md : value };
+                setAttributes( { width: assign( {}, width, update ) } );
+              } }
+              min={ 1 }
+              max={ gridColumns }
+						  allowReset
+            />
+          </PanelBody>
+          <PanelBody title={ __( 'Responsiveness Settings' ) } initialOpen={ false }>
             <BreakpointNavigation
               content={ ( breakpoint ) => (
                 <>
-                  <RangeControl
-                    label={ __( 'Width' ) }
-                    value={ get( width, breakpoint, '' ) }
-                    onChange={ ( value ) => {
-                      const update = { [ breakpoint ]: value };
-                      setAttributes( { width: assign( {}, width, update ) } );
-                    } }
-                    min={ 1 }
-                    max={ gridColumns }
-                  />
+                  { 'md' === breakpoint && (
+                    <BaseControl label={ __( 'Width' ) }>
+                      <p>{ __( 'Value from width attribute.' ) }</p>
+                    </BaseControl>
+                  ) }
+                  { 'md' !== breakpoint && (
+                    <RangeControl
+                      label={ __( 'Width' ) }
+                      value={ get( width, breakpoint, '' ) }
+                      onChange={ ( value ) => {
+                        const update = { [ breakpoint ]: value };
+                        setAttributes( { width: assign( {}, width, update ) } );
+                      } }
+                      min={ 1 }
+                      max={ gridColumns }
+                      allowReset
+                    />
+                  ) }
                   <RangeControl
                     label={ __( 'Offset' ) }
                     value={ get( offset, breakpoint, '' ) }
@@ -44,6 +65,7 @@ class ColumnEdit extends Component {
                     } }
                     min={ 1 }
                     max={ gridColumns }
+                    allowReset
                   />
                   <RangeControl
                     label={ __( 'Order' ) }
@@ -54,6 +76,7 @@ class ColumnEdit extends Component {
                     } }
                     min={ 1 }
                     max={ gridColumns }
+                    allowReset
                   />
                 </>
               ) }

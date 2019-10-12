@@ -5,24 +5,27 @@ export const breakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
 export const getColumnClasses = ( attributes ) => {
   const { width, offset, order } = attributes;
+  const FALLBACK_CLASS = 'col-md';
 
   let classes = {};
 
   // Add `col` class for when no width is set.
-  classes.col = true;
+  classes[ FALLBACK_CLASS ] = true;
 
   map( breakpoints, ( breakpoint ) => {
-    const colWidth  = get( width, breakpoint );
-    const colOffset = get( offset, breakpoint );
-    const colOrder  = get( order, breakpoint );
+    const slug = 'xs' !== breakpoint ? `-${ breakpoint }` : '';
 
-    classes[`col-${ breakpoint }-${ colWidth }`] = colWidth;
-    classes[`offset-${ breakpoint }-${ colOffset }`] = colOffset;
-    classes[`order-${ breakpoint }-${ colOrder }`] = colOrder;
+    const _width = get( width, breakpoint );
+    const _offset = get( offset, breakpoint );
+    const _order = get( order, breakpoint );
+
+    classes[`col${ slug }-${ _width }`] = _width;
+    classes[`offset${ slug }-${ _offset }`] = _offset;
+    classes[`order${ slug }-${ _order }`] = _order;
 
     // Width is set. Remove `col` class.
-    if ( colWidth && classes.col ) {
-      classes.col = false;
+    if ( _width && classes[ FALLBACK_CLASS ] ) {
+      classes[ FALLBACK_CLASS ] = false;
     };
 
   } );

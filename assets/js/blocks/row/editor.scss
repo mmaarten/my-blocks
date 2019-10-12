@@ -1,67 +1,52 @@
 
-// Row block.
 .wp-block-my-row {
-	display: block;
-
-  // Columns wrapper.
 	> .editor-inner-blocks > .editor-block-list__layout {
+    display: flex;
+    flex-wrap: nowrap;
 
-    // Make row.
-    @include make-row($block-padding * 2);
+    > [data-type="my/column"] {
 
-		// Column block wrapper.
-		> [data-type="my/column"] {
-
+      // Remove WordPress max width on blocks.
       max-width: none;
 
-      // Loop breakpoints
+      // Create grid columns
+      // See: @mixin make-grid-columns() in `~bootstrap/scss/mixins/grid-framework`.
       @each $breakpoint in map-keys($grid-breakpoints) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        /**
-         * Below breakpoint
-         */
+        // Make full width flexbox columns.
 
-         // .has-col-{breakpoint}
-         &.has-col#{$infix} {
-           // Make full width.
-           width: 100%;
-         }
+        &.has-col#{$infix} {
+          width: 100%;
+        }
 
-        // .has-col-{breakpoint}-{size}
         @for $i from 1 through $grid-columns {
           &.has-col#{$infix}-#{$i} {
-            // Make full width.
             width: 100%;
           }
         }
 
-        /**
-         * Above breakpoint
-         */
+        // Above breakpoint
         @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
 
-          // .has-col-{breakpoint}
           &.has-col#{$infix} {
-            // Make flexbox column.
             flex-basis: 0;
             flex-grow: 1;
             max-width: 100%;
           }
 
-          // .has-col-{breakpoint}-{size}
           @for $i from 1 through $grid-columns {
             &.has-col#{$infix}-#{$i} {
               @include make-col( $i, $grid-columns );
             }
           }
 
-          // .has-order-{breakpoint}-{order}
+          // Order
           @for $i from 0 through $grid-columns {
             &.has-order#{$infix}-#{$i} { order: $i; }
           }
 
-          // .has-offset-{breakpoint}-{offset}
+          // Offset
           @for $i from 0 through ($grid-columns - 1) {
             @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
               &.has-offset#{$infix}-#{$i} {
@@ -72,16 +57,23 @@
         }
       }
 
-      /**
-       * Decrease vertical spacing.
-       */
-      > .block-editor-block-list__block-edit {
-        > [data-block] {
-          margin-top: $block-padding;
-          margin-bottom: $block-padding;
-        }
-      }
-		}
+      > .editor-block-list__block-edit {
+
+				// Zero out margins.
+				> [data-block] {
+					margin-top: 0;
+					margin-bottom: 0;
+				}
+
+				// The Columns block is a flex-container, therefore it nullifies margin collapsing.
+				// Therefore, blocks inside this will appear to create a double margin.
+				// We compensate for this using negative margins.
+				> div > .block-core-columns > .editor-inner-blocks {
+					margin-top: -$default-block-margin;
+					margin-bottom: -$default-block-margin;
+				}
+			}
+    }
 	}
 }
 
@@ -89,7 +81,14 @@
  * Add extra padding when the parent block is selected, for easier interaction.
  */
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
+	padding: 0 $block-padding;
+}
+
+
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
 	padding: $block-padding;
