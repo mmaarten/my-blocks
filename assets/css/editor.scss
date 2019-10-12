@@ -72,12 +72,8 @@ $grid-breakpoints: (
 	display: block;
 
 	> .editor-inner-blocks > .editor-block-list__layout {
-		display: flex;
-		flex-wrap: wrap;
+	  @include make-row( $block-padding * 2 );
 
-		@include break-medium() {
-			flex-wrap: nowrap;
-		}
 		// Set full heights on Columns to enable vertical alignment preview
 		> [data-type="my/column"],
 		> [data-type="my/column"] > .editor-block-list__block-edit,
@@ -88,45 +84,60 @@ $grid-breakpoints: (
 		// Adjust the individual column block.
 		> [data-type="my/column"] {
 
-			// On mobile, only a single column is shown, so match adjacent block paddings.
-			padding-left: 0;
-			padding-right: 0;
-			margin-left: -$block-padding;
-			margin-right: -$block-padding;
+      // Remove WordPress max width on blocks.
+      max-width: none;
 
-			// Prevent the columns from growing wider than their distributed sizes.
-			min-width: 0;
+      padding-left: $block-padding * 2;
+			padding-right: $block-padding * 2;
 
-			// Prevent long unbroken words from overflowing.
-			word-break: break-word; // For back-compat.
-			overflow-wrap: break-word; // New standard.
+      // Create grid columns
+      // See: @mixin make-grid-columns() in `~bootstrap/scss/mixins/grid-framework`.
+      @each $breakpoint in map-keys($grid-breakpoints) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-			// Responsiveness: Show at most one columns on mobile.
-			flex-basis: 100%;
+        // Make full width flexbox columns.
 
-			// Beyond mobile, allow 2 columns.
-			@include break-small() {
-				flex-basis: calc(50% - (#{$grid-size-large} + #{$block-padding * 2}));
-				flex-grow: 0;
-				margin-left: $block-padding;
-				margin-right: $block-padding;
-			}
+        &.has-col#{$infix} {
+          width: 100%;
+        }
 
-			// Add space between columns. Themes can customize this if they wish to work differently.
-			// This has to match the same padding applied in style.scss.
-			// Only apply this beyond the mobile breakpoint, as there's only a single column on mobile.
-			@include break-small() {
-				&:nth-child(even) {
-					margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
-				}
-			}
+        @for $i from 1 through $grid-columns {
+          &.has-col#{$infix}-#{$i} {
+            width: 100%;
+          }
+        }
 
-			// When columns are in a single row, add space before all except the first.
-			@include break-medium() {
-				&:not(:first-child) {
-					margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
-				}
-			}
+        // Above breakpoint
+        @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+
+          // Make flexbox columns.
+          &.has-col#{$infix} {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+          }
+
+          @for $i from 1 through $grid-columns {
+            &.has-col#{$infix}-#{$i} {
+              @include make-col( $i, $grid-columns );
+            }
+          }
+
+          // Order
+          @for $i from 0 through $grid-columns {
+            &.has-order#{$infix}-#{$i} { order: $i; }
+          }
+
+          // Offset
+          @for $i from 0 through ($grid-columns - 1) {
+            @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+              &.has-offset#{$infix}-#{$i} {
+                @include make-col-offset($i, $grid-columns);
+              }
+            }
+          }
+        }
+      }
 
 			> .editor-block-list__block-edit {
 				margin-top: 0;
@@ -217,11 +228,18 @@ div.wp-block-my-column.is-vertically-aligned-bottom {
 	right: 0;
 }
 
+
 /**
  * Add extra padding when the parent block is selected, for easier interaction.
  */
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
+	padding: $block-padding;
+}
+
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
 	padding: $block-padding;
