@@ -1,7 +1,7 @@
 import { map, get } from 'lodash';
 
 export const gridColumns = 12;
-export const breakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
+export const gridBreakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
 export const getColumnClasses = ( attributes ) => {
   const { width, offset, order } = attributes;
@@ -12,7 +12,7 @@ export const getColumnClasses = ( attributes ) => {
   // Add `col` class for when no width is set.
   classes[ FALLBACK_CLASS ] = true;
 
-  map( breakpoints, ( breakpoint ) => {
+  map( gridBreakpoints, ( breakpoint ) => {
     const slug = 'xs' !== breakpoint ? `-${ breakpoint }` : '';
 
     const _width = get( width, breakpoint );
