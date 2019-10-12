@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, BaseControl, RangeControl } from '@wordpress/components';
 import { InspectorControls, InnerBlocks } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
