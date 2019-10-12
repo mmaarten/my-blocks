@@ -13,17 +13,6 @@
 	}
 }
 
-// Fullwide: show margin left/right to ensure there's room for the side UI.
-// This is not a 1:1 preview with the front-end where these margins would presumably be zero.
-[data-type="my/row"][data-align="full"] .wp-block-my-row > .editor-inner-blocks {
-	padding-left: $block-padding;
-	padding-right: $block-padding;
-
-	@include break-small() {
-		padding-left: $block-container-side-padding;
-		padding-right: $block-container-side-padding;
-	}
-}
 
 .wp-block-my-row {
 	display: block;
@@ -40,31 +29,23 @@
     	flex-direction: column;
     	flex: 1;
 		}
+
 		// Adjust the individual column block.
 		> [data-type="my/column"] {
+      flex-basis: 100%;
+      flex-grow: 0;
+      padding-left: 0;
+      padding-right: 0;
 
-      // Remove WordPress max width on blocks.
-      max-width: none;
-
-      padding-left: $block-padding * 2;
-			padding-right: $block-padding * 2;
+      @include break-small() {
+        padding-left: $block-padding * 2;
+        padding-right: $block-padding * 2;
+			}
 
       // Create grid columns
       // See: @mixin make-grid-columns() in `~bootstrap/scss/mixins/grid-framework`.
       @each $breakpoint in map-keys($grid-breakpoints) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        // Make full width flexbox columns.
-
-        &.has-col#{$infix} {
-          width: 100%;
-        }
-
-        @for $i from 1 through $grid-columns {
-          &.has-col#{$infix}-#{$i} {
-            width: 100%;
-          }
-        }
 
         // Above breakpoint
         @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
@@ -149,27 +130,6 @@
 	[data-type="my/column"].is-selected .block-list-appender {
 		margin: $block-padding 0;
 	}
-}
-
-/**
- * Vertical Alignment Preview
- * note: specificity is important here to ensure individual
- * * columns alignment is prioritised over parent column alignment
- *
- */
-.are-vertically-aligned-top .wp-block-my-column,
-div.wp-block-my-column.is-vertically-aligned-top {
-	justify-content: flex-start;
-}
-
-.are-vertically-aligned-center .wp-block-my-column,
-div.wp-block-my-column.is-vertically-aligned-center {
-	justify-content: center;
-}
-
-.are-vertically-aligned-bottom .wp-block-my-column,
-div.wp-block-my-column.is-vertically-aligned-bottom {
-	justify-content: flex-end;
 }
 
 /**
