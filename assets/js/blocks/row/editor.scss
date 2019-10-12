@@ -41,8 +41,7 @@
         padding-right: $block-padding * 2;
 			}
 
-      // Create grid columns
-      // See: @mixin make-grid-columns() in `~bootstrap/scss/mixins/grid-framework`.
+      // Create columns
       @each $breakpoint in map-keys($grid-breakpoints) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
