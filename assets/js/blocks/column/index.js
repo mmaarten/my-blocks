@@ -50,16 +50,10 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
         }
 
         // Get classes
-        const classes = getColumnClasses( props.attributes );
-
-        // Prefix classes.
-        let prefixedClasses = {};
-        map( classes, ( value, className ) => {
-          prefixedClasses[`has-${ className }`] = value;
-        } );
+        const classes = classnames( getColumnClasses( props.attributes ) );
 
         return (
-            <BlockListBlock { ...props } className={ classnames( prefixedClasses ) } />
+            <BlockListBlock { ...props } className={ classes } />
         );
     };
 }, 'withColumnClasses' );

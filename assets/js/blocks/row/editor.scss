@@ -1,145 +1,101 @@
+@import '~bootstrap/scss/mixins';
 
-// These margins make sure that nested blocks stack/overlay with the parent block chrome
-// This is sort of an experiment at making sure the editor looks as much like the end result as possible
-// Potentially the rules here can apply to all nested blocks and enable stacking, in which case it should be moved elsewhere
-// When using CSS grid, margins do not collapse on the container.
-.wp-block-my-row .editor-block-list__layout {
-	margin-left: 0;
-	margin-right: 0;
+$grid-columns: 12;
 
-	// This max-width is used to constrain the main editor column, it should not cascade into columns
-	.editor-block-list__block {
-		max-width: none;
-	}
-
-  > .block-list-appender {
-    display: none !important;
-  }
-}
+$grid-breakpoints: (
+  xs: 0,
+  sm: $break-small,
+  md: $break-medium,
+  lg: $break-large,
+  xl: $break-xlarge,
+);
 
 .wp-block-my-row {
-	display: block;
 
-	> .editor-inner-blocks > .editor-block-list__layout {
-	  @include make-row( $block-padding * 2 );
+  > .block-editor-inner-blocks > .block-editor-block-list__layout {
 
-		// Set full heights on Columns to enable vertical alignment preview
-		> [data-type="my/column"],
-		> [data-type="my/column"] > .editor-block-list__block-edit,
-		> [data-type="my/column"] > .editor-block-list__block-edit > div[data-block],
-		> [data-type="my/column"] > .editor-block-list__block-edit .wp-block-my-column {
-      display: flex;
-    	flex-direction: column;
-    	flex: 1;
-		}
+    // Make flexbox.
+    display: flex;
+    flex-wrap: wrap;
 
-		// Adjust the individual column block.
-		> [data-type="my/column"] {
-      flex-basis: 100%;
-      flex-grow: 0;
-      padding-left: 0;
-      padding-right: 0;
+    // Make grid columns.
+    > [data-type="my/column"] {
 
-      @include break-small() {
-        padding-left: $block-padding * 2;
-        padding-right: $block-padding * 2;
-			}
+      // Remove maximum width (related to block align setting)
+      max-width: none;
 
-      // Create columns
+      // Remove auto margins.
+      margin-left: 0;
+      margin-right: 0;
+
       @each $breakpoint in map-keys($grid-breakpoints) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-        // Above breakpoint
-        @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        // Allow columns to stretch full width below their breakpoints
+        @for $i from 1 through $grid-columns {
+          &.col#{$infix}-#{$i} {
+            width: 100%;
+          }
+        }
+        &.col#{$infix} {
+          width: 100%;
+        }
 
-          // Make flexbox columns.
-          &.has-col#{$infix} {
+        @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+          // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+          &.col#{$infix} {
             flex-basis: 0;
             flex-grow: 1;
             max-width: 100%;
           }
+          &.col#{$infix}-auto {
+            flex: 0 0 auto;
+            width: auto;
+            max-width: 100%; // Reset earlier grid tiers
+          }
 
           @for $i from 1 through $grid-columns {
-            &.has-col#{$infix}-#{$i} {
-              @include make-col( $i, $grid-columns );
+            &.col#{$infix}-#{$i} {
+              @include make-col($i, $grid-columns);
             }
           }
 
-          // Order
           @for $i from 0 through $grid-columns {
-            &.has-order#{$infix}-#{$i} { order: $i; }
+            &.order#{$infix}-#{$i} { order: $i; }
           }
 
-          // Offset
+          // `$grid-columns - 1` because offsetting by the width of an entire row isn't possible
           @for $i from 0 through ($grid-columns - 1) {
             @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
-              &.has-offset#{$infix}-#{$i} {
+              &.offset#{$infix}-#{$i} {
                 @include make-col-offset($i, $grid-columns);
               }
             }
           }
         }
       }
-
-			> .editor-block-list__block-edit {
-				margin-top: 0;
-				margin-bottom: 0;
-
-				// Remove Block "padding" so individual Column is flush with parent Columns
-				&::before {
-					left: 0;
-					right: 0;
-				}
-
-				> .editor-block-contextual-toolbar {
-					margin-left: -$border-width;
-				}
-
-				// Zero out margins.
-				> [data-block] {
-					margin-top: 0;
-					margin-bottom: 0;
-				}
-
-				// The Columns block is a flex-container, therefore it nullifies margin collapsing.
-				// Therefore, blocks inside this will appear to create a double margin.
-				// We compensate for this using negative margins.
-				> div > .wp-block-my-column > .editor-inner-blocks {
-					margin-top: -$default-block-margin;
-					margin-bottom: -$default-block-margin;
-				}
-			}
-		}
-	}
+    }
+  }
 }
 
-/**
- * Fixes single Column breadcrumb position.
- */
-[data-type="my/column"] > .editor-block-list__block-edit > .editor-block-list__breadcrumb {
-	left: -$block-left-border-width;
-}
+// Add padding when the block is selected, for easier interaction.
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-row,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-row,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-column,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-column {
 
-/**
- * Make single Column overlay not extend past boundaries of parent
- */
-.wp-block-my-column > .block-editor-inner-blocks.has-overlay::after {
-	left: 0;
-	right: 0;
-}
+	> .block-editor-inner-blocks {
+		padding: $block-padding;
 
-/**
- * Add extra padding when the parent block is selected, for easier interaction.
- */
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
-	padding: $block-padding;
+    > .block-editor-block-list__layout {
+      margin-top: -$block-padding * 2;
+  		margin-bottom: -$block-padding * 2;
 
-	// Negate this padding for the placeholder.
-	> .components-placeholder {
-		margin: -$block-padding;
-		width: calc(100% + #{$block-padding * 2});
+      // Place block list appender in the same place content will appear.
+      > .block-list-appender {
+    		margin-left: 0;
+    		margin-right: 0;
+    	}
+    }
 	}
 }

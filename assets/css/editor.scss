@@ -17,18 +17,27 @@
 @import './../js/components/url-control/style';
 @import './../js/components/post-control/style';
 
-@import '~bootstrap/scss/functions';
-
-$grid-breakpoints: (
-  xs: 0,
-  sm: $break-small,
-  md: $break-medium,
-  lg: $break-large,
-  xl: $break-xlarge,
-);
-
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
-
 // blocks
 @import './../js/blocks/row/editor';
+
+/**
+ * Anatomy of a block
+ */
+// .block-editor-block-list__block[data-type="#{$namespace}/#{$type}"] {
+//   > .block-editor-block-list__insertion-point {}
+//   > .block-editor-block-drop-zone {}
+//   > .block-editor-block-list__block-edit {
+//     &::before {}
+//     > .block-editor-block-list__breadcrumb {}
+//     > .block-editor-block-contextual-toolbar {}
+//     > [data-block] {
+//       > div { // Actual block.
+//         > .block-editor-inner-blocks {
+//           > .block-editor-block-list__layout {
+//             // Inner blocks
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
