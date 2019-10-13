@@ -14,7 +14,6 @@ import {
 import {
   InspectorControls,
   InnerBlocks,
-  BlockControls,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -136,30 +135,30 @@ class RowEdit extends Component {
                   max={ MAX_COLUMNS }
                 />
               </PanelBody>
-              <SelectControl
-                label={ __( 'Container' ) }
-                value={ container }
-                onChange={ ( value ) => setAttributes( { container: value } ) }
-                options={ [
-                  { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
-                  { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
-                ] }
-              />
-              <SelectControl
-                label={ __( 'Align Items' ) }
-                value={ alignItems }
-                onChange={ ( value ) => setAttributes( { alignItems: value } ) }
-                options={ [
-                  { label: __( '- Default -', 'my-blocks' ), value: '' },
-                  { label: __( 'Top', 'my-blocks' ), value: 'flex-start' },
-                  { label: __( 'Center', 'my-blocks' ), value: 'center' },
-                  { label: __( 'Bottom', 'my-blocks' ), value: 'flex-end' },
-                ] }
-              />
+              <PanelBody title={ __( 'Container Settings' ) } initialOpen={ false }>
+                <SelectControl
+                  value={ container }
+                  onChange={ ( value ) => setAttributes( { container: value } ) }
+                  options={ [
+                    { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
+                    { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
+                  ] }
+                />
+              </PanelBody>
+              <PanelBody title={ __( 'Alignment Settings' ) } initialOpen={ false }>
+                <SelectControl
+                  label={ __( 'Vertical Alignment' ) }
+                  value={ alignItems }
+                  onChange={ ( value ) => setAttributes( { alignItems: value } ) }
+                  options={ [
+                    { label: __( '- Default -', 'my-blocks' ), value: '' },
+                    { label: __( 'Top', 'my-blocks' ), value: 'flex-start' },
+                    { label: __( 'Center', 'my-blocks' ), value: 'center' },
+                    { label: __( 'Bottom', 'my-blocks' ), value: 'flex-end' },
+                  ] }
+                />
+              </PanelBody>
             </InspectorControls>
-            <BlockControls>
-
-            </BlockControls>
           </>
         ) }
         <div className={ classes }>
