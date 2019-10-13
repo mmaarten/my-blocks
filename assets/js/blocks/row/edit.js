@@ -8,12 +8,14 @@ import {
 	PanelBody,
   RangeControl,
   SelectControl,
+  Toolbar,
   SVG,
 	Path,
 } from '@wordpress/components';
 import {
   InspectorControls,
   InnerBlocks,
+  BlockControls,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -93,8 +95,8 @@ class RowEdit extends Component {
     };
   }
 
-  getColumnsTemplate( columns ) {
-    return times( columns, () => [ 'my/column' ] )
+  getColumnsTemplate( columns, attributes ) {
+    return times( columns, () => [ 'my/column', attributes ] )
   }
 
   render() {
@@ -126,15 +128,6 @@ class RowEdit extends Component {
         { ! showTemplateSelector && (
           <>
             <InspectorControls>
-              <PanelBody>
-                <RangeControl
-                  label={ __( 'Columns' ) }
-                  value={ columns }
-                  onChange={ ( value ) => updateColumns( columns, value ) }
-                  min={ MIN_COLUMNS }
-                  max={ MAX_COLUMNS }
-                />
-              </PanelBody>
               <PanelBody title={ __( 'Container Settings' ) } initialOpen={ false }>
                 <SelectControl
                   value={ container }
@@ -159,6 +152,19 @@ class RowEdit extends Component {
                 />
               </PanelBody>
             </InspectorControls>
+            <BlockControls>
+              <Toolbar controls={
+                [
+                  {
+                    icon: 'plus',
+                    title: __( 'Add Column' ),
+              			isActive: false,
+              			onClick: () => { updateColumns( columns, columns + 1 ) }
+                  }
+                ]
+              }
+              />
+            </BlockControls>
           </>
         ) }
         <div className={ classes }>
@@ -167,7 +173,9 @@ class RowEdit extends Component {
   					__experimentalOnSelectTemplateOption={ ( selectedTemplate ) => {
               // User did not choose a template.
               if ( selectedTemplate === undefined ) {
-                selectedTemplate = this.getColumnsTemplate( DEFAULT_COLUMNS );
+                selectedTemplate = this.getColumnsTemplate( 1, {
+                  width: { md: 12 },
+                } );
 						  }
               // Set template.
               this.setState( {
@@ -177,7 +185,7 @@ class RowEdit extends Component {
   					__experimentalAllowTemplateOptionSkip
             template={ showTemplateSelector ? null : template }
             allowedBlocks={ ALLOWED_BLOCKS }
-            templateLock={ 'all' }
+            templateLock={ false }
            />
         </div>
       </>

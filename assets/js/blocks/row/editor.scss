@@ -40,6 +40,22 @@ $container-max-widths: (
   }
 
   /**
+   * Block appender.
+   */
+  > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender {
+    width: 100%;
+    margin-bottom: 0;
+
+    .block-editor-button-block-appender {
+      background: none;
+      outline: none;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /**
    * Create grid.
    */
   > .block-editor-inner-blocks > .block-editor-block-list__layout {
@@ -115,6 +131,10 @@ $container-max-widths: (
     // Add horizontal spacing. (Our columns have vertical spacing.)
 		padding-left:  $block-padding * 2;
     padding-right: $block-padding * 2;
+
+    > .block-editor-block-list__layout > .block-list-appender {
+      display: block !important;
+    }
 	}
 }
 
