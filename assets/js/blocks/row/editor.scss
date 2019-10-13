@@ -2,8 +2,6 @@
 
 $grid-columns: 12;
 
-$grid-gutter-width: $block-padding * 2;
-
 $grid-breakpoints: (
   xs: 0,
   sm: $break-small,
@@ -45,7 +43,7 @@ $container-max-widths: (
    */
   > .block-editor-inner-blocks > .block-editor-block-list__layout {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
     > [data-type="my/column"] {
       // Remove auto margins.
