@@ -14,6 +14,7 @@ import {
 import {
   InspectorControls,
   InnerBlocks,
+  BlockControls,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -91,8 +92,6 @@ class RowEdit extends Component {
     this.state = {
       template : this.getColumnsTemplate( this.props.columns ),
     };
-
-    console.log( this.props );
   }
 
   getColumnsTemplate( columns ) {
@@ -112,40 +111,56 @@ class RowEdit extends Component {
     } = this.props;
 
     const {
+      container,
       alignItems,
     } = attributes;
 
     const showTemplateSelector = template.length ? false : true;
 
     const classes = classnames( {
-      [ className ]: className
+      [ className ]: className,
+      [`has-${container}-container`]: container,
     } );
 
     return (
       <>
         { ! showTemplateSelector && (
-          <InspectorControls>
-            <PanelBody>
-              <RangeControl
-                label={ __( 'Columns' ) }
-                value={ columns }
-                onChange={ ( value ) => updateColumns( columns, value ) }
-                min={ MIN_COLUMNS }
-                max={ MAX_COLUMNS }
+          <>
+            <InspectorControls>
+              <PanelBody>
+                <RangeControl
+                  label={ __( 'Columns' ) }
+                  value={ columns }
+                  onChange={ ( value ) => updateColumns( columns, value ) }
+                  min={ MIN_COLUMNS }
+                  max={ MAX_COLUMNS }
+                />
+              </PanelBody>
+              <SelectControl
+                label={ __( 'Container' ) }
+                value={ container }
+                onChange={ ( value ) => setAttributes( { container: value } ) }
+                options={ [
+                  { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
+                  { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
+                ] }
               />
-            </PanelBody>
-            <SelectControl
-              label={ __( 'Align Items' ) }
-              value={ alignItems }
-              onChange={ ( value ) => setAttributes( { alignItems: value } ) }
-              options={ [
-                { label: __( '- Default -', 'my-blocks' ), value: '' },
-                { label: __( 'Top', 'my-blocks' ), value: 'flex-start' },
-                { label: __( 'Center', 'my-blocks' ), value: 'center' },
-                { label: __( 'Bottom', 'my-blocks' ), value: 'flex-end' },
-              ] }
-            />
-          </InspectorControls>
+              <SelectControl
+                label={ __( 'Align Items' ) }
+                value={ alignItems }
+                onChange={ ( value ) => setAttributes( { alignItems: value } ) }
+                options={ [
+                  { label: __( '- Default -', 'my-blocks' ), value: '' },
+                  { label: __( 'Top', 'my-blocks' ), value: 'flex-start' },
+                  { label: __( 'Center', 'my-blocks' ), value: 'center' },
+                  { label: __( 'Bottom', 'my-blocks' ), value: 'flex-end' },
+                ] }
+              />
+            </InspectorControls>
+            <BlockControls>
+
+            </BlockControls>
+          </>
         ) }
         <div className={ classes }>
           <InnerBlocks
