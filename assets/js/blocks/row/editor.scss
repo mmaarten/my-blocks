@@ -1,4 +1,3 @@
-
 @import '~bootstrap/scss/mixins';
 
 $grid-columns: 12;
@@ -33,7 +32,8 @@ $container-max-widths: (
    * Setup container.
    */
   > .block-editor-inner-blocks {
-    @include make-container();
+    margin-left: auto;
+    margin-right: auto;
   }
 
   &.has-fixed-container > .block-editor-inner-blocks {
@@ -44,7 +44,8 @@ $container-max-widths: (
    * Create grid.
    */
   > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    @include make-row();
+    display: flex;
+    flex-wrap: wrap;
 
     > [data-type="my/column"] {
       // Remove auto margins.
@@ -58,14 +59,10 @@ $container-max-widths: (
         @for $i from 1 through $grid-columns {
           &.col#{$infix}-#{$i} {
             width: 100%;
-            padding-left: $grid-gutter-width / 2;
-            padding-right: $grid-gutter-width / 2;
           }
         }
         &.col#{$infix} {
           width: 100%;
-          padding-left: $grid-gutter-width / 2;
-          padding-right: $grid-gutter-width / 2;
         }
 
         @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
@@ -101,11 +98,9 @@ $container-max-widths: (
         }
       }
 
-      > .editor-block-list__block-edit {
-        margin-left: 0;
-        margin-right: 0;
-
+      > .block-editor-block-list__block-edit  {
         > [data-block] {
+          // Flexbox concatenate margins. So we need to half it.
           margin-top: $block-padding;
           margin-bottom: $block-padding;
         }
@@ -114,27 +109,33 @@ $container-max-widths: (
   }
 }
 
-// Row block: Add padding when the block is selected, for easier interaction.
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-row,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-row {
-  // Increase container x spacing.
-  > .block-editor-inner-blocks {
-		padding-left: ( $grid-gutter-width / 2 ) + $block-padding;
-    padding-right: ( $grid-gutter-width / 2 ) + $block-padding;
+// Add padding when the block is selected, for easier interaction.
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div {
+
+	> .block-editor-inner-blocks {
+    // Add horizontal spacing. (Our columns have vertical spacing.)
+		padding-left: $block-padding;
+    padding-right: $block-padding;
 	}
 }
 
-// Column block: Add padding when the block is selected, for easier interaction.
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-column,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > .wp-block-my-column {
+// Add padding when the block is selected, for easier interaction.
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div {
+
 	> .block-editor-inner-blocks {
-    padding: $block-padding;
+		padding: $block-padding;
+
     > .block-editor-block-list__layout {
       margin-top: -$block-padding * 2;
-      margin-bottom: -$block-padding * 2;
+  		margin-bottom: -$block-padding * 2;
+
       > .block-list-appender {
     		margin-left: 0;
     		margin-right: 0;
+        margin-top: $block-padding;
+    		margin-bottom: $block-padding;
     	}
     }
 	}
