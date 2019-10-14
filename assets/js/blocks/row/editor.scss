@@ -27,9 +27,22 @@ $container-max-widths: (
 }
 
 .wp-block-my-row {
+
+  > .block-editor-inner-blocks {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.has-fixed-container {
+    > .block-editor-inner-blocks {
+        @include make-container-max-widths();
+    }
+  }
+
   .block-editor-block-list__block {
     max-width: none;
   }
+
   > .block-editor-inner-blocks {
     > .block-editor-block-list__layout {
       display: flex;
@@ -78,11 +91,11 @@ $container-max-widths: (
           // Allow columns to stretch full width below their breakpoints
           @for $i from 1 through $grid-columns {
             &.col#{$infix}-#{$i} {
-              width: 100%;
+              flex-basis: 100%;
             }
           }
           &.col#{$infix} {
-            width: 100%;
+            flex-basis: 100%;
           }
 
           @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
@@ -90,11 +103,6 @@ $container-max-widths: (
             &.col#{$infix} {
               flex-basis: 0;
               flex-grow: 1;
-              max-width: 100%;
-            }
-            &.col#{$infix}-auto {
-              flex: 0 0 auto;
-              width: auto;
               max-width: 100%;
             }
 
