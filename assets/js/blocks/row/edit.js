@@ -27,8 +27,7 @@ import {
 import {
   createBlock,
 } from '@wordpress/blocks';
-import
-{
+import {
   times,
   dropRight,
 } from 'lodash';
@@ -110,7 +109,6 @@ class RowEdit extends Component {
 
     const {
       container,
-      alignItems,
     } = attributes;
 
     const showTemplateSelector = template.length ? false : true;
@@ -132,19 +130,6 @@ class RowEdit extends Component {
                   options={ [
                     { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
                     { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
-                  ] }
-                />
-              </PanelBody>
-              <PanelBody title={ __( 'Alignment Settings' ) } initialOpen={ false }>
-                <SelectControl
-                  label={ __( 'Vertical Alignment' ) }
-                  value={ alignItems }
-                  onChange={ ( value ) => setAttributes( { alignItems: value } ) }
-                  options={ [
-                    { label: __( '- Default -', 'my-blocks' ), value: '' },
-                    { label: __( 'Top', 'my-blocks' ), value: 'flex-start' },
-                    { label: __( 'Center', 'my-blocks' ), value: 'center' },
-                    { label: __( 'Bottom', 'my-blocks' ), value: 'flex-end' },
                   ] }
                 />
               </PanelBody>

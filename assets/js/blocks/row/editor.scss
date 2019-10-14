@@ -41,7 +41,7 @@ $container-max-widths: (
   		> [data-type="my/column"],
   		> [data-type="my/column"] > .editor-block-list__block-edit,
   		> [data-type="my/column"] > .editor-block-list__block-edit > div[data-block],
-  		> [data-type="my/column"] > .editor-block-list__block-edit .block-core-columns {
+  		> [data-type="my/column"] > .editor-block-list__block-edit .wp-block-my-column {
         display: flex;
       	flex-direction: column;
       	flex: 1;
@@ -149,6 +149,17 @@ $container-max-widths: (
   }
 }
 
+.wp-block-my-column {
+  &.is-vertically-aligned-top {
+  	justify-content: flex-start;
+  }
+  &.is-vertically-aligned-center {
+  	justify-content: center;
+  }
+  &.is-vertically-aligned-bottom {
+  	justify-content: flex-end;
+  }
+}
 
 /**
  * Add extra padding when the parent block is selected, for easier interaction.

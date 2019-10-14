@@ -32,6 +32,9 @@ registerBlockType( 'my/column', {
     order : {
       type: 'object',
     },
+    verticalAlignment: {
+      type: 'string',
+    },
   },
 	edit,
 	save,

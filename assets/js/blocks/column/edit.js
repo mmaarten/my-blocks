@@ -1,7 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
-import { PanelBody, BaseControl, RangeControl } from '@wordpress/components';
-import { InspectorControls, InnerBlocks } from '@wordpress/block-editor';
+import {
+  PanelBody,
+  BaseControl,
+  RangeControl
+} from '@wordpress/components';
+import {
+  InspectorControls,
+  InnerBlocks,
+  BlockControls,
+  BlockVerticalAlignmentToolbar
+} from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { get, assign } from 'lodash';
@@ -16,10 +25,15 @@ class ColumnEdit extends Component {
 
   render() {
     const { attributes, setAttributes, className, hasChildBlocks } = this.props;
-    const { width, offset, order } = attributes;
+    const { width, offset, order, verticalAlignment } = attributes;
+
+    const classes = classnames( {
+      [ className ]: className,
+			[ `is-vertically-aligned-${ verticalAlignment }` ]: verticalAlignment,
+  	} );
 
     return (
-      <div className={ className }>
+      <div className={ classes }>
         <InspectorControls>
           <PanelBody initialOpen={ true }>
             <BreakpointNavigation
@@ -66,6 +80,12 @@ class ColumnEdit extends Component {
             />
           </PanelBody>
         </InspectorControls>
+        <BlockControls>
+  				<BlockVerticalAlignmentToolbar
+  					value={ verticalAlignment }
+            onChange={ ( value ) => { setAttributes( { verticalAlignment: value } ) } }
+  				/>
+  			</BlockControls>
         <InnerBlocks
           templateLock={ false }
           renderAppender={ (
