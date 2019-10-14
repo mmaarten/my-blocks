@@ -1,4 +1,4 @@
-@import '~bootstrap/scss/mixins';
+
 
 $grid-columns: 12;
 
@@ -19,142 +19,173 @@ $container-max-widths: (
   xl: map-get($grid-breakpoints, "xl") - 60,
 );
 
+@import '~bootstrap/scss/mixins';
+
+[data-type="my/row"][data-align="full"] > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .wp-block-my-row {
-
-  /**
-   * Remove max widths on inner blocks.
-   */
-  > .block-editor-inner-blocks > .block-editor-block-list__layout .block-editor-block-list__block {
-      max-width: none;
+  .block-editor-block-list__block {
+    max-width: none;
   }
-
-  /**
-   * Setup container.
-   */
   > .block-editor-inner-blocks {
-    @include make-container();
-  }
+    > .block-editor-block-list__layout {
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -$block-padding;
+      margin-right: -$block-padding;
 
-  &.has-fixed-container > .block-editor-inner-blocks {
-    @include make-container-max-widths();
-  }
+      // Set full heights on column and children.
+  		> [data-type="my/column"],
+  		> [data-type="my/column"] > .editor-block-list__block-edit,
+  		> [data-type="my/column"] > .editor-block-list__block-edit > div[data-block],
+  		> [data-type="my/column"] > .editor-block-list__block-edit .block-core-columns {
+        display: flex;
+      	flex-direction: column;
+      	flex: 1;
+  		}
 
-  /**
-   * Block appender.
-   */
-  > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-list-appender {
-    width: 100%;
-    margin-bottom: 0;
-
-    .block-editor-button-block-appender {
-      background: none;
-      outline: none;
-      width: auto;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-  /**
-   * Create grid.
-   */
-  > .block-editor-inner-blocks > .block-editor-block-list__layout {
-    @include make-row();
-
-    > [data-type="my/column"] {
-      // Remove auto margins.
-      margin-left: 0;
-      margin-right: 0;
-
-      @each $breakpoint in map-keys($grid-breakpoints) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        // Allow columns to stretch full width below their breakpoints
-        @for $i from 1 through $grid-columns {
-          &.col#{$infix}-#{$i} {
-            width: 100%;
-          }
+      > [data-type="my/column"] > .editor-block-list__block-edit {
+        &:before {
+          top: 0;
+          bottom: 0;
         }
-        &.col#{$infix} {
-          width: 100%;
+        > [data-block] {
+          margin-top: $block-padding;
+          margin-bottom: $block-padding;
         }
 
-        @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-          // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-          &.col#{$infix} {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-          }
-          &.col#{$infix}-auto {
-            flex: 0 0 auto;
-            width: auto;
-            max-width: 100%;
-          }
+        > .block-editor-block-contextual-toolbar {
+          top: -38px;
+          transform: translateY(-38px);
+        }
 
+        > .block-editor-block-list__breadcrumb {
+          top: -18px;
+        }
+      }
+
+      > [data-type="my/column"] {
+        // Remove auto margins.
+        margin-left: 0;
+        margin-right: 0;
+
+        @each $breakpoint in map-keys($grid-breakpoints) {
+          $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+          // Allow columns to stretch full width below their breakpoints
           @for $i from 1 through $grid-columns {
             &.col#{$infix}-#{$i} {
-              @include make-col($i, $grid-columns);
+              width: 100%;
             }
           }
-
-          @for $i from 0 through $grid-columns {
-            &.order#{$infix}-#{$i} { order: $i; }
+          &.col#{$infix} {
+            width: 100%;
           }
 
-          @for $i from 0 through ($grid-columns - 1) {
-            @if not ($infix == "" and $i == 0) {
-              &.offset#{$infix}-#{$i} {
-                @include make-col-offset($i, $grid-columns);
+          @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+            // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+            &.col#{$infix} {
+              flex-basis: 0;
+              flex-grow: 1;
+              max-width: 100%;
+            }
+            &.col#{$infix}-auto {
+              flex: 0 0 auto;
+              width: auto;
+              max-width: 100%;
+            }
+
+            @for $i from 1 through $grid-columns {
+              &.col#{$infix}-#{$i} {
+                @include make-col($i, $grid-columns);
+              }
+            }
+
+            @for $i from 0 through $grid-columns {
+              &.order#{$infix}-#{$i} { order: $i; }
+            }
+
+            @for $i from 0 through ($grid-columns - 1) {
+              @if not ($infix == "" and $i == 0) {
+                &.offset#{$infix}-#{$i} {
+                  @include make-col-offset($i, $grid-columns);
+                }
               }
             }
           }
         }
       }
 
-      > .block-editor-block-list__block-edit  {
-        > [data-block] {
-          // Flexbox concatenate margins. So we need to half it.
-          margin-top: $block-padding;
-          margin-bottom: $block-padding;
-        }
+      > [data-type="my/column"] > .editor-block-list__block-edit {
+				> div > .wp-block-my-column > .editor-inner-blocks {
+					margin-top: -$default-block-margin;
+					margin-bottom: -$default-block-margin;
+				}
+			}
+    }
+  }
+}
+
+.wp-block-my-row {
+  > .block-editor-inner-blocks {
+    > .block-editor-block-list__layout {
+      > .block-list-appender {
+        display: none !important;
       }
     }
   }
 }
 
-// Add padding when the block is selected, for easier interaction.
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div {
-
-	> .block-editor-inner-blocks {
-    // Add horizontal spacing. (Our columns have vertical spacing.)
-		padding-left:  $block-padding * 2;
-    padding-right: $block-padding * 2;
-
-    > .block-editor-block-list__layout > .block-list-appender {
-      display: block !important;
+.wp-block-my-column {
+  > .block-editor-inner-blocks {
+    > .block-editor-block-list__layout {
+      > .block-list-appender {
+        margin: $block-padding * 2 $block-padding;
+      }
     }
+  }
+}
+
+
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
+	padding: 0 $block-padding;
+
+	// Negate this padding for the placeholder.
+	> .components-placeholder {
+    margin: 0 -$block-padding;
+		width: calc(100% + #{$block-padding * 2});
 	}
 }
 
-// Add padding when the block is selected, for easier interaction.
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div {
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
+	padding: 0 $block-padding;
 
-	> .block-editor-inner-blocks {
-		padding: $block-padding;
-
-    > .block-editor-block-list__layout {
-      margin-top: -$block-padding * 2;
-  		margin-bottom: -$block-padding * 2;
-
-      > .block-list-appender {
-    		margin-left: 0;
-    		margin-right: 0;
-        margin-top: $block-padding;
-    		margin-bottom: $block-padding;
-    	}
-    }
+	// Negate this padding for the placeholder.
+	> .components-placeholder {
+    margin: 0 -$block-padding;
+		width: calc(100% + #{$block-padding * 2});
 	}
+
+  > .block-editor-block-list__layout {
+    > .block-list-appender {
+      margin: $block-padding 0;
+    }
+  }
+}
+
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div,
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div {
+  margin-top: $block-padding;
+  margin-bottom: $block-padding;
 }
