@@ -37,9 +37,6 @@ import
   from 'classnames';
 
 const ALLOWED_BLOCKS = [ 'my/column' ];
-const DEFAULT_COLUMNS = 1;
-const MIN_COLUMNS = 1;
-const MAX_COLUMNS = 6;
 
 const TEMPLATE_OPTIONS = [
 	{
