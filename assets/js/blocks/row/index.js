@@ -26,6 +26,12 @@ registerBlockType( 'my/row', {
       type: 'string',
       default: 'fixed',
     },
+    backgroundColor: {
+      type: 'string',
+    },
+    customBackgroundColor: {
+      type: 'string',
+    },
   },
 	edit,
 	save,

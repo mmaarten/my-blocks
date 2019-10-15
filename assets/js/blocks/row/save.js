@@ -1,11 +1,17 @@
 import {
   InnerBlocks,
+  getColorClassName,
 } from '@wordpress/block-editor';
 import classnames from 'classnames';
 
 export default ( { ...props } ) => {
   const { attributes, className } = props;
-  const { container } = attributes;
+  const { container, backgroundColor, customBackgroundColor } = attributes;
+
+  const backgroundClass = getColorClassName( 'background-color', backgroundColor );
+  const classes = classnames( className, backgroundClass, {
+  'has-background': backgroundColor || customBackgroundColor,
+  } );
 
   const containerClasses = classnames( {
     'container': 'fluid' !== container,
@@ -13,7 +19,7 @@ export default ( { ...props } ) => {
   } );
 
   return (
-    <div className={ className }>
+    <div className={ classes }>
       <div className={ containerClasses }>
         <div className="row">
           <InnerBlocks.Content />

@@ -1,11 +1,12 @@
 import { map, get } from 'lodash';
 
+export const defaultBreakpoint = 'sm';
 export const gridColumns = 12;
 export const gridBreakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
 export const getColumnClasses = ( attributes ) => {
   const { width, offset, order } = attributes;
-  const FALLBACK_CLASS = 'col-md';
+  const FALLBACK_CLASS = defaultBreakpoint && 'xs' !== defaultBreakpoint ? `col-${defaultBreakpoint}` : 'col';
 
   let classes = {};
 

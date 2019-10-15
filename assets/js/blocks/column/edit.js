@@ -15,7 +15,7 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { get, assign } from 'lodash';
 import classnames from 'classnames';
-import { gridColumns } from './common';
+import { gridColumns, defaultBreakpoint } from './common';
 import { BreakpointNavigation } from './../../components';
 
 class ColumnEdit extends Component {
@@ -38,10 +38,10 @@ class ColumnEdit extends Component {
           <PanelBody initialOpen={ true }>
             <RangeControl
               label={ __( 'Width' ) }
-              value={ get( width, 'md', '' ) }
+              value={ get( width, defaultBreakpoint, '' ) }
               onChange={ ( value ) => {
                 setAttributes( {
-                  width: assign( {}, width, { md: value } )
+                  width: assign( {}, width, { [ defaultBreakpoint ]: value } )
                 } );
               } }
               min={ 1 }
@@ -53,18 +53,25 @@ class ColumnEdit extends Component {
             <BreakpointNavigation
               onSelect={ ( breakpoint ) => (
                 <>
-                  <RangeControl
-                    label={ __( 'Width' ) }
-                    value={ get( width, breakpoint, '' ) }
-                    onChange={ ( value ) => {
-                      setAttributes( {
-                        width: assign( {}, width, { [ breakpoint ]: value } )
-                      } );
-                    } }
-                    min={ 1 }
-                    max={ gridColumns }
-                    allowReset
-                  />
+                  { defaultBreakpoint === breakpoint && (
+                    <BaseControl label={ __( 'Width' ) }>
+                      <p>{ __( 'Value of width attribute.' ) }</p>
+                    </BaseControl>
+                  ) }
+                  { defaultBreakpoint !== breakpoint && (
+                    <RangeControl
+                      label={ __( 'Width' ) }
+                      value={ get( width, breakpoint, '' ) }
+                      onChange={ ( value ) => {
+                        setAttributes( {
+                          width: assign( {}, width, { [ breakpoint ]: value } )
+                        } );
+                      } }
+                      min={ 1 }
+                      max={ gridColumns }
+                      allowReset
+                    />
+                  ) }
                   <RangeControl
                     label={ __( 'Offset' ) }
                     value={ get( offset, breakpoint, '' ) }
