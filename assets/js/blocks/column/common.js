@@ -1,6 +1,6 @@
 import { map, get } from 'lodash';
 
-export const defaultBreakpoint = 'sm';
+export const defaultBreakpoint = 'md';
 export const gridColumns = 12;
 export const gridBreakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 

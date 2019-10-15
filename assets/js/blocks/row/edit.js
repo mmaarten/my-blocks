@@ -6,7 +6,6 @@ import {
 } from '@wordpress/element';
 import {
 	PanelBody,
-  RangeControl,
   SelectControl,
   Toolbar,
   SVG,
@@ -36,6 +35,7 @@ import {
 import
   classnames
   from 'classnames';
+import { BreakpointNavigation } from './../../components';
 
 const ALLOWED_BLOCKS = [ 'my/column' ];
 
