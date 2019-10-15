@@ -36,6 +36,20 @@ class ColumnEdit extends Component {
       <div className={ classes }>
         <InspectorControls>
           <PanelBody initialOpen={ true }>
+            <RangeControl
+              label={ __( 'Width' ) }
+              value={ get( width, 'md', '' ) }
+              onChange={ ( value ) => {
+                setAttributes( {
+                  width: assign( {}, width, { md: value } )
+                } );
+              } }
+              min={ 1 }
+              max={ gridColumns }
+              allowReset
+            />
+          </PanelBody>
+          <PanelBody title={ __( 'Responsiveness Settings' ) } initialOpen={ false }>
             <BreakpointNavigation
               onSelect={ ( breakpoint ) => (
                 <>

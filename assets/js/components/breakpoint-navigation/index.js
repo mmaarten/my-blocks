@@ -15,12 +15,12 @@ const BreakpointNavigation = ( {
       isActive: 'xs' === breakpoint,
       onClick: () => { setState( { breakpoint: 'xs' } ) },
     },
-    {
-      icon: 'tablet',
-      title: __( 'Small Devices' ),
-      isActive: 'sm' === breakpoint || ! breakpoint,
-      onClick: () => { setState( { breakpoint: 'sm' } ) },
-    },
+    // {
+    //   icon: 'tablet',
+    //   title: __( 'Small Devices' ),
+    //   isActive: 'sm' === breakpoint || ! breakpoint,
+    //   onClick: () => { setState( { breakpoint: 'sm' } ) },
+    // },
     {
       icon: 'tablet',
       title: __( 'Medium Devices' ),
@@ -33,12 +33,12 @@ const BreakpointNavigation = ( {
       isActive: 'lg' === breakpoint,
       onClick: () => { setState( { breakpoint: 'lg' } ) },
     },
-    {
-      icon: 'desktop',
-      title: __( 'Extra Large Devices' ),
-      isActive: 'xl' === breakpoint,
-      onClick: () => { setState( { breakpoint: 'xl' } ) },
-    },
+    // {
+    //   icon: 'desktop',
+    //   title: __( 'Extra Large Devices' ),
+    //   isActive: 'xl' === breakpoint,
+    //   onClick: () => { setState( { breakpoint: 'xl' } ) },
+    // },
 
   ];
 

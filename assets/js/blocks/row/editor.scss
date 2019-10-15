@@ -1,8 +1,5 @@
 
-
 $grid-columns: 12;
-
-$grid-gutter-width: $block-padding * 2;
 
 $grid-breakpoints: (
   xs: 0,
@@ -28,6 +25,18 @@ $container-max-widths: (
 
 .wp-block-my-row {
 
+  /**
+   * Remove max width from all child blocks.
+   */
+
+  .block-editor-block-list__block {
+    max-width: none;
+  }
+
+  /**
+   * Setup container.
+   */
+
   > .block-editor-inner-blocks {
     margin-left: auto;
     margin-right: auto;
@@ -35,20 +44,18 @@ $container-max-widths: (
 
   &.has-fixed-container {
     > .block-editor-inner-blocks {
-        @include make-container-max-widths();
+      @include make-container-max-widths();
     }
   }
 
-  .block-editor-block-list__block {
-    max-width: none;
-  }
+  /**
+   * Setup grid.
+   */
 
   > .block-editor-inner-blocks {
     > .block-editor-block-list__layout {
       display: flex;
       flex-wrap: wrap;
-      margin-left: -$block-padding;
-      margin-right: -$block-padding;
 
       // Set full heights on column and children.
   		> [data-type="my/column"],
@@ -61,20 +68,25 @@ $container-max-widths: (
   		}
 
       > [data-type="my/column"] > .editor-block-list__block-edit {
-        &:before {
-          top: 0;
-          bottom: 0;
-        }
+
         > [data-block] {
           margin-top: $block-padding;
           margin-bottom: $block-padding;
         }
 
+        // Reposition edit frame.
+        &:before {
+          top: 0;
+          bottom: 0;
+        }
+
+        // Reposition toolbar.
         > .block-editor-block-contextual-toolbar {
           top: -38px;
           transform: translateY(-38px);
         }
 
+        // Reposition breadcrumb.
         > .block-editor-block-list__breadcrumb {
           top: -18px;
         }
@@ -90,35 +102,37 @@ $container-max-widths: (
 
           // Allow columns to stretch full width below their breakpoints
           @for $i from 1 through $grid-columns {
-            &.col#{$infix}-#{$i} {
+            &.has-col#{$infix}-#{$i} {
               flex-basis: 100%;
             }
           }
-          &.col#{$infix} {
+          &.has-col#{$infix} {
             flex-basis: 100%;
           }
 
           @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
             // Provide basic `.col-{bp}` classes for equal-width flexbox columns
-            &.col#{$infix} {
+            &.has-col#{$infix} {
               flex-basis: 0;
               flex-grow: 1;
               max-width: 100%;
             }
 
             @for $i from 1 through $grid-columns {
-              &.col#{$infix}-#{$i} {
+              &.has-col#{$infix}-#{$i} {
                 @include make-col($i, $grid-columns);
               }
             }
 
+            // Order
             @for $i from 0 through $grid-columns {
-              &.order#{$infix}-#{$i} { order: $i; }
+              &.has-order#{$infix}-#{$i} { order: $i; }
             }
 
+            // Offset
             @for $i from 0 through ($grid-columns - 1) {
               @if not ($infix == "" and $i == 0) {
-                &.offset#{$infix}-#{$i} {
+                &.has-offset#{$infix}-#{$i} {
                   @include make-col-offset($i, $grid-columns);
                 }
               }
@@ -131,6 +145,11 @@ $container-max-widths: (
 				> div > .wp-block-my-column > .editor-inner-blocks {
 					margin-top: -$default-block-margin;
 					margin-bottom: -$default-block-margin;
+
+          > .block-editor-block-list__layout {
+            // Ensure width is auto. e.g. when child of core/cover width is set to 100%.
+            width: auto;
+          }
 				}
 			}
     }

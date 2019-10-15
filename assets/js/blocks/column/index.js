@@ -53,10 +53,17 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
         }
 
         // Get classes
-        const classes = classnames( getColumnClasses( props.attributes ) );
+        const vendorClasses = getColumnClasses( props.attributes );
+
+        // Add prefixes
+        let classes = {};
+        map( vendorClasses, ( use, className ) => {
+          classes[ `has-${ className }` ] = use;
+        } );
+
 
         return (
-            <BlockListBlock { ...props } className={ classes } />
+            <BlockListBlock { ...props } className={ classnames( classes ) } />
         );
     };
 }, 'withColumnClasses' );
