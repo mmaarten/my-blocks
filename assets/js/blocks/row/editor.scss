@@ -18,97 +18,40 @@ $container-max-widths: (
 
 @import '~bootstrap/scss/mixins';
 
-[data-type="my/row"][data-align="full"] > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks > .block-editor-block-list__layout {
-  margin-left: 0;
-  margin-right: 0;
+@mixin flex-full-height() {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
+/**
+ * Row block.
+ */
 .wp-block-my-row {
 
-  /**
-   * Remove max width from all child blocks.
-   */
-
   .block-editor-block-list__block {
+    // Disable max width on all inner blocks.
     max-width: none;
   }
 
-  /**
-   * Setup container.
-   */
-
-  > .block-editor-inner-blocks {
+	> .block-editor-inner-blocks {
+    // Setup container.
     margin-left: auto;
     margin-right: auto;
-  }
 
-  &.has-fixed-container {
-    > .block-editor-inner-blocks {
-      @include make-container-max-widths();
-    }
-  }
-
-  /**
-   * Setup grid.
-   */
-
-  > .block-editor-inner-blocks {
     > .block-editor-block-list__layout {
+      // Setup flex box.
       display: flex;
-      flex-wrap: wrap;
+   		flex-wrap: wrap;
 
-      // Set full heights on column and children.
-  		> [data-type="my/column"],
-  		> [data-type="my/column"] > .editor-block-list__block-edit,
-  		> [data-type="my/column"] > .editor-block-list__block-edit > div[data-block],
-  		> [data-type="my/column"] > .editor-block-list__block-edit .wp-block-my-column {
-        display: flex;
-      	flex-direction: column;
-      	flex: 1;
-  		}
+      // Setup flex columns.
+      > .block-editor-block-list__block {
+        @include flex-full-height();
 
-      > [data-type="my/column"] > .editor-block-list__block-edit {
-
-        > [data-block] {
-          margin-top: $block-padding;
-          margin-bottom: $block-padding;
-        }
-
-        // Reposition edit frame.
-        &:before {
-          top: 0;
-          bottom: 0;
-        }
-
-        // Reposition toolbar.
-        > .block-editor-block-contextual-toolbar {
-          top: -38px;
-          transform: translateY(-38px);
-        }
-
-        // Reposition breadcrumb.
-        > .block-editor-block-list__breadcrumb {
-          top: -18px;
-        }
-      }
-
-      > [data-type="my/column"] {
-        // Remove auto margins.
-        margin-left: 0;
-        margin-right: 0;
+        flex-basis: 100%;
 
         @each $breakpoint in map-keys($grid-breakpoints) {
           $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-          // Allow columns to stretch full width below their breakpoints
-          @for $i from 1 through $grid-columns {
-            &.has-col#{$infix}-#{$i} {
-              flex-basis: 100%;
-            }
-          }
-          &.has-col#{$infix} {
-            flex-basis: 100%;
-          }
 
           @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
             // Provide basic `.col-{bp}` classes for equal-width flexbox columns
@@ -139,52 +82,85 @@ $container-max-widths: (
             }
           }
         }
-      }
 
-      > [data-type="my/column"] > .editor-block-list__block-edit {
-				> div > .wp-block-my-column > .editor-inner-blocks {
-					margin-top: -$default-block-margin;
-					margin-bottom: -$default-block-margin;
+        > .block-editor-block-list__block-edit {
+          @include flex-full-height();
 
-          > .block-editor-block-list__layout {
-            // Ensure width is auto. e.g. when child of core/cover width is set to 100%.
-            width: auto;
+          > [data-block] {
+            @include flex-full-height();
+            margin-top: 0;
+            margin-bottom: 0;
+
+            > .wp-block-my-column {
+              @include flex-full-height();
+
+              > .block-editor-inner-blocks {
+                margin-top: -$block-padding * 2;
+      					margin-bottom: -$block-padding * 2;
+
+                > .block-editor-block-list__layout {
+                  > .block-list-appender {
+                    margin-top: $block-padding * 2;
+                		margin-bottom: $block-padding * 2;
+                  }
+                }
+              }
+            }
           }
-				}
-			}
-    }
-  }
-}
-
-.wp-block-my-row {
-  > .block-editor-inner-blocks {
-    > .block-editor-block-list__layout {
-      > .block-list-appender {
-        display: none !important;
+        }
       }
     }
   }
-}
 
-.wp-block-my-column {
-  > .block-editor-inner-blocks {
-    > .block-editor-block-list__layout {
-      > .block-list-appender {
-        margin: $block-padding * 2 $block-padding;
-      }
+  &.has-fixed-container {
+    > .block-editor-inner-blocks {
+      @include make-container-max-widths();
     }
   }
 }
 
-.wp-block-my-column {
-  &.is-vertically-aligned-top {
-  	justify-content: flex-start;
+[data-type="my/row"][data-align="full"] .wp-block-my-row > .editor-inner-blocks {
+  padding-left: $block-padding;
+	padding-right: $block-padding;
+
+	@include break-small() {
+		padding-left: $block-container-side-padding;
+		padding-right: $block-container-side-padding;
+	}
+
+}
+/**
+ * Column block.
+ */
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"] {
+  > .block-editor-block-list__block-edit {
+    > [data-block] {
+      > .wp-block-my-column {
+        > .block-editor-inner-blocks {
+          > .block-editor-block-list__layout {
+            > .block-list-appender {
+              margin: $block-padding;
+            }
+          }
+        }
+      }
+    }
   }
-  &.is-vertically-aligned-center {
-  	justify-content: center;
-  }
-  &.is-vertically-aligned-bottom {
-  	justify-content: flex-end;
+  // Selected
+  &.is-selected {
+    > .block-editor-block-list__block-edit {
+      > [data-block] {
+        > .wp-block-my-column {
+          > .block-editor-inner-blocks {
+            > .block-editor-block-list__layout {
+              > .block-list-appender {
+                margin: $block-padding 0;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -192,38 +168,14 @@ $container-max-widths: (
  * Add extra padding when the parent block is selected, for easier interaction.
  */
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
-	padding: 0 $block-padding;
-
-	// Negate this padding for the placeholder.
-	> .components-placeholder {
-    margin: 0 -$block-padding;
-		width: calc(100% + #{$block-padding * 2});
-	}
-}
-
-/**
- * Add extra padding when the parent block is selected, for easier interaction.
- */
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks,
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div > .block-editor-inner-blocks {
-	padding: 0 $block-padding;
+	padding: $block-padding;
 
-	// Negate this padding for the placeholder.
+  // Negate this padding for the placeholder.
 	> .components-placeholder {
-    margin: 0 -$block-padding;
+		margin: -$block-padding;
 		width: calc(100% + #{$block-padding * 2});
 	}
-
-  > .block-editor-block-list__layout {
-    > .block-list-appender {
-      margin: $block-padding 0;
-    }
-  }
-}
-
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].is-selected > .block-editor-block-list__block-edit > [data-block] > div,
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] > div {
-  margin-top: $block-padding;
-  margin-bottom: $block-padding;
 }
