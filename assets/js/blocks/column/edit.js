@@ -35,8 +35,6 @@ class ColumnEdit extends Component {
       removeBlock,
     } = this.props;
 
-    console.log( 'this.props', this.props );
-
     const { width, offset, order, verticalAlignment } = attributes;
 
     const classes = classnames( {
@@ -186,10 +184,6 @@ export default compose(
 		  const { moveBlockToPosition } = dispatch( 'core/block-editor' );
       const rootClientId = getBlockRootClientId( clientId );
       const blockCount = getBlockCount( clientId );
-
-      if ( index === blockIndex || index < 0 || index > blockCount ) {
-        return;
-      }
 
       moveBlockToPosition( clientId, rootClientId, rootClientId, index );
     },
