@@ -2,8 +2,9 @@ import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import {
   PanelBody,
+  Toolbar,
   BaseControl,
-  RangeControl
+  RangeControl,
 } from '@wordpress/components';
 import {
   InspectorControls,
@@ -12,7 +13,7 @@ import {
   BlockVerticalAlignmentToolbar
 } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
+import { withSelect, withDispatch } from '@wordpress/data';
 import { get, assign } from 'lodash';
 import classnames from 'classnames';
 import { gridColumns, defaultBreakpoint } from './common';
@@ -24,7 +25,18 @@ class ColumnEdit extends Component {
   }
 
   render() {
-    const { attributes, setAttributes, className, hasChildBlocks } = this.props;
+    const {
+      attributes,
+      setAttributes,
+      className,
+      hasChildBlocks,
+      blockIndex,
+      moveBlockTo,
+      removeBlock,
+    } = this.props;
+
+    console.log( 'this.props', this.props );
+
     const { width, offset, order, verticalAlignment } = attributes;
 
     const classes = classnames( {
@@ -106,6 +118,22 @@ class ColumnEdit extends Component {
   					value={ verticalAlignment }
             onChange={ ( value ) => { setAttributes( { verticalAlignment: value } ) } }
   				/>
+          <Toolbar
+            controls={ [
+              {
+          			icon: 'arrow-left-alt',
+          			title: __( 'Move Left' ),
+          			isActive: false,
+          			onClick: () => { moveBlockTo( blockIndex - 1 ) },
+          		},
+              {
+          			icon: 'arrow-right-alt',
+          			title: __( 'Move Right' ),
+          			isActive: false,
+          			onClick: () => { moveBlockTo( blockIndex + 1 ) },
+          		},
+            ] }
+          />
   			</BlockControls>
         <InnerBlocks
           templateLock={ false }
@@ -122,10 +150,48 @@ class ColumnEdit extends Component {
 export default compose(
 	withSelect( ( select, ownProps ) => {
 		const { clientId } = ownProps;
-		const { getBlockOrder } = select( 'core/block-editor' );
+		const { getBlockOrder, getBlockIndex, getBlockRootClientId } = select( 'core/block-editor' );
+    const rootClientId = getBlockRootClientId( clientId );
 
-		return {
+    return {
 			hasChildBlocks: getBlockOrder( clientId ).length > 0,
+      blockIndex: getBlockIndex( clientId, rootClientId ),
 		};
 	} ),
+  withDispatch( ( dispatch, ownProps, registry ) => ( {
+    updateColumns( previousColumns, newColumns ) {
+      const { clientId } = ownProps;
+		  const { replaceInnerBlocks } = dispatch( 'core/block-editor' );
+		  const { getBlocks } = registry.select( 'core/block-editor' );
+
+      let innerBlocks = getBlocks( clientId );
+
+      if ( newColumns > previousColumns ) {
+        innerBlocks = [
+  				...innerBlocks,
+  				...times( newColumns - previousColumns, () => {
+  					return createBlock( 'my/column' );
+  				} ),
+        ];
+      } else {
+        // The removed column will be the last of the inner blocks.
+			  innerBlocks = dropRight( innerBlocks, previousColumns - newColumns );
+      }
+
+      replaceInnerBlocks( clientId, innerBlocks, false );
+    },
+    moveBlockTo( index ) {
+      const { clientId, blockIndex } = ownProps;
+      const { getBlockCount, getBlockRootClientId } = registry.select( 'core/block-editor' );
+		  const { moveBlockToPosition } = dispatch( 'core/block-editor' );
+      const rootClientId = getBlockRootClientId( clientId );
+      const blockCount = getBlockCount( clientId );
+
+      if ( index === blockIndex || index < 0 || index > blockCount ) {
+        return;
+      }
+
+      moveBlockToPosition( clientId, rootClientId, rootClientId, index );
+    },
+  } ) )
 )( ColumnEdit );

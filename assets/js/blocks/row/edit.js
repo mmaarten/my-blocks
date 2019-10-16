@@ -187,7 +187,7 @@ class RowEdit extends Component {
   					__experimentalAllowTemplateOptionSkip
             template={ showTemplateSelector ? null : template }
             allowedBlocks={ ALLOWED_BLOCKS }
-            templateLock={ 'all' }
+            templateLock={ false }
            />
         </div>
       </>
@@ -198,7 +198,7 @@ class RowEdit extends Component {
 export default compose( [
   withColors( 'backgroundColor' ),
   withSelect( ( select, props ) => {
-    const { clientId, attributes } = props;
+    const { clientId } = props;
     const { getBlockCount } = select( 'core/block-editor' );
 
     return {
