@@ -79,8 +79,7 @@ class Assets
      */
     protected static function getFileVersion($src)
     {
-        $is_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG;
-        if ($is_dev) {
+        if (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) {
             $file = self::getFilePath($src);
             if (file_exists($file)) {
                 return filemtime($file);
