@@ -15,8 +15,6 @@ import {
   InspectorControls,
   InnerBlocks,
   BlockControls,
-  PanelColorSettings,
-	withColors,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -107,8 +105,6 @@ class RowEdit extends Component {
       className,
       updateColumns,
       columns,
-      setBackgroundColor,
-	    backgroundColor,
     } = this.props;
 
     const {
@@ -117,15 +113,9 @@ class RowEdit extends Component {
 
     const showTemplateSelector = template.length ? false : true;
 
-    const styles = {
-		    backgroundColor: backgroundColor.color,
-  	};
-
     const classes = classnames( {
       [ className ]: className,
       [`has-${container}-container`]: container,
-      [ backgroundColor.class ]: backgroundColor.class,
-      'has-background': !! backgroundColor.color,
     } );
 
     return (
@@ -143,16 +133,6 @@ class RowEdit extends Component {
                   ] }
                 />
               </PanelBody>
-              <PanelColorSettings
-      					title={ __( 'Color Settings' ) }
-      					colorSettings={ [
-      						{
-      							value: backgroundColor.color,
-      							onChange: setBackgroundColor,
-      							label: __( 'Background Color' ),
-      						},
-      					] }
-      				/>
             </InspectorControls>
             <BlockControls>
               <Toolbar controls={
@@ -169,7 +149,7 @@ class RowEdit extends Component {
             </BlockControls>
           </>
         ) }
-        <div className={ classes } style={ styles }>
+        <div className={ classes }>
           <InnerBlocks
             __experimentalTemplateOptions={ TEMPLATE_OPTIONS }
   					__experimentalOnSelectTemplateOption={ ( selectedTemplate ) => {
@@ -196,7 +176,6 @@ class RowEdit extends Component {
 }
 
 export default compose( [
-  withColors( 'backgroundColor' ),
   withSelect( ( select, props ) => {
     const { clientId } = props;
     const { getBlockCount } = select( 'core/block-editor' );

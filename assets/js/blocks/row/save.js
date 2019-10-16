@@ -6,12 +6,7 @@ import classnames from 'classnames';
 
 export default ( { ...props } ) => {
   const { attributes, className } = props;
-  const { container, backgroundColor, customBackgroundColor } = attributes;
-
-  const backgroundClass = getColorClassName( 'background-color', backgroundColor );
-  const classes = classnames( className, backgroundClass, {
-  'has-background': backgroundColor || customBackgroundColor,
-  } );
+  const { container } = attributes;
 
   const containerClasses = classnames( {
     'container': 'fluid' !== container,
@@ -19,7 +14,7 @@ export default ( { ...props } ) => {
   } );
 
   return (
-    <div className={ classes }>
+    <div className={ className }>
       <div className={ containerClasses }>
         <div className="row">
           <InnerBlocks.Content />
