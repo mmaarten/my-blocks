@@ -11,6 +11,7 @@ module.exports = {
     'row': './assets/js/blocks/row/index.js',
     'column': './assets/js/blocks/column/index.js',
     'button': './assets/js/blocks/button/index.js',
+    'heading': './assets/js/blocks/heading/index.js',
   },
   module: {
     ...config.module,

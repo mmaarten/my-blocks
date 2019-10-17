@@ -33,6 +33,7 @@ class Assets
         self::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
         self::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
         self::registerScript('my-button', plugins_url('build/button.js', MY_BLOCKS_PLUGIN_FILE));
+        self::registerScript('my-heading', plugins_url('build/heading.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
     /**
