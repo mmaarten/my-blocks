@@ -10,7 +10,7 @@ import
 
 export default ( { ...props } ) => {
   const { attributes, className } = props;
-  const { width, verticalAlignment } = attributes;
+  const { verticalAlignment } = attributes;
 
   const classes = classnames( className, getColumnClasses( attributes ), {
     'd-flex' : verticalAlignment,

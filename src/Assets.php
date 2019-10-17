@@ -73,6 +73,20 @@ class Assets
     }
 
     /**
+     * Converts file URL to file directory path.
+     *
+     * @param string $src
+     * @return string
+     */
+    protected static function getFilePath($src)
+    {
+        $base_url  = plugins_url('/', MY_BLOCKS_PLUGIN_FILE);
+        $base_path = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE);
+
+        return str_replace($base_url, $base_path, $src);
+    }
+
+    /**
      * Get file version.
      *
      * @param string $src
@@ -91,20 +105,6 @@ class Assets
     }
 
     /**
-     * Converts file URL to file directory path.
-     *
-     * @param string $src
-     * @return string
-     */
-    protected static function getFilePath($src)
-    {
-        $base_url  = plugins_url('/', MY_BLOCKS_PLUGIN_FILE);
-        $base_path = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE);
-
-        return str_replace($base_url, $base_path, $src);
-    }
-
-    /**
      * Get script dependencies from `.asset.php` file.
      *
      * @param string $src
@@ -115,7 +115,9 @@ class Assets
         $file = str_replace('.js', '.asset.php', self::getFilePath($src));
 
         if (file_exists($file)) {
+            ob_start();
             $data = include $file;
+            ob_get_clean();
             return $data['dependencies'];
         }
 

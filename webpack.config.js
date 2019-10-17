@@ -6,8 +6,8 @@ const config = require("@wordpress/scripts/config/webpack.config");
 module.exports = {
   ...config,
   entry : {
-    'editor': './assets/css/editor.scss',
-    'style': './assets/css/style.scss',
+    'editor': './assets/css/editor/editor.scss',
+    'style': './assets/css/style/style.scss',
     'row': './assets/js/blocks/row/index.js',
     'column': './assets/js/blocks/column/index.js',
     'button': './assets/js/blocks/button/index.js',

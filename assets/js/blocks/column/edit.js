@@ -16,7 +16,7 @@ import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { get, assign } from 'lodash';
 import classnames from 'classnames';
-import { gridColumns, defaultBreakpoint } from './common';
+import { gridColumns } from './common';
 import { BreakpointNavigation } from './../../components';
 
 class ColumnEdit extends Component {
@@ -48,10 +48,10 @@ class ColumnEdit extends Component {
           <PanelBody initialOpen={ true }>
             <RangeControl
               label={ __( 'Width' ) }
-              value={ get( width, defaultBreakpoint, '' ) }
+              value={ get( width, 'md', '' ) }
               onChange={ ( value ) => {
                 setAttributes( {
-                  width: assign( {}, width, { [ defaultBreakpoint ]: value } )
+                  width: assign( {}, width, { md: value } )
                 } );
               } }
               min={ 1 }
@@ -63,12 +63,12 @@ class ColumnEdit extends Component {
             <BreakpointNavigation
               onSelect={ ( breakpoint ) => (
                 <>
-                  { defaultBreakpoint === breakpoint && (
+                  { 'md' === breakpoint && (
                     <BaseControl label={ __( 'Width' ) }>
                       <p>{ __( 'Value of width attribute.' ) }</p>
                     </BaseControl>
                   ) }
-                  { defaultBreakpoint !== breakpoint && (
+                  { 'md' !== breakpoint && (
                     <RangeControl
                       label={ __( 'Width' ) }
                       value={ get( width, breakpoint, '' ) }
