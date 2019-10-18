@@ -18,12 +18,22 @@
  */
 @each $size, $value in $editor-font-sizes {
   .has-#{$size}-font-size {
-    @include font-size($size !important);
+    @include font-size($value !important);
   }
 }
 
 .has-lead-font-size {
   font-weight: $lead-font-weight;
+}
+
+@for $level from 1 to 6 {
+  .has-h-#{$level}-font-size {
+    margin-bottom: $headings-margin-bottom;
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
+    line-height: $headings-line-height;
+    color: $headings-color;
+  }
 }
 
 .has-display-1-font-size {
