@@ -7,6 +7,7 @@ module.exports = {
   ...config,
   entry : {
     'editor': './assets/css/editor/editor.scss',
+    'editor-styles': './assets/css/editor/editor-styles.scss',
     'style': './assets/css/style/style.scss',
     'row': './assets/js/blocks/row/index.js',
     'column': './assets/js/blocks/column/index.js',

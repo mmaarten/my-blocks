@@ -63,8 +63,10 @@ final class App
 
         $this->did_init = true;
 
+        Config::init();
         Library::init();
         Assets::init();
+        Editor::init();
     }
 
     /**

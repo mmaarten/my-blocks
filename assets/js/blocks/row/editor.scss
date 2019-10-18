@@ -94,9 +94,9 @@ $container-max-widths: (
 
     > .block-editor-block-list__layout {
 
-      // Negate vertical column spacing.
-      margin-top: -$block-padding;
-      margin-bottom: -$block-padding;
+      // // Negate vertical column spacing.
+      // margin-top: -$block-padding;
+      // margin-bottom: -$block-padding;
 
       // Hide empty block appender.
       > .block-list-appender {
@@ -111,9 +111,9 @@ $container-max-widths: (
       > .block-editor-block-list__block {
         @include flex-full-height();
 
-        // Add vertical spacing so columns don't overlap when stacked.
-        margin-top: $block-padding;
-        margin-bottom: $block-padding;
+        // // Add vertical spacing so columns don't overlap when stacked.
+        // margin-top: $block-padding;
+        // margin-bottom: $block-padding;
 
         // On mobile columns are full width.
         flex-basis: 100%;
@@ -202,6 +202,44 @@ $container-max-widths: (
 }
 
 /**
+ * Row block.
+ */
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"] {
+  &.is-selected,
+  &.has-child-selected {
+    > .block-editor-block-list__block-edit {
+      margin-top: $block-padding * 3;
+      margin-bottom: $block-padding * 3;
+
+      > [data-block] {
+        > .wp-block-my-row {
+          > .block-editor-inner-blocks {
+            padding: $block-padding;
+
+          	> .components-placeholder {
+              // Negate this padding for the placeholder.
+          		margin: -$block-padding;
+          		width: calc(100% + #{$block-padding * 2});
+          	}
+            > .block-editor-block-list__layout {
+              // Negate vertical column spacing.
+              margin-top: -$block-padding;
+              margin-bottom: -$block-padding;
+
+              > .block-editor-block-list__block {
+                // Add vertical spacing so columns don't overlap when stacked.
+                margin-top: $block-padding;
+                margin-bottom: $block-padding;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * Column block.
  */
 .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"] {
@@ -237,22 +275,6 @@ $container-max-widths: (
       }
     }
   }
-}
-
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"] {
-  > .block-editor-block-list__block-edit {
-    > [data-block] {
-      margin-top: $block-padding * 3;
-      margin-bottom: $block-padding * 3;
-    }
-  }
-}
-
-/**
- * Add extra padding when the parent block is selected, for easier interaction.
- */
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"],
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"] {
   &.is-selected,
   &.has-child-selected {
     > .block-editor-block-list__block-edit {
@@ -272,3 +294,37 @@ $container-max-widths: (
     }
   }
 }
+//
+// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"] {
+//   > .block-editor-block-list__block-edit {
+//     > [data-block] {
+//       margin-top: $block-padding * 3;
+//       margin-bottom: $block-padding * 3;
+//     }
+//   }
+// }
+
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
+// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"],
+// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"] {
+//   &.is-selected,
+//   &.has-child-selected {
+//     > .block-editor-block-list__block-edit {
+//       > [data-block] {
+//         > div {
+//           > .block-editor-inner-blocks {
+//             padding: $block-padding;
+//
+//             // Negate this padding for the placeholder.
+//           	> .components-placeholder {
+//           		margin: -$block-padding;
+//           		width: calc(100% + #{$block-padding * 2});
+//           	}
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

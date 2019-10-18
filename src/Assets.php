@@ -48,12 +48,10 @@ class Assets
     {
         $deps = array_merge(self::getScriptDependencies($src), $deps);
         $ver  = self::getFileVersion($src);
-
         wp_register_script($handle, $src, $deps, $ver, true);
 
         if ($has_i18n && function_exists('wp_set_script_translations')) {
-            $lang_file = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE) . 'languages';
-            wp_set_script_translations($handle, 'my-blocks', $lang_file);
+            wp_set_script_translations($handle, 'my-blocks', plugin_dir_path(MY_BLOCKS_PLUGIN_FILE) . 'languages');
         }
     }
 
@@ -68,7 +66,6 @@ class Assets
     protected static function registerStyle($handle, $src, $deps = [], $media = 'all')
     {
         $ver = self::getFileVersion($src);
-
         wp_register_style($handle, $src, $deps, $ver, $media);
     }
 
@@ -82,7 +79,6 @@ class Assets
     {
         $base_url  = plugins_url('/', MY_BLOCKS_PLUGIN_FILE);
         $base_path = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE);
-
         return str_replace($base_url, $base_path, $src);
     }
 
@@ -100,7 +96,6 @@ class Assets
                 return filemtime($file);
             }
         }
-
         return App::getInstance()->getVersion();
     }
 
@@ -113,14 +108,12 @@ class Assets
     protected static function getScriptDependencies($src)
     {
         $file = str_replace('.js', '.asset.php', self::getFilePath($src));
-
         if (file_exists($file)) {
             ob_start();
             $data = include $file;
             ob_get_clean();
             return $data['dependencies'];
         }
-
         return [];
     }
 }

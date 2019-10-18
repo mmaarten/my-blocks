@@ -10,11 +10,14 @@ import {
   Toolbar,
   SVG,
 	Path,
+  ColorPalette,
 } from '@wordpress/components';
 import {
   InspectorControls,
   InnerBlocks,
   BlockControls,
+  PanelColorSettings,
+	withColors,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -105,6 +108,9 @@ class RowEdit extends Component {
       className,
       updateColumns,
       columns,
+      colors,
+      setBackgroundColor,
+	    backgroundColor,
     } = this.props;
 
     const {
@@ -113,10 +119,17 @@ class RowEdit extends Component {
 
     const showTemplateSelector = template.length ? false : true;
 
+    const styles = {
+		  backgroundColor: backgroundColor.color,
+	  };
+
     const classes = classnames( {
       [ className ]: className,
       [`has-${container}-container`]: container,
+      'has-background': !! backgroundColor.color,
     } );
+
+    console.log( this.props );
 
     return (
       <>
@@ -133,7 +146,18 @@ class RowEdit extends Component {
                   ] }
                 />
               </PanelBody>
+              <PanelBody title={ __( 'Background Settings' ) } initialOpen={ false }>
+                <ColorPalette
+                  label={ __('Background Color') }
+                  colors={ colors }
+                  value={ backgroundColor.color }
+                  onChange={ setBackgroundColor }
+                  disableCustomColors={ true }
+                  clearable={ true }
+                />
+              </PanelBody>
             </InspectorControls>
+
             <BlockControls>
               <Toolbar controls={
                 [
@@ -149,7 +173,7 @@ class RowEdit extends Component {
             </BlockControls>
           </>
         ) }
-        <div className={ classes }>
+        <div className={ classes } style={ styles }>
           <InnerBlocks
             __experimentalTemplateOptions={ TEMPLATE_OPTIONS }
   					__experimentalOnSelectTemplateOption={ ( selectedTemplate ) => {
@@ -176,11 +200,14 @@ class RowEdit extends Component {
 }
 
 export default compose( [
+  withColors( 'backgroundColor' ),
   withSelect( ( select, props ) => {
     const { clientId } = props;
-    const { getBlockCount } = select( 'core/block-editor' );
+    const { getBlockCount, getSettings } = select( 'core/block-editor' );
+    const { colors } = getSettings( 'colors' );
 
     return {
+      colors,
       columns : getBlockCount( clientId ),
     };
   } ),

@@ -1,0 +1,47 @@
+
+/**
+ * Editor colors.
+ */
+@each $color, $value in $editor-colors {
+  @include text-emphasis-variant(".has-#{$color}-color", $value);
+}
+
+/**
+ * Editor background colors.
+ */
+@each $color, $value in $editor-colors {
+  @include bg-variant(".has-#{$color}-background-color", $value);
+}
+
+/**
+ * Editor font sizes.
+ */
+@each $size, $value in $editor-font-sizes {
+  .has-#{$size}-font-size {
+    @include font-size($size !important);
+  }
+}
+
+.has-lead-font-size {
+  font-weight: $lead-font-weight;
+}
+
+.has-display-1-font-size {
+  font-weight: $display1-weight;
+  line-height: $display-line-height;
+}
+
+.has-display-2-font-size {
+  font-weight: $display2-weight;
+  line-height: $display-line-height;
+}
+
+.has-display-3-font-size {
+  font-weight: $display3-weight;
+  line-height: $display-line-height;
+}
+
+.has-display-4-font-size {
+  font-weight: $display4-weight;
+  line-height: $display-line-height;
+}

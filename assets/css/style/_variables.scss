@@ -1,0 +1,24 @@
+
+$editor-colors: () !default;
+$editor-colors: map-merge($theme-colors, $editor-colors);
+
+$editor-font-sizes: () !default;
+$editor-font-sizes: map-merge(
+  (
+    "extra-small": $small-font-size,
+    "small": $font-size-sm,
+    "normal": $font-size-base,
+    "large": $font-size-lg,
+    "h-1": $h1-font-size,
+    "h-2": $h2-font-size,
+    "h-3": $h3-font-size,
+    "h-4": $h4-font-size,
+    "h-5": $h5-font-size,
+    "h-6": $h6-font-size,
+    "display-1": $display1-size,
+    "display-2": $display2-size,
+    "display-3": $display3-size,
+    "display-4": $display4-size,
+    "lead": $lead-font-size,
+  ), $editor-font-sizes
+);

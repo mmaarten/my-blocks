@@ -1,15 +1,12 @@
 <?php
 /**
- * Abstract block class.
+ * Abstract block.
  *
  * @package My/Blocks
  */
 
 namespace My\Blocks\BlockTypes;
 
-/**
- * AbstractBlock class.
- */
 abstract class AbstractBlock
 {
     /**
