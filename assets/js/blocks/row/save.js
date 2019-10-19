@@ -5,13 +5,12 @@ import {
 import classnames from 'classnames';
 
 export default ( { ...props } ) => {
-  const { attributes, className } = props;
+  const { attributes } = props;
   const { container, backgroundColor, customBackgroundColor } = attributes;
 
   const backgroundClass = getColorClassName( 'background-color', backgroundColor );
 
 	const classes = classnames( {
-    [ className ] : className,
 		'has-background': backgroundColor || customBackgroundColor,
     [ backgroundClass ] : backgroundClass,
 	} );

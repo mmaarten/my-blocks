@@ -1,0 +1,7 @@
+/**
+ * Background
+ */
+
+@each $color, $value in $editor-colors {
+  @include bg-variant(".has-#{$color}-background-color", $value);
+}

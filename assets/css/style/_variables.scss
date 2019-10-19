@@ -9,6 +9,7 @@ $editor-font-sizes: map-merge(
     "small": $font-size-sm,
     "normal": $font-size-base,
     "large": $font-size-lg,
+    "lead": $lead-font-size,
     "h-1": $h1-font-size,
     "h-2": $h2-font-size,
     "h-3": $h3-font-size,
@@ -19,6 +20,5 @@ $editor-font-sizes: map-merge(
     "display-2": $display2-size,
     "display-3": $display3-size,
     "display-4": $display4-size,
-    "lead": $lead-font-size,
   ), $editor-font-sizes
 );

@@ -9,10 +9,10 @@ import
   from 'classnames';
 
 export default ( { ...props } ) => {
-  const { attributes, className } = props;
+  const { attributes } = props;
   const { verticalAlignment } = attributes;
 
-  const classes = classnames( className, getColumnClasses( attributes ), {
+  const classes = classnames( getColumnClasses( attributes ), {
     'd-flex' : verticalAlignment,
     'align-items-start': 'top' === verticalAlignment,
     'align-items-center': 'center' === verticalAlignment,
