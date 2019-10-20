@@ -30,6 +30,8 @@ class Library
             'Column',
             'Button',
             'Heading',
+            'Card',
+            'Post',
         ];
         foreach ($blocks as $class) {
             $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;

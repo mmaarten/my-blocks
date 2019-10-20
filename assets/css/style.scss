@@ -149,3 +149,15 @@ $editor-font-sizes: map-merge(
     }
   }
 }
+
+//
+// Card block
+//
+
+// Editor only
+.block-editor-page .wp-block-my-card {
+  .card {
+    @include unset-all();
+  }
+  @import '~bootstrap/scss/card';
+}

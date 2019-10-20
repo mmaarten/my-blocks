@@ -13,6 +13,8 @@ module.exports = {
     'column': './assets/js/blocks/column/index.js',
     'button': './assets/js/blocks/button/index.js',
     'heading': './assets/js/blocks/heading/index.js',
+    'card': './assets/js/blocks/card/index.js',
+    'post': './assets/js/blocks/post/index.js',
   },
   module: {
     ...config.module,
