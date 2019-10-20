@@ -157,11 +157,7 @@ class ButtonEdit extends Component {
             [ `has-text-align-${ textAlign }` ]: textAlign,
           } ) }
         >
-          <RichText
-    				placeholder={ __( 'Add text…', 'my-blocks' ) }
-    				value={ text }
-    				onChange={ ( text ) => setAttributes( { text } ) }
-    				withoutInteractiveFormatting
+          <span
             className={ classnames(
               'btn', {
                 [`btn-${ type }`]: type && ! outline,
@@ -169,7 +165,14 @@ class ButtonEdit extends Component {
                 [`btn-${ size }`]: size,
               }
             ) }
-    			/>
+          >
+            <RichText
+      				placeholder={ __( 'Add text…', 'my-blocks' ) }
+      				value={ text }
+      				onChange={ ( text ) => setAttributes( { text } ) }
+      				withoutInteractiveFormatting
+      			/>
+          </span>
         </div>
       </>
     );
