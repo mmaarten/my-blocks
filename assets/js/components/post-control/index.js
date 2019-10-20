@@ -4,16 +4,12 @@ import { BaseControl, CheckboxControl } from '@wordpress/components';
 import { compose, withInstanceId } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
-import { map, find, merge, remove } from 'lodash';
+import { map, find, merge, remove, isArray } from 'lodash';
 import classnames from 'classnames';
 
 class PostList extends Component {
   constructor() {
     super( ...arguments );
-  }
-
-  renderItem() {
-
   }
 
   render() {
@@ -27,6 +23,7 @@ class PostList extends Component {
           const isSelected = find( selected, ( o ) => ( o.id === post.id ) ) ? true : false;
           return (
             <CheckboxControl
+              className="my-post-list__item"
               key={ index }
           		label={ post.title }
           		checked={ isSelected }
@@ -43,30 +40,26 @@ class PostControl extends Component {
   constructor() {
     super( ...arguments );
 
-    this.onChange = this.onChange.bind( this );
+    this.onSearchChange = this.onSearchChange.bind( this );
 
     this.state = {
 			search: '',
-      showSuggestions: false,
-      selectedSuggestion: null,
+      suggestions: [],
       loading: false,
 		};
   }
 
-  onChange( event ) {
+  onSearchChange( event ) {
 		const inputValue = event.target.value;
     this.setState( { search: inputValue } );
     this.updateSuggestions( inputValue );
 	}
 
   updateSuggestions( search ) {
-    console.log( 'updateSuggestions', search );
 
     // Show the suggestions after typing at least 2 characters
 		if ( search.length < 2 ) {
 			this.setState( {
-				showSuggestions: false,
-				selectedSuggestion: null,
 				loading: false,
 			} );
 
@@ -74,8 +67,6 @@ class PostControl extends Component {
 		}
 
     this.setState( {
-			showSuggestions: true,
-			selectedSuggestion: null,
 			loading: true,
 		} );
 
@@ -85,7 +76,15 @@ class PostControl extends Component {
   			per_page: 20,
   			type: 'post',
   		} ),
-  	} ).then( ( posts ) => {
+  	} )
+
+    request.then( ( posts ) => {
+      // A fetch Promise doesn't have an abort option. It's mimicked by
+			// comparing the request reference in on the instance, which is
+			// reset or deleted on subsequent requests or unmounting.
+			if ( this.suggestionsRequest !== request ) {
+				return;
+			}
 
       const suggestions = map( posts, ( post ) => ( {
     		id: post.id,
@@ -97,61 +96,62 @@ class PostControl extends Component {
 				suggestions,
 				loading: false,
 			} );
-
-      console.log( 'suggestions', suggestions );
-
     } );
+
+    request.catch( () => {
+			if ( this.suggestionsRequest === request ) {
+				this.setState( {
+					loading: false,
+				} );
+			}
+		} );
+
+    this.suggestionsRequest = request;
   }
 
   render() {
-    const { label, hideLabelFromVision, value, help, instanceId, className, id, onChange } = this.props;
-    const { search, suggestions } = this.state;
+    const { value, onChange, className } = this.props;
+    const { search, suggestions, isLoading } = this.state;
 
     return (
-      <>
+      <div className={ classnames( className, 'my-post-control' ) }>
         <PostList
+          className="my-post-control__selected-list"
           list={ value }
           selected={ value }
           onChange={ ( post, isSelected ) => {
-            const newValue = remove( value, ( item ) => ( item.id === post.id ) );
-
+            let newValue = isArray( value ) ? [ ...value ] : [];
+            remove( newValue, ( o ) => ( o.id === post.id ) );
             onChange( newValue );
           } }
         />
-        <BaseControl
-          label={ label }
-          hideLabelFromVision={ hideLabelFromVision }
-          id={ id }
-          help={ help }
-          className={ className }
-        >
+        <div className="my-post-control__search">
           <input
-    				id={ id }
+            className="my-post-control__search-input is-full-width"
     				type="text"
     				value={ search }
-    				onChange={ this.onChange }
+    				onChange={ this.onSearchChange }
     				placeholder={ __( 'Type to search' ) }
     			/>
-        </BaseControl>
+        </div>
         <PostList
+          className="my-post-control__suggestions-list"
           list={ suggestions }
           selected={ value }
           onChange={ ( post, isSelected ) => {
-            let newValue = [];
+            let newValue = isArray( value ) ? [ ...value ] : [];
 
             if ( isSelected ) {
-              newValue = merge( value, [ post ] );
+              newValue.push( post );
             } else {
-              newValue = remove( value, ( item ) => ( item.id === post.id ) );
+              remove( newValue, ( o ) => ( o.id === post.id ) );
             }
             onChange( newValue );
           } }
         />
-      </>
+      </div>
   	);
   }
 }
 
-export default compose(
-	withInstanceId,
-)( PostControl );
+export default PostControl;
