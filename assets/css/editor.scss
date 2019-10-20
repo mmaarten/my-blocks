@@ -13,12 +13,7 @@
 @import "gutenberg/stylesheets/z-index";
 
 // Controls
-@import './../../js/components/url-control/style';
-
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
+@import './../js/components/url-control/style';
 
 // Blocks
-@import './../../js/blocks/button/editor';
-@import './../../js/blocks/row/editor';
+@import './../js/blocks/row/editor';

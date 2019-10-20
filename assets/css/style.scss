@@ -1,0 +1,142 @@
+/*!
+ * Style
+ *
+ * Used on both frontend and editing interface.
+ *
+ * @package My/Blocks
+ */
+
+@import '~bootstrap/scss/functions';
+// --> CUSTOM VARIABLES <--
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@mixin unset-all() {
+  all: unset;
+}
+
+//
+// Editor colors
+//
+
+$editor-colors: () !default;
+$editor-colors: map-merge($theme-colors, $editor-colors);
+
+//
+// Editor font sizes
+//
+
+$editor-font-sizes: () !default;
+$editor-font-sizes: map-merge(
+  (
+    "extra-small": $small-font-size,
+    "small": $font-size-sm,
+    "normal": $font-size-base,
+    "large": $font-size-lg,
+    "lead": $lead-font-size,
+    "h-1": $h1-font-size,
+    "h-2": $h2-font-size,
+    "h-3": $h3-font-size,
+    "h-4": $h4-font-size,
+    "h-5": $h5-font-size,
+    "h-6": $h6-font-size,
+    "display-1": $display1-size,
+    "display-2": $display2-size,
+    "display-3": $display3-size,
+    "display-4": $display4-size,
+  ), $editor-font-sizes
+);
+
+//
+// Text colors
+//
+
+@each $color, $value in $editor-colors {
+  @include text-emphasis-variant(".has-#{$color}-color", $value);
+}
+
+//
+// Background colors
+//
+
+@each $color, $value in $editor-colors {
+  @include bg-variant(".has-#{$color}-background-color", $value);
+}
+
+//
+// Font Sizes
+//
+
+@each $size, $value in $editor-font-sizes {
+  .has-#{$size}-font-size {
+    @include font-size($value !important);
+  }
+}
+
+.has-lead-font-size {
+  font-weight: $lead-font-weight !important;
+}
+
+@for $level from 1 to 6 {
+  .has-h-#{$level}-font-size {
+    margin-bottom: $headings-margin-bottom;
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
+    line-height: $headings-line-height;
+    color: $headings-color;
+  }
+}
+
+.has-display-1-font-size {
+  font-weight: $display1-weight !important;
+  line-height: $display-line-height !important;
+}
+
+.has-display-2-font-size {
+  font-weight: $display2-weight !important;
+  line-height: $display-line-height !important;
+}
+
+.has-display-3-font-size {
+  font-weight: $display3-weight !important;
+  line-height: $display-line-height !important;
+}
+
+.has-display-4-font-size {
+  font-weight: $display4-weight !important;
+  line-height: $display-line-height !important;
+}
+
+//
+// Button block
+//
+
+// Editor only
+.block-editor-page .wp-block-my-button {
+  @import '~bootstrap/scss/buttons';
+}
+
+.wp-block-my-button {
+  // --> CUSTOM STYLES <--
+}
+
+// Create extra variants based on editor colors.
+.wp-block-my-button {
+  // Default
+  @each $color, $value in $editor-colors {
+    @if not map-has-key($theme-colors, $color) {
+      .btn-#{$color} {
+        @include button-variant($value, $value);
+      }
+    }
+  }
+
+  // Outline
+  @each $color, $value in $editor-colors {
+    @if not map-has-key($theme-colors, $color) {
+      .btn-outline-#{$color} {
+        @include button-outline-variant($value);
+      }
+    }
+  }
+}
