@@ -5,6 +5,7 @@ import {
   Component,
 } from '@wordpress/element';
 import {
+  BaseControl,
 	PanelBody,
   SelectControl,
   Toolbar,
@@ -127,6 +128,8 @@ class RowEdit extends Component {
 		  backgroundColor: backgroundColor.color,
 	  };
 
+    console.log( 'backgroundImage', backgroundImage );
+
     const classes = classnames( {
       [ className ]: className,
       [`has-${container}-container`]: container,
@@ -149,14 +152,16 @@ class RowEdit extends Component {
                 />
               </PanelBody>
               <PanelBody title={ __( 'Background Settings' ) } initialOpen={ false }>
-                <ColorPalette
-                  label={ __('Background Color') }
-                  colors={ colors }
-                  value={ backgroundColor.color }
-                  onChange={ setBackgroundColor }
-                  disableCustomColors={ true }
-                  clearable={ true }
-                />
+                <BaseControl label={ __('Background Color') }>
+                  <ColorPalette
+                    label={ __('Background Color') }
+                    colors={ colors }
+                    value={ backgroundColor.color }
+                    onChange={ setBackgroundColor }
+                    disableCustomColors={ true }
+                    clearable={ true }
+                  />
+                </BaseControl>
                 <ImageControl
                   label={ __('Background Image') }
                   value={ backgroundImage }
