@@ -36,7 +36,10 @@ import {
 import
   classnames
   from 'classnames';
-import { BreakpointNavigation } from './../../components';
+import {
+  BreakpointNavigation,
+  ImageControl,
+} from './../../components';
 
 const ALLOWED_BLOCKS = [ 'my/column' ];
 
@@ -115,6 +118,7 @@ class RowEdit extends Component {
 
     const {
       container,
+      backgroundImage,
     } = attributes;
 
     const showTemplateSelector = template.length ? false : true;
@@ -128,8 +132,6 @@ class RowEdit extends Component {
       [`has-${container}-container`]: container,
       'has-background': !! backgroundColor.color,
     } );
-
-    console.log( this.props );
 
     return (
       <>
@@ -154,6 +156,11 @@ class RowEdit extends Component {
                   onChange={ setBackgroundColor }
                   disableCustomColors={ true }
                   clearable={ true }
+                />
+                <ImageControl
+                  label={ __('Background Image') }
+                  value={ backgroundImage }
+                  onChange={ ( value ) => setAttributes( { backgroundImage: value } ) }
                 />
               </PanelBody>
             </InspectorControls>

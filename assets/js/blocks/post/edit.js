@@ -27,19 +27,31 @@ class PostEdit extends Component {
       className,
     } = this.props;
 
-    const { posts, template } = attributes;
+    const { post, posts, template } = attributes;
 
     return (
       <div className={ className }>
         <InspectorControls>
+          <PanelBody title={ __( 'Posts Settings', 'my-blocks' ) } initialOpen={ true }>
+            <PostControl
+              label={ __( 'Posts' ) }
+              value={ posts }
+              onChange={ ( value ) => {
+                setAttributes( { posts: value } );
+                console.log( value );
+              } }
+              isMultiple={ true }
+            />
+          </PanelBody>
           <PanelBody title={ __( 'Post Settings', 'my-blocks' ) } initialOpen={ true }>
             <PostControl
               label={ __( 'Post' ) }
-              value={ posts }
+              value={ post }
               onChange={ ( value ) => {
-                console.log( 'onChange', value );
-                setAttributes( { posts: value } );
+                setAttributes( { post: value } );
+                console.log( value );
               } }
+              isMultiple={ false }
             />
           </PanelBody>
         </InspectorControls>

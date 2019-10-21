@@ -14,6 +14,8 @@
 
 .my-post-control__suggestions-list {
   margin-top: 1em;
+  max-height: 123px;
+  overflow-y: scroll;
 }
 
 .my-post-control__search-input {

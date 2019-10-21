@@ -4,7 +4,7 @@ import { BaseControl, CheckboxControl } from '@wordpress/components';
 import { compose, withInstanceId } from '@wordpress/compose';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
-import { map, find, merge, remove, isArray } from 'lodash';
+import { map, find, merge, remove, isArray, first } from 'lodash';
 import classnames from 'classnames';
 
 class PostList extends Component {
@@ -41,6 +41,8 @@ class PostControl extends Component {
     super( ...arguments );
 
     this.onSearchChange = this.onSearchChange.bind( this );
+    this.onPostListChange = this.onPostListChange.bind( this );
+    this.onSuggestionListChange = this.onSuggestionListChange.bind( this );
 
     this.state = {
 			search: '',
@@ -55,20 +57,38 @@ class PostControl extends Component {
     this.updateSuggestions( inputValue );
 	}
 
+  onPostListChange( post ) {
+    let posts = isArray( this.props.value ) ? [ ...this.props.value ] : [];
+    remove( posts, ( o ) => ( o.id === post.id ) );
+    this.props.onChange( posts );
+  }
+
+  onSuggestionListChange( post, isSelected ) {
+    const { value, isMultiple, onChange } = this.props;
+
+    let posts = isArray( value ) ? [ ...value ] : [];
+
+    if (isMultiple) {
+      if ( isSelected ) {
+        posts.push( post );
+      } else {
+        remove( posts, ( o ) => ( o.id === post.id ) );
+      }
+      onChange( posts );
+    } else {
+      onChange( isSelected ? { ...post } : null );
+    }
+  }
+
   updateSuggestions( search ) {
 
     // Show the suggestions after typing at least 2 characters
 		if ( search.length < 2 ) {
-			this.setState( {
-				loading: false,
-			} );
-
+			this.setState( { loading: false } );
 			return;
 		}
 
-    this.setState( {
-			loading: true,
-		} );
+    this.setState( { loading: true } );
 
     const request = apiFetch( {
   		path: addQueryArgs( '/wp/v2/search', {
@@ -92,17 +112,12 @@ class PostControl extends Component {
     		title: post.title || __( '(Untitled)' ),
     	} ) );
 
-      this.setState( {
-				suggestions,
-				loading: false,
-			} );
+      this.setState( { suggestions, loading: false } );
     } );
 
     request.catch( () => {
 			if ( this.suggestionsRequest === request ) {
-				this.setState( {
-					loading: false,
-				} );
+				this.setState( { loading: false } );
 			}
 		} );
 
@@ -110,45 +125,57 @@ class PostControl extends Component {
   }
 
   render() {
-    const { value, onChange, className } = this.props;
+    const { value, onChange, className, isMultiple } = this.props;
     const { search, suggestions, isLoading } = this.state;
+
+    let posts = [];
+
+    if ( value ) {
+      posts = isArray( value ) ? value : [ value ];
+    }
+
+    if (! isMultiple && posts.length > 1) {
+      posts = [ posts[0] ];
+    }
 
     return (
       <div className={ classnames( className, 'my-post-control' ) }>
-        <PostList
-          className="my-post-control__selected-list"
-          list={ value }
-          selected={ value }
-          onChange={ ( post, isSelected ) => {
-            let newValue = isArray( value ) ? [ ...value ] : [];
-            remove( newValue, ( o ) => ( o.id === post.id ) );
-            onChange( newValue );
-          } }
-        />
+        { 0 == posts.length && (
+          <p>{ __('No post set.') }</p>
+        ) }
+        { !! posts.length && (
+          <PostList
+            className="my-post-control__selected-list"
+            list={ posts }
+            selected={ posts }
+            onChange={ this.onPostListChange }
+          />
+        ) }
+
         <div className="my-post-control__search">
           <input
             className="my-post-control__search-input is-full-width"
-    				type="text"
+    				type="search"
     				value={ search }
     				onChange={ this.onSearchChange }
     				placeholder={ __( 'Type to search' ) }
     			/>
         </div>
-        <PostList
-          className="my-post-control__suggestions-list"
-          list={ suggestions }
-          selected={ value }
-          onChange={ ( post, isSelected ) => {
-            let newValue = isArray( value ) ? [ ...value ] : [];
-
-            if ( isSelected ) {
-              newValue.push( post );
-            } else {
-              remove( newValue, ( o ) => ( o.id === post.id ) );
-            }
-            onChange( newValue );
-          } }
-        />
+        { !! search && (
+          <>
+            { 0 === suggestions.length && (
+              <p>{ __('Nothing items found.') }</p>
+            ) }
+            { !! suggestions.length && (
+              <PostList
+                className="my-post-control__suggestions-list"
+                list={ suggestions }
+                selected={ posts }
+                onChange={ this.onSuggestionListChange }
+              />
+            ) }
+          </>
+        ) }
       </div>
   	);
   }

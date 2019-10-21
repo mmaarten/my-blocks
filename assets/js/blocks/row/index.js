@@ -29,6 +29,9 @@ registerBlockType( 'my/row', {
     backgroundColor : {
       type: 'string',
     },
+    backgroundImage : {
+      type: 'object',
+    },
     customBackgroundColor : {
       type: 'string',
     },

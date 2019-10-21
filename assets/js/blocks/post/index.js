@@ -17,9 +17,9 @@ registerBlockType( 'my/post', {
 		align: ['wide', 'full'],
 	},
   attributes: {
-    // post : {
-    //   type: 'object',
-    // },
+    post : {
+      type: 'object',
+    },
     posts : {
       type: 'array',
     },
