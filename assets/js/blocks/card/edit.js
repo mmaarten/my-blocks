@@ -14,6 +14,9 @@ import {
   InspectorControls,
   InnerBlocks,
 } from '@wordpress/block-editor';
+import {
+  ImageControl,
+} from './../../components';
 
 const ALLOWED_BLOCKS = [ 'core/heading', 'core/paragraph', 'my/button' ];
 const TEMPLATE = [
@@ -44,18 +47,35 @@ class CardEdit extends Component {
       colors,
     } = this.props;
 
+    const {
+      image,
+    } = attributes;
+
     return (
-      <div className={ className }>
-        <div className="card">
-          <img src="https://via.placeholder.com/800x600" className="card-img-top" />
-          <div className="card-body">
-            <InnerBlocks
-              allowedBlocks={ ALLOWED_BLOCKS }
-              template={ TEMPLATE }
+      <>
+        <InspectorControls>
+          <PanelBody title={ __( 'Image Settings' ) } initialOpen={ false }>
+            <ImageControl
+              label={ __( 'Image' ) }
+              value={ image }
+              onChange={ ( media ) => setAttributes( { image: media } ) }
             />
+          </PanelBody>
+        </InspectorControls>
+        <div className={ className }>
+          <div className="card">
+            { !! image && (
+              <img src={ image.url } className="card-img-top" />
+            ) }
+            <div className="card-body">
+              <InnerBlocks
+                allowedBlocks={ ALLOWED_BLOCKS }
+                template={ TEMPLATE }
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

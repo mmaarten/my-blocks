@@ -17,7 +17,6 @@ import {
   InspectorControls,
   InnerBlocks,
   BlockControls,
-  PanelColorSettings,
 	withColors,
 } from '@wordpress/block-editor';
 import {
@@ -169,7 +168,6 @@ class RowEdit extends Component {
                 />
               </PanelBody>
             </InspectorControls>
-
             <BlockControls>
               <Toolbar controls={
                 [

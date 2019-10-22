@@ -16,7 +16,11 @@ registerBlockType( 'my/card', {
 	supports: {
 		align: ['wide', 'full'],
 	},
-  attributes: {},
+  attributes: {
+    image : {
+      type: 'object',
+    },
+  },
 	edit,
 	save,
 });

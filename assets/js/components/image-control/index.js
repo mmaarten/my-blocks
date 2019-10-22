@@ -3,10 +3,33 @@ import { Component } from '@wordpress/element';
 import { BaseControl, Button, Icon } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { get, isEmpty } from 'lodash';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { get, isEmpty } from 'lodash';
+import classnames from 'classnames';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
+
+const Image = ( { media, size } ) => {
+
+  if ( ! media || 'image' !== media.media_type ) {
+    return null;
+  }
+
+  const sizes = media.media_details.sizes;
+  const full = get( sizes, 'full' );
+  const data = get( sizes, size || 'thumbnail', full );
+
+  const className = classnames( 'my-image-control__thumbnail', {
+    'portrait': data.width <= data.height,
+    'landscape': data.width > data.height,
+  } );
+
+  return (
+    <div className={ className }>
+      <img src={ data.source_url } />
+    </div>
+  );
+}
 
 class ImageControl extends Component {
   constructor() {
@@ -26,14 +49,6 @@ class ImageControl extends Component {
 
   render() {
     const { media, label, hideLabelFromVision, help } = this.props;
-
-    // Get image preview data.
-    let image = null;
-    if ( media && 'image' === media.media_type ) {
-      const sizes = media.media_details.sizes;
-      const full = get( sizes, 'full' );
-      image = get( sizes, 'thumbnail', full );
-    }
 
     return (
       <BaseControl
@@ -57,26 +72,20 @@ class ImageControl extends Component {
         ) }
         { ! isEmpty( media ) && (
           <div className="my-image-control__preview">
-            <div className="my-image-control__thumbnail">
-              <img src={ image.source_url } />
-              <MediaUploadCheck>
-                <MediaUpload
-                  onSelect={ this.onSelect }
-                  allowedTypes={ ALLOWED_MEDIA_TYPES }
-                  value={ media.id }
-                  render={ ( { open } ) => (
-                    <div className="my-image-control__actions">
-                      <Button onClick={ open } isDefault title={ __( 'Edit' ) }>
-                        <Icon icon="edit" />
-                      </Button>
-                      <Button onClick={ this.onRemove } isDefault title={ __( 'Clear' ) }>
-                        <Icon icon="no-alt" />
-                      </Button>
-                    </div>
-                  ) }
-                />
-              </MediaUploadCheck>
-            </div>
+            <Image media={ media } size="thumbnail" />
+            <MediaUploadCheck>
+              <MediaUpload
+                onSelect={ this.onSelect }
+                allowedTypes={ ALLOWED_MEDIA_TYPES }
+                value={ media.id }
+                render={ ( { open } ) => (
+                  <div className="my-image-control__actions">
+                    <Button onClick={ open } title={ __( 'Edit' ) }><Icon icon="edit" /></Button>
+                    <Button onClick={ this.onRemove } title={ __( 'Clear' ) }><Icon icon="no-alt" /></Button>
+                  </div>
+                ) }
+              />
+            </MediaUploadCheck>
           </div>
         ) }
       </BaseControl>
