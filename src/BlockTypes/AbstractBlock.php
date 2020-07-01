@@ -1,9 +1,4 @@
 <?php
-/**
- * Abstract block.
- *
- * @package My/Blocks
- */
 
 namespace My\Blocks\BlockTypes;
 
@@ -28,13 +23,10 @@ abstract class AbstractBlock
      */
     public function registerBlockType()
     {
-        register_block_type(
-            $this->namespace . '/' . $this->block_name,
-            array(
-                'editor_script' => 'my-' . $this->block_name,
-                'editor_style'  => 'my-block-editor',
-                'style'         => 'my-block-style',
-            )
-        );
+        register_block_type($this->namespace . '/' . $this->block_name, [
+            'editor_script'   => 'my-' . $this->block_name,
+            'editor_style'    => 'my-block-editor',
+            'style'           => 'my-block-style',
+        ]);
     }
 }

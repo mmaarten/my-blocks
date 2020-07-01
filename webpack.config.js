@@ -1,62 +1,13 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackBar = require('webpackbar');
-const config = require("@wordpress/scripts/config/webpack.config");
+const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 
 module.exports = {
-  ...config,
-  entry : {
-    'editor': './assets/css/editor.scss',
-    'editor-styles': './assets/css/editor-styles.scss',
-    'style': './assets/css/style.scss',
-    'row': './assets/js/blocks/row/index.js',
-    'column': './assets/js/blocks/column/index.js',
-    'button': './assets/js/blocks/button/index.js',
-    'heading': './assets/js/blocks/heading/index.js',
-    'card': './assets/js/blocks/card/index.js',
-    'post': './assets/js/blocks/post/index.js',
-  },
-  module: {
-    ...config.module,
-    rules: [
-      ...config.module.rules,
-      {
-        test: /\.(scss|sass|css)$/,
-        use: [
-          {
-            loader : MiniCssExtractPlugin.loader,
-          },
-          {
-            loader: 'css-loader',
-            options: { sourceMap: true },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              plugins: function() {
-                return [ require('autoprefixer') ];
-              },
-            },
-          },
-          {
-            loader: 'resolve-url-loader',
-            options: { sourceMap: true },
-          },
-          {
-            loader: 'sass-loader',
-            options: { sourceMap: true },
-          },
-        ],
-      },
-    ]
-  },
-  plugins: [
-    ...config.plugins,
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
-    new WebpackBar(),
-  ]
+  ...defaultConfig,
+  entry: {
+    'editor': './assets/styles/editor.scss',
+    'style': './assets/styles/style.scss',
+    'button': './assets/scripts/blocks/button/index.js',
+    'row': './assets/scripts/blocks/row/index.js',
+    'column': './assets/scripts/blocks/column/index.js',
+    'modal': './assets/scripts/blocks/modal/index.js',
+  }
 };

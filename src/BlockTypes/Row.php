@@ -1,9 +1,4 @@
 <?php
-/**
- * Row block.
- *
- * @package My/Blocks
- */
 
 namespace My\Blocks\BlockTypes;
 

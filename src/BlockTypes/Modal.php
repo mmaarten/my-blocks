@@ -2,12 +2,12 @@
 
 namespace My\Blocks\BlockTypes;
 
-class Button extends AbstractBlock
+class Modal extends AbstractBlock
 {
     /**
      * Block name.
      *
      * @var string
      */
-    protected $block_name = 'button';
+    protected $block_name = 'modal';
 }

@@ -2,9 +2,12 @@
 <ruleset name="My Blocks">
   <description>My Blocks Coding Standards</description>
 
-  <!-- Scan these files -->
+  <!-- Check all files in this directory and the directories below it. -->
   <file>plugin.php</file>
   <file>src</file>
+
+  <!-- Only check the PHP files. -->
+	<arg name="extensions" value="php"/>
 
   <!-- Show colors in console -->
   <arg value="-colors"/>

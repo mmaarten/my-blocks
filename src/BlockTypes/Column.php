@@ -1,9 +1,4 @@
 <?php
-/**
- * Column block.
- *
- * @package My/Blocks
- */
 
 namespace My\Blocks\BlockTypes;
 
