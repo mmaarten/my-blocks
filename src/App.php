@@ -52,6 +52,7 @@ final class App
             'Column',
             'Row',
             'Modal',
+            'Sample',
         ];
         foreach ($blocks as $class) {
             $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;
@@ -80,6 +81,7 @@ final class App
         Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-modal', plugins_url('build/modal.js', MY_BLOCKS_PLUGIN_FILE));
+        Assets::registerScript('my-sample', plugins_url('build/sample.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
     public function printBlockSettings()
