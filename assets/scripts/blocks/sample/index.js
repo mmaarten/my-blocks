@@ -9,7 +9,11 @@ registerBlockType( 'my/sample', {
   description: __( 'Sample block.', 'my-blocks' ),
 	category: 'common',
 	keywords: [ __( 'My Blocks', 'my-blocks' ) ],
-  attributes: {},
+  attributes: {
+    image : {
+      type : 'object',
+    },
+  },
 	edit,
 	save,
 });

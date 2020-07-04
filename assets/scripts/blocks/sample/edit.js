@@ -13,6 +13,7 @@ import {
   RichText,
 } from '@wordpress/block-editor';
 import classnames from 'classnames';
+import { ImageControl } from '../../components';
 
 class SampleEdit extends Component {
   constructor() {
@@ -26,12 +27,16 @@ class SampleEdit extends Component {
       className
     } = this.props;
 
-    const {} = attributes;
+    const { image } = attributes;
 
     return (
       <div className={ className }>
         <InspectorControls>
           <PanelBody initialOpen={ true }>
+            <ImageControl
+             image={ image }
+             onchange={ ( image ) => setAttributes( { image } ) }
+             />
           </PanelBody>
         </InspectorControls>
       </div>
