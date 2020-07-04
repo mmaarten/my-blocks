@@ -21,283 +21,46 @@ $container-max-widths: (
   flex-direction: column;
   flex: 1;
 }
-//
-// /**
-//  * Full alignment
-//  * TODO : Only when not in root.
-//  */
-// [data-type="my/row"][data-align="full"] {
-//   > .block-editor-block-list__block-edit {
-//     > [data-block] {
-//       > div {
-//         > .block-editor-inner-blocks {
-//           padding-left: $block-padding;
-//         	padding-right: $block-padding;
-//         }
-//       }
-//     }
-//   }
-//
-//   &.is-selected,
-//   &.has-child-selected {
-//     > .block-editor-block-list__block-edit {
-//       > [data-block] {
-//         > div {
-//           > .block-editor-inner-blocks {
-//             padding-left: $block-padding * 2 !important;
-//           	padding-right: $block-padding * 2 !important;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-//
-// /**
-//  * Fix when inside core/cover block. This block applies some styles for all inner blocks.
-//  */
-// .wp-block-my-column {
-//   > .block-editor-inner-blocks {
-//     > .block-editor-block-list__layout {
-//       width: auto;
-//     }
-//   }
-// }
-//
-// /**
-//  * Setup columns container.
-//  */
-// .wp-block-my-row {
-//   > .block-editor-inner-blocks {
-//     // Setup container.
-//     margin-left: auto;
-//     margin-right: auto;
-//   }
-//   &.has-fixed-container > .block-editor-inner-blocks {
-//     @include make-container-max-widths();
-//   }
-// }
-//
-// /**
-//  * Row block.
-//  */
-// .wp-block-my-row {
-//   .block-editor-block-list__block {
-//     // Disable max width on all inner blocks.
-//     max-width: none;
-//   }
-//
-// 	> .block-editor-inner-blocks {
-//     // Setup container.
-//     margin-left: auto;
-//     margin-right: auto;
-//
-//     > .block-editor-block-list__layout {
-//
-//       // // Negate vertical column spacing.
-//       // margin-top: -$block-padding;
-//       // margin-bottom: -$block-padding;
-//
-//       // Hide empty block appender.
-//       > .block-list-appender {
-//         display: none !important;
-//       }
-//
-//       // Setup flex box.
-//       display: flex;
-//    		flex-wrap: wrap;
-//
-//       // Setup flex columns.
-//       > .block-editor-block-list__block {
-//         @include flex-full-height();
-//
-//         // // Add vertical spacing so columns don't overlap when stacked.
-//         // margin-top: $block-padding;
-//         // margin-bottom: $block-padding;
-//
-//         // On mobile columns are full width.
-//         flex-basis: 100%;
-//
-//         // Loop breakpoints
-//         @each $breakpoint in map-keys($grid-breakpoints) {
-//           $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-//
-//           // Above breakpoint.
-//           @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-//             // Make flexbox column.
-//             &.has-col#{$infix} {
-//               flex-basis: 0;
-//               flex-grow: 1;
-//             }
-//
-//             // Make flexbox column and set width.
-//             @for $i from 1 through $grid-columns {
-//               &.has-col#{$infix}-#{$i} {
-//                 @include make-col($i, $grid-columns);
-//               }
-//             }
-//
-//             // Order
-//             @for $i from 0 through $grid-columns {
-//               &.has-order#{$infix}-#{$i} { order: $i; }
-//             }
-//
-//             // Offset
-//             @for $i from 0 through ($grid-columns - 1) {
-//               @if not ($infix == "" and $i == 0) {
-//                 &.has-offset#{$infix}-#{$i} {
-//                   @include make-col-offset($i, $grid-columns);
-//                 }
-//               }
-//             }
-//           }
-//         }
-//
-//         > .block-editor-block-list__block-edit {
-//           @include flex-full-height();
-//
-//           > [data-block] {
-//             @include flex-full-height();
-//
-//             margin-top: 0;
-//             margin-bottom: 0;
-//
-//             > .wp-block-my-column {
-//               @include flex-full-height();
-//
-//               > .block-editor-inner-blocks {
-//                 margin-top: -$block-padding * 2;
-//       					margin-bottom: -$block-padding * 2;
-//
-//                 > .block-editor-block-list__layout {
-//                   > .block-list-appender {
-//                     margin-top: $block-padding * 2;
-//                 		margin-bottom: $block-padding * 2;
-//                   }
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-//
-// /**
-//  * Vertical Alignment
-//  */
-// .wp-block-my-column {
-//   &.is-vertically-aligned-top {
-//   	justify-content: flex-start;
-//   }
-//
-//   &.is-vertically-aligned-center {
-//   	justify-content: center;
-//   }
-//
-//   &.is-vertically-aligned-bottom {
-//   	justify-content: flex-end;
-//   }
-// }
-//
-// /**
-//  * Row block.
-//  */
-// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"] {
-//   &.is-selected,
-//   &.has-child-selected {
-//     > .block-editor-block-list__block-edit {
-//       margin-top: $block-padding * 3;
-//       margin-bottom: $block-padding * 3;
-//
-//       > [data-block] {
-//         > .wp-block-my-row {
-//           > .block-editor-inner-blocks {
-//             padding: $block-padding;
-//
-//           	> .components-placeholder {
-//               // Negate this padding for the placeholder.
-//           		margin: -$block-padding;
-//           		width: calc(100% + #{$block-padding * 2});
-//           	}
-//             > .block-editor-block-list__layout {
-//               // Negate vertical column spacing.
-//               margin-top: -$block-padding;
-//               margin-bottom: -$block-padding;
-//
-//               > .block-editor-block-list__block {
-//                 // Add vertical spacing so columns don't overlap when stacked.
-//                 margin-top: $block-padding;
-//                 margin-bottom: $block-padding;
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-//
-// /**
-//  * Column block.
-//  */
-// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"] {
-//   > .block-editor-block-list__block-edit {
-//     > .block-editor-block-mover {
-//       display: none !important;
-//     }
-//     > [data-block] {
-//       > .wp-block-my-column {
-//         > .block-editor-inner-blocks {
-//           > .block-editor-block-list__layout {
-//             > .block-list-appender {
-//               margin: $block-padding;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-//   // Selected
-//   &.is-selected {
-//     > .block-editor-block-list__block-edit {
-//       > [data-block] {
-//         > .wp-block-my-column {
-//           > .block-editor-inner-blocks {
-//             > .block-editor-block-list__layout {
-//               > .block-list-appender {
-//                 margin: $block-padding 0;
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-//   &.is-selected,
-//   &.has-child-selected {
-//     > .block-editor-block-list__block-edit {
-//       > [data-block] {
-//         > div {
-//           > .block-editor-inner-blocks {
-//             padding: $block-padding;
-//
-//             // Negate this padding for the placeholder.
-//           	> .components-placeholder {
-//           		margin: -$block-padding;
-//           		width: calc(100% + #{$block-padding * 2});
-//           	}
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+
+// Setup flex columns.
+> .block-editor-block-list__block {
+  @include flex-full-height();
+  > .block-editor-block-list__block-edit {
+    @include flex-full-height();
+    > [data-block] {
+      @include flex-full-height();
+      > .wp-block-my-column {
+        @include flex-full-height();
+      }
+    }
+  }
+}
+
+
+/**
+ * Vertical Alignment
+ */
+.wp-block-my-column {
+  &.is-vertically-aligned-top {
+  	justify-content: flex-start;
+  }
+
+  &.is-vertically-aligned-center {
+  	justify-content: center;
+  }
+
+  &.is-vertically-aligned-bottom {
+  	justify-content: flex-end;
+  }
+}
 
 .components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/row"] {
   margin-bottom: -1px;
   margin-left: -14px;
+}
+
+.components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/row"][data-align="full"] {
+  margin-left: 0;
 }
 
 .components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/column"] {
@@ -382,39 +145,3 @@ $container-max-widths: (
     }
   }
 }
-
-
-//
-// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"] {
-//   > .block-editor-block-list__block-edit {
-//     > [data-block] {
-//       margin-top: $block-padding * 3;
-//       margin-bottom: $block-padding * 3;
-//     }
-//   }
-// }
-
-/**
- * Add extra padding when the parent block is selected, for easier interaction.
- */
-// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"],
-// .block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"] {
-//   &.is-selected,
-//   &.has-child-selected {
-//     > .block-editor-block-list__block-edit {
-//       > [data-block] {
-//         > div {
-//           > .block-editor-inner-blocks {
-//             padding: $block-padding;
-//
-//             // Negate this padding for the placeholder.
-//           	> .components-placeholder {
-//           		margin: -$block-padding;
-//           		width: calc(100% + #{$block-padding * 2});
-//           	}
-//           }
-//         }
-//       }
-//     }
-//   }
-// }

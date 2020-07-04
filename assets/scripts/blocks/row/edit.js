@@ -11,6 +11,9 @@ import {
   Toolbar,
   SVG,
 	Path,
+  Button,
+  Icon,
+  Placeholder,
 } from '@wordpress/components';
 import {
   InspectorControls,
@@ -85,25 +88,15 @@ const TEMPLATE_OPTIONS = [
 class RowEdit extends Component {
   constructor() {
     super( ...arguments );
-
-    this.state = {
-      template : this.getColumnsTemplate( this.props.columns ),
-    };
-  }
-
-  getColumnsTemplate( columns, attributes ) {
-    return times( columns, () => [ 'my/column', attributes ] )
   }
 
   render() {
-    const {
-      template,
-    } = this.state;
     const {
       attributes,
       setAttributes,
       className,
       updateColumns,
+      addColumn,
       columns,
       colors,
     } = this.props;
@@ -112,8 +105,6 @@ class RowEdit extends Component {
       container,
       backgroundImage,
     } = attributes;
-
-    const showTemplateSelector = template.length ? false : true;
 
     const classes = classnames( {
       [ className ]: className,
@@ -142,22 +133,41 @@ class RowEdit extends Component {
                 icon: 'plus',
                 title: __( 'Add Column' ),
           			isActive: false,
-          			onClick: () => { updateColumns( columns, columns + 1 ) }
+          			onClick: () => { addBlock( 'my/column' ) }
               }
             ]
           }
           />
         </BlockControls>
         <div className={ classes }>
-          <InnerBlocks
-            allowedBlocks={ ALLOWED_BLOCKS }
-    				__experimentalMoverDirection="horizontal"
-    				__experimentalTagName="div"
-    				__experimentalPassedProps={ {
-    					//className: classes,
-    				} }
-    				renderAppender={ false }
-           />
+          { ! columns && (
+            <Placeholder
+             label={ __( 'Columns', 'my-blocks') }
+             instructions={ __( 'Select a layout to start with.', 'my-blocks' ) }
+            >
+              { TEMPLATE_OPTIONS.map( options => {
+                return (
+                  <Button
+                    title={ options.title }
+                    onClick={ () => {
+                      options.template.map( data => {
+                        addBlock( data[0], data[1] || undefined )
+                      } )
+                    } }
+                    isSecondary
+                   ><Icon icon={ options.icon } /></Button>
+                )
+              } ) }
+            </Placeholder>
+          ) }
+          { columns && (
+            <InnerBlocks
+              allowedBlocks={ ALLOWED_BLOCKS }
+      				__experimentalMoverDirection="horizontal"
+      				__experimentalTagName="div"
+      				renderAppender={ false }
+             />
+          ) }
         </div>
       </>
     );
@@ -174,27 +184,20 @@ export default compose( [
     };
   } ),
   withDispatch( ( dispatch, ownProps, registry ) => ( {
-    updateColumns( previousColumns, newColumns ) {
+    addBlock( blockType, attributes ) {
       const { clientId } = ownProps;
-		  const { replaceInnerBlocks } = dispatch( 'core/block-editor' );
-		  const { getBlocks } = registry.select( 'core/block-editor' );
+      const { replaceInnerBlocks } = dispatch( 'core/block-editor' );
+      const { getBlocks } = registry.select( 'core/block-editor' );
 
       let innerBlocks = getBlocks( clientId );
 
-      if ( newColumns > previousColumns ) {
-        innerBlocks = [
-  				...innerBlocks,
-  				...times( newColumns - previousColumns, () => {
-  					return createBlock( 'my/column' );
-  				} ),
-        ];
-      } else {
-        // The removed column will be the last of the inner blocks.
-			  innerBlocks = dropRight( innerBlocks, previousColumns - newColumns );
-      }
+      innerBlocks = [
+        ...innerBlocks,
+        ...[ createBlock( blockType, attributes ) ],
+      ];
 
       replaceInnerBlocks( clientId, innerBlocks, false );
-    },
+    }
 
   } ) ),
 
