@@ -44,26 +44,28 @@ class ImageControl extends Component {
     return (
       <BaseControl label={ __( 'Image', 'my-blocks' ) }>
       { image && (
-        <div class="my-blocks-image__preview">
-          <img src={ image.thumbURL } />
-          <div class="my-blocks-image__actions">
-            <MediaUploadCheck>
-              <MediaUpload
-        			onSelect = { this.onSelect }
-        			allowedTypes = { [ 'image' ] }
-        			multiple = { false }
-              value = { image.id }
-              render={ ( { open } ) => (
-                <Button onClick={ open } title={ __('Edit image', 'my-blocks') }>
-                  <Icon icon="edit" />
-      					</Button>
+        <div class="my-blocks-image-control-image">
+          <div class="my-blocks-image__preview">
+            <img src={ image.thumbURL } />
+            <div class="my-blocks-image__actions">
+              <MediaUploadCheck>
+                <MediaUpload
+          			onSelect = { this.onSelect }
+          			allowedTypes = { [ 'image' ] }
+          			multiple = { false }
+                value = { image.id }
+                render={ ( { open } ) => (
+                  <Button onClick={ open } title={ __('Edit image', 'my-blocks') }>
+                    <Icon icon="edit" />
+        					</Button>
 
-              ) }
-        		  />
-            </MediaUploadCheck>
-            <Button onClick={ this.onRemove } title={ __('Remove image', 'my-blocks') }>
-              <Icon icon="trash" />
-            </Button>
+                ) }
+          		  />
+              </MediaUploadCheck>
+              <Button onClick={ this.onRemove } title={ __('Remove image', 'my-blocks') }>
+                <Icon icon="trash" />
+              </Button>
+            </div>
           </div>
         </div>
       ) }

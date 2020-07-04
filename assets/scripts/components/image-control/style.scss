@@ -1,17 +1,27 @@
 
 
+.my-blocks-image-control-image {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
 .my-blocks-image__preview {
   position: relative;
-  width: 150px;
-  height: 150px;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-  background: #eee;
+  float: left;
+  max-width: 150px;
+  max-height: 150px;
 
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    background: #eee;
+    margin: 0;
+    padding: 0;
   }
 
   &:hover {
