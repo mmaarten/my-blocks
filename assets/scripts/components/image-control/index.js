@@ -30,8 +30,6 @@ class ImageControl extends Component {
     image.url = size && get( media, [ 'sizes', size, 'url' ] ) || get( media, [ 'sizes', 'full', 'url' ] );
     image.thumbURL = get( media, [ 'sizes', 'thumbnail', 'url' ] ) || get( media, [ 'sizes', 'full', 'url' ] );
 
-    console.log( 'image', image );
-
     onchange( image );
   }
 
