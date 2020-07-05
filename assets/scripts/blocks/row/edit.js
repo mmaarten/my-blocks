@@ -95,7 +95,7 @@ class RowEdit extends Component {
       setAttributes,
       className,
       updateColumns,
-      addColumn,
+      addBlock,
       columns,
       colors,
     } = this.props;
@@ -144,9 +144,10 @@ class RowEdit extends Component {
              label={ __( 'Columns', 'my-blocks') }
              instructions={ __( 'Select a layout to start with.', 'my-blocks' ) }
             >
-              { TEMPLATE_OPTIONS.map( options => {
+              { TEMPLATE_OPTIONS.map( (options, index) => {
                 return (
                   <Button
+                    key={ `layout-${index}` }
                     title={ get( options, 'title' ) }
                     onClick={ () => {
                       options.template.map( data => {
