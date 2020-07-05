@@ -160,7 +160,7 @@ class RowEdit extends Component {
               } ) }
             </Placeholder>
           ) }
-          { columns && (
+          { !! columns && (
             <InnerBlocks
               allowedBlocks={ ALLOWED_BLOCKS }
       				__experimentalMoverDirection="horizontal"
