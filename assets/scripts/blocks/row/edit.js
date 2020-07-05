@@ -31,8 +31,7 @@ import {
   createBlock,
 } from '@wordpress/blocks';
 import {
-  times,
-  dropRight,
+  get,
 } from 'lodash';
 import
   classnames
@@ -148,14 +147,14 @@ class RowEdit extends Component {
               { TEMPLATE_OPTIONS.map( options => {
                 return (
                   <Button
-                    title={ options.title }
+                    title={ get( options, 'title' ) }
                     onClick={ () => {
                       options.template.map( data => {
                         addBlock( data[0], data[1] || undefined )
                       } )
                     } }
                     isSecondary
-                   ><Icon icon={ options.icon } /></Button>
+                   ><Icon icon={ get( options, 'icon' ) } /></Button>
                 )
               } ) }
             </Placeholder>
