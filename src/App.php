@@ -66,16 +66,25 @@ final class App
      */
     public function registerBlockAssets()
     {
-        // Common.
+        // Common editor styles.
         Assets::registerStyle(
             'my-block-editor',
             plugins_url('build/editor.css', MY_BLOCKS_PLUGIN_FILE),
             ['wp-edit-blocks']
         );
+
+        // Common styles for editor and front-end.
         Assets::registerStyle(
             'my-block-style',
             plugins_url('build/style-style.css', MY_BLOCKS_PLUGIN_FILE)
         );
+
+        // Common scripts for editor and front-end.
+        Assets::registerScript(
+            'my-block-script',
+            plugins_url('build/script.js', MY_BLOCKS_PLUGIN_FILE)
+        );
+
         // Individual blocks.
         Assets::registerScript('my-button', plugins_url('build/button.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));

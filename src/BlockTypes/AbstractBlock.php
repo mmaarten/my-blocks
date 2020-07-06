@@ -26,6 +26,7 @@ abstract class AbstractBlock
         register_block_type($this->namespace . '/' . $this->block_name, [
             'editor_script'   => 'my-' . $this->block_name,
             'editor_style'    => 'my-block-editor',
+            'script'          => 'my-block-script',
             'style'           => 'my-block-style',
         ]);
     }
