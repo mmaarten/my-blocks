@@ -23,7 +23,6 @@ const URLControl = ( {
     >
       <URLInput
         className="my-url-control__input"
-        id={ id }
         value={ value }
         autoFocus={ false }
         hasBorder
