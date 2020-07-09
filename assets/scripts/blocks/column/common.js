@@ -5,7 +5,7 @@ export const gridBreakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
 export const getColumnClasses = ( attributes ) => {
   const { width, offset, order, verticalAlignment } = attributes;
-  const FALLBACK_CLASS = 'col-md';
+  const FALLBACK_CLASS = 'col';
 
   let classes = {};
 
