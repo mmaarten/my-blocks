@@ -5,9 +5,10 @@ namespace My\Blocks\BlockTypes;
 class Modal extends AbstractBlock
 {
     /**
-     * Block name.
-     *
-     * @var string
+     * Constructor
      */
-    protected $block_name = 'modal';
+    public function __construct()
+    {
+        parent::__construct('modal');
+    }
 }

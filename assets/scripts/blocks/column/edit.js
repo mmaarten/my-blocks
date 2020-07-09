@@ -5,6 +5,7 @@ import {
   Toolbar,
   BaseControl,
   RangeControl,
+  SelectControl,
 } from '@wordpress/components';
 import {
   InspectorControls,
@@ -15,7 +16,6 @@ import {
 import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { get, assign } from 'lodash';
-import classnames from 'classnames';
 import { gridColumns } from './common';
 import { BreakpointNavigation } from './../../components';
 
@@ -31,19 +31,12 @@ class ColumnEdit extends Component {
       className,
       hasChildBlocks,
       blockIndex,
-      moveBlockTo,
-      removeBlock,
     } = this.props;
 
     const { width, offset, order, verticalAlignment } = attributes;
 
-    const classes = classnames( {
-      [ className ]: className,
-			[ `is-vertically-aligned-${ verticalAlignment }` ]: verticalAlignment,
-  	} );
-
     return (
-      <div className={ classes }>
+      <div className={ className }>
         <InspectorControls>
           <PanelBody initialOpen={ true }>
           <BreakpointNavigation
@@ -84,6 +77,21 @@ class ColumnEdit extends Component {
                   min={ 1 }
                   max={ gridColumns }
                   allowReset
+                />
+                <SelectControl
+                  label={ __( 'Vertically Align' ) }
+                  options={ [
+                    { label: __('- Select -', 'my-blocks'), value: '' },
+                    { label: __('Top', 'my-blocks'), value: 'start' },
+                    { label: __('Middle', 'my-blocks'), value: 'center' },
+                    { label: __('Bottom', 'my-blocks'), value: 'end' },
+                  ] }
+                  value={ get( verticalAlignment, breakpoint, '' ) }
+                  onChange={ ( value ) => {
+                    setAttributes( {
+                      verticalAlignment: assign( {}, verticalAlignment, { [ breakpoint ]: value } )
+                    } );
+                  } }
                 />
               </>
             ) }
@@ -140,15 +148,6 @@ export default compose(
       }
 
       replaceInnerBlocks( clientId, innerBlocks, false );
-    },
-    moveBlockTo( index ) {
-      const { clientId, blockIndex } = ownProps;
-      const { getBlockCount, getBlockRootClientId } = registry.select( 'core/block-editor' );
-		  const { moveBlockToPosition } = dispatch( 'core/block-editor' );
-      const rootClientId = getBlockRootClientId( clientId );
-      const blockCount = getBlockCount( clientId );
-
-      moveBlockToPosition( clientId, rootClientId, rootClientId, index );
     },
   } ) )
 )( ColumnEdit );

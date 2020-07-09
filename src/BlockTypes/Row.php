@@ -5,9 +5,10 @@ namespace My\Blocks\BlockTypes;
 class Row extends AbstractBlock
 {
     /**
-     * Block name.
-     *
-     * @var string
+     * Constructor
      */
-    protected $block_name = 'row';
+    public function __construct()
+    {
+        parent::__construct('row');
+    }
 }

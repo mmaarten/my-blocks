@@ -33,7 +33,7 @@ registerBlockType( 'my/column', {
       type: 'object',
     },
     verticalAlignment: {
-      type: 'string',
+      type: 'object',
     },
   },
 	edit,

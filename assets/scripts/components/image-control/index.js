@@ -18,7 +18,7 @@ class ImageControl extends Component {
 
   onSelect( media ) {
 
-    const { onchange, size } = this.props;
+    const { onChange, size } = this.props;
 
     if ( ! media || ! media.url ) {
       onchange( undefined );
@@ -30,13 +30,13 @@ class ImageControl extends Component {
     image.url = size && get( media, [ 'sizes', size, 'url' ] ) || get( media, [ 'sizes', 'full', 'url' ] );
     image.thumbURL = get( media, [ 'sizes', 'thumbnail', 'url' ] ) || get( media, [ 'sizes', 'full', 'url' ] );
 
-    onchange( image );
+    onChange( image );
   }
 
   onRemove() {
-    const { onchange } = this.props;
+    const { onChange } = this.props;
 
-    onchange( undefined );
+    onChange( undefined );
   }
 
   render() {
@@ -73,11 +73,15 @@ class ImageControl extends Component {
         <div>
           <MediaUploadCheck>
             <MediaUpload
-      			onSelect = { this.onSelect }
-      			allowedTypes = { [ 'image' ] }
-      			multiple = { false }
-            render={ ( { open } ) => (
-              <Button onClick={ open } isSmall>
+      			 onSelect = { this.onSelect }
+      			 allowedTypes = { [ 'image' ] }
+      			 multiple = { false }
+             render={ ( { open } ) => (
+              <Button
+               isSecondary
+               isSmall
+               onClick={ open }
+              >
     					     { __('Select image', 'my-blocks') }
     					</Button>
             ) }

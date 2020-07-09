@@ -50,9 +50,8 @@ final class App
         $blocks = [
             'Button',
             'Column',
-            'Row',
             'Modal',
-            'Sample',
+            'Row',
         ];
         foreach ($blocks as $class) {
             $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;
@@ -88,9 +87,8 @@ final class App
         // Individual blocks.
         Assets::registerScript('my-button', plugins_url('build/button.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
-        Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-modal', plugins_url('build/modal.js', MY_BLOCKS_PLUGIN_FILE));
-        Assets::registerScript('my-sample', plugins_url('build/sample.js', MY_BLOCKS_PLUGIN_FILE));
+        Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
     public function printBlockSettings()

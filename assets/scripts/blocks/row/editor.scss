@@ -44,24 +44,18 @@ $container-max-widths: (
   }
 }
 
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-
-/**
- * Vertical Alignment
- */
-.wp-block-my-column {
-  &.is-vertically-aligned-top {
-  	justify-content: flex-start;
-  }
-
-  &.is-vertically-aligned-center {
-  	justify-content: center;
-  }
-
-  &.is-vertically-aligned-bottom {
-  	justify-content: flex-end;
+    .has-align-items#{$infix}-start    { align-items: flex-start !important; }
+    .has-align-items#{$infix}-end      { align-items: flex-end !important; }
+    .has-align-items#{$infix}-center   { align-items: center !important; }
+    .has-align-items#{$infix}-baseline { align-items: baseline !important; }
+    .has-align-items#{$infix}-stretch  { align-items: stretch !important; }
   }
 }
+
 
 .components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/row"] {
   margin-bottom: -1px;
@@ -148,6 +142,11 @@ $container-max-widths: (
                 }
               }
             }
+
+            // Vertical alignment
+            &.has-align-items#{$infix}-start    { justify-content: flex-start !important; }
+            &.has-align-items#{$infix}-center   { justify-content: center !important; }
+            &.has-align-items#{$infix}-end      { justify-content: flex-end !important; }
           }
         }
       }

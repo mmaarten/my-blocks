@@ -19,6 +19,16 @@ abstract class AbstractBlock
     protected $block_name = '';
 
     /**
+     * Constructor
+     *
+     * @param string $name Block name.
+     */
+    public function __construct($name)
+    {
+        $this->block_name = $name;
+    }
+
+    /**
      * Registers the block type with WordPress.
      */
     public function registerBlockType()

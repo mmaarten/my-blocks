@@ -5,9 +5,10 @@ namespace My\Blocks\BlockTypes;
 class Button extends AbstractBlock
 {
     /**
-     * Block name.
-     *
-     * @var string
+     * Constructor
      */
-    protected $block_name = 'button';
+    public function __construct()
+    {
+        parent::__construct('button');
+    }
 }
