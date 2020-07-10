@@ -1,0 +1,16 @@
+
+.block-editor-page .wp-block-my-card {
+  // Unset WordPress card
+  .card {
+    position: unset;
+    margin-top: unset;
+    padding: unset;
+    min-width: unset;
+    max-width: unset;
+    border: unset;
+    box-shadow: unset;
+    background: unset;
+    box-sizing: unset;
+  }
+  @import "~bootstrap/scss/card";
+}

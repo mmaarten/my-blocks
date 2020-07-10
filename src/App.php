@@ -49,6 +49,7 @@ final class App
     {
         $blocks = [
             'Button',
+            'Card',
             'Column',
             'Modal',
             'Row',
@@ -86,6 +87,7 @@ final class App
 
         // Individual blocks.
         Assets::registerScript('my-button', plugins_url('build/button.js', MY_BLOCKS_PLUGIN_FILE));
+        Assets::registerScript('my-card', plugins_url('build/card.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-modal', plugins_url('build/modal.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
