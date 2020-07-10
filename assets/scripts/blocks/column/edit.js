@@ -10,8 +10,6 @@ import {
 import {
   InspectorControls,
   InnerBlocks,
-  BlockControls,
-  BlockVerticalAlignmentToolbar
 } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
@@ -98,12 +96,6 @@ class ColumnEdit extends Component {
           />
           </PanelBody>
         </InspectorControls>
-        <BlockControls>
-  				<BlockVerticalAlignmentToolbar
-  					value={ verticalAlignment }
-            onChange={ ( value ) => { setAttributes( { verticalAlignment: value } ) } }
-  				/>
-  			</BlockControls>
         <InnerBlocks
           templateLock={ false }
           renderAppender={ (
