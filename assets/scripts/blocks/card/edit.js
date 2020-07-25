@@ -2,16 +2,15 @@ import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import {
   PanelBody,
-  TextControl,
-  SelectControl,
-  ToggleControl
+  CycleSelectControl,
 } from '@wordpress/components';
 import {
   InspectorControls,
   InnerBlocks,
-  RichText,
 } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { compose } from '@wordpress/compose';
+import { withSelect } from '@wordpress/data';
+import { map } from 'lodash';
 import {
   ImageControl
 } from './../../components';
@@ -31,10 +30,16 @@ class CardEdit extends Component {
     const {
       attributes,
       setAttributes,
-      className
+      className,
+      imageSizes,
     } = this.props;
 
-    const { image } = attributes;
+    const { image, imageSize } = attributes;
+
+    const sizeOptions = map( imageSizes, ( { name, slug } ) => ( {
+			value: slug,
+			name,
+		} ) );
 
     return (
       <div className={ className }>
@@ -44,8 +49,17 @@ class CardEdit extends Component {
               label={ __( 'Image', 'my-blocks' ) }
               image={ image }
               onChange={ ( image ) => setAttributes( { image } ) }
-              size="large"
+              size={ imageSize }
             />
+            { image && (
+              <CycleSelectControl
+                icon={ 'editor-expand' }
+                label={ __( 'Size' ) }
+                value={ imageSize || 'large' }
+                onChangeValue={ ( imageSize ) => setAttributes( { imageSize } ) }
+                options={ sizeOptions }
+              />
+            ) }
           </PanelBody>
         </InspectorControls>
         <div className="card">
@@ -68,4 +82,13 @@ class CardEdit extends Component {
   }
 }
 
-export default CardEdit;
+export default compose( [
+	withSelect( ( select, props ) => {
+		const { getSettings } = select( 'core/block-editor' );
+		const { imageSizes } = getSettings();
+
+		return {
+			imageSizes,
+		};
+	} ),
+] )( CardEdit );

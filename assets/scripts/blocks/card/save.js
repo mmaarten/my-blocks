@@ -1,7 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import {
-  InnerBlocks,
-} from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 
 export default ( { ...props } ) => {
   const { attributes, className } = props;
