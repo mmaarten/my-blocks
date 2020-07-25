@@ -34,7 +34,7 @@ const ButtonSave = ( { ...props } ) => {
         target={ linkTab ? '_blank' : undefined }
         rel={ rel ? rel : undefined }
         data-toggle={ toggle ? toggle : undefined }
-        role="btn"
+        role="button"
       >{ text }</a>
     </div>
   );
