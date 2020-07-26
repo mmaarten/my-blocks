@@ -98,7 +98,6 @@ class RowEdit extends Component {
       updateColumns,
       addBlock,
       columns,
-      colors,
     } = this.props;
 
     const {
@@ -206,7 +205,5 @@ export default compose( [
 
       replaceInnerBlocks( clientId, innerBlocks, false );
     }
-
-  } ) ),
-
-] )( RowEdit );
+  } )
+) ] )( RowEdit );
