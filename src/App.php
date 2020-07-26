@@ -40,14 +40,6 @@ final class App
         add_action('init', [$this, 'registerBlockTypes']);
         add_action('init', [$this, 'registerBlockAssets']);
         add_action('admin_print_scripts', [$this, 'printBlockSettings'], 1);
-        add_filter('acf/settings/load_json', 'acfJSONLoadPoint');
-    }
-
-    public function acfJSONLoadPoint($paths)
-    {
-        $paths[] = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE) . '/acf-json';
-
-        return $paths;
     }
 
     /**
