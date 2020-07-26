@@ -26,6 +26,7 @@ export const getColumnClasses = ( attributes ) => {
     classes[`order${ slug }-${ kebabCase( _order ) }`] = _order;
     classes[`justify-content${ slug }-${ kebabCase( _horizontalAlignment ) }`] = _horizontalAlignment;
     classes[`align-items${ slug }-${ kebabCase( _verticalAlignment ) }`] = _verticalAlignment;
+    classes[`d${ slug }-flex`] = _horizontalAlignment || _verticalAlignment;
 
     // Width is set. Remove `col` class.
     if ( _width && classes[ FALLBACK_CLASS ] ) {

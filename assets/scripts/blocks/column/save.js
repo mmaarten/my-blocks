@@ -12,9 +12,7 @@ export default ( { ...props } ) => {
   const { attributes } = props;
   const { horizontalAlignment, verticalAlignment } = attributes;
 
-  const classes = classnames( getColumnClasses( attributes ), {
-    'd-flex' : horizontalAlignment || verticalAlignment,
-  } );
+  const classes = classnames( getColumnClasses( attributes ) );
 
   return (
     <div className={ classes }>
