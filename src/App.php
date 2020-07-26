@@ -87,6 +87,9 @@ final class App
         Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
+    /**
+     * Print block settings.
+     */
     public function printBlockSettings()
     {
         $screen = get_current_screen();
