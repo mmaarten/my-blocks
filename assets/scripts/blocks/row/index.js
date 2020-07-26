@@ -22,6 +22,10 @@ registerBlockType( 'my/row', {
       type: 'string',
       default: 'full',
     },
+    container: {
+      type: 'string',
+      default: 'fixed',
+    },
     noGutters : {
       type: 'boolean',
 			default: false,

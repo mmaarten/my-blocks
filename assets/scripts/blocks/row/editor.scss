@@ -29,6 +29,22 @@
 }
 
 /**
+ * Setup container
+ */
+
+.wp-block-my-row {
+
+  &.has-fluid-container > .block-editor-inner-blocks {
+    @include make-container();
+  }
+
+  &.has-fixed-container > .block-editor-inner-blocks {
+    @include make-container();
+    @include make-container-max-widths();
+  }
+}
+
+/**
  * Setup grid
  */
 
@@ -39,6 +55,7 @@
 
       > .wp-block[data-type="my/column"] {
         @include make-col-ready();
+        max-width: none;
         margin-top: 0;
         margin-bottom: 0;
 
@@ -63,6 +80,8 @@
             &.has-col#{$infix} {
               flex-basis: 0;
               flex-grow: 1;
+              min-width: 0;
+              max-width: 100%;
             }
 
             // Make flexbox column and set width.

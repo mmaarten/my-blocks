@@ -102,18 +102,30 @@ class RowEdit extends Component {
     } = this.props;
 
     const {
+      container,
       noGutters,
     } = attributes;
 
     const classes = classnames( {
       [ className ]: className,
       'has-no-gutters': noGutters,
+      [`has-${container}-container`]: container,
     } );
 
     return (
       <>
         <InspectorControls>
           <PanelBody initialOpen={ true }>
+            <SelectControl
+              label={ __('Container', 'my-blocks') }
+              value={ container }
+              onChange={ ( container ) => setAttributes( { container } ) }
+              options={ [
+                { label: __( "- Don't Set -", 'my-blocks' ), value: '' },
+                { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
+                { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
+              ] }
+            />
             <ToggleControl
               label={ __( 'No Gutters', 'my-blocks' ) }
               checked={ noGutters }
