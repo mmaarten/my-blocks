@@ -35,6 +35,9 @@ registerBlockType( 'my/column', {
     verticalAlignment: {
       type: 'object',
     },
+    horizontalAlignment: {
+      type: 'object',
+    },
   },
 	edit,
 	save,

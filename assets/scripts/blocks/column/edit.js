@@ -31,7 +31,7 @@ class ColumnEdit extends Component {
       blockIndex,
     } = this.props;
 
-    const { width, offset, order, verticalAlignment } = attributes;
+    const { width, offset, order, horizontalAlignment, verticalAlignment } = attributes;
 
     return (
       <div className={ className }>
@@ -75,6 +75,21 @@ class ColumnEdit extends Component {
                   min={ 1 }
                   max={ gridColumns }
                   allowReset
+                />
+                <SelectControl
+                  label={ __( 'Horizontal Align' ) }
+                  options={ [
+                    { label: __('- Select -', 'my-blocks'), value: '' },
+                    { label: __('Left', 'my-blocks'), value: 'start' },
+                    { label: __('Center', 'my-blocks'), value: 'center' },
+                    { label: __('Right', 'my-blocks'), value: 'end' },
+                  ] }
+                  value={ get( horizontalAlignment, breakpoint, '' ) }
+                  onChange={ ( value ) => {
+                    setAttributes( {
+                      horizontalAlignment: assign( {}, horizontalAlignment, { [ breakpoint ]: value } )
+                    } );
+                  } }
                 />
                 <SelectControl
                   label={ __( 'Vertically Align' ) }
