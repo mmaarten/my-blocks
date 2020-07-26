@@ -9,9 +9,9 @@ abstract class AbstractDynamicBlock extends AbstractBlock
      */
     public function registerBlockType()
     {
-        register_block_type($this->namespace . '/' . $this->block_name, [
+        register_block_type($this->namespace . '/' . $this->name, [
             'render_callback' => [$this, 'render'],
-            'editor_script'   => 'my-' . $this->block_name,
+            'editor_script'   => 'my-' . $this->name,
             'editor_style'    => 'my-block-editor',
             'script'          => 'my-block-script',
             'style'           => 'my-block-style',

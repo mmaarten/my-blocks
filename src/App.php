@@ -40,6 +40,14 @@ final class App
         add_action('init', [$this, 'registerBlockTypes']);
         add_action('init', [$this, 'registerBlockAssets']);
         add_action('admin_print_scripts', [$this, 'printBlockSettings'], 1);
+        add_filter('acf/settings/load_json', 'acfJSONLoadPoint');
+    }
+
+    public function acfJSONLoadPoint($paths)
+    {
+        $paths[] = plugin_dir_path(MY_BLOCKS_PLUGIN_FILE) . '/acf-json';
+
+        return $paths;
     }
 
     /**
@@ -48,11 +56,8 @@ final class App
     public function registerBlockTypes()
     {
         $blocks = [
-            'Button',
-            'Card',
-            'Column',
-            'Modal',
             'Row',
+            'Column',
         ];
         foreach ($blocks as $class) {
             $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;
@@ -86,10 +91,7 @@ final class App
         );
 
         // Individual blocks.
-        Assets::registerScript('my-button', plugins_url('build/button.js', MY_BLOCKS_PLUGIN_FILE));
-        Assets::registerScript('my-card', plugins_url('build/card.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
-        Assets::registerScript('my-modal', plugins_url('build/modal.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
@@ -101,30 +103,7 @@ final class App
             return;
         }
 
-        $settings = [
-            'themeColors' => ThemeSupport::get('my_blocks/theme_colors', [
-                [
-                    'name'  => __('Primary', 'my-theme'),
-                    'slug'  => 'primary',
-                    'color' => '#007bff',
-                ],
-                [
-                    'name'  => __('Secondary', 'my-theme'),
-                    'slug'  => 'secondary',
-                    'color' => '#6c757d',
-                ],
-                [
-                    'name'  => __('Light', 'my-theme'),
-                    'slug'  => 'light',
-                    'color' => '#f8f9fa',
-                ],
-                [
-                    'name'  => __('Dark', 'my-theme'),
-                    'slug'  => 'dark',
-                    'color' => '#343a40',
-                ],
-            ]),
-        ];
+        $settings = [];
 
         printf('<script>var myBlocksSettings = %s</script>', json_encode($settings));
     }

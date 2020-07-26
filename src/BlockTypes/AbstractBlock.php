@@ -16,7 +16,7 @@ abstract class AbstractBlock
      *
      * @var string
      */
-    protected $block_name = '';
+    protected $name = '';
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ abstract class AbstractBlock
      */
     public function __construct($name)
     {
-        $this->block_name = $name;
+        $this->name = $name;
     }
 
     /**
@@ -33,8 +33,8 @@ abstract class AbstractBlock
      */
     public function registerBlockType()
     {
-        register_block_type($this->namespace . '/' . $this->block_name, [
-            'editor_script'   => 'my-' . $this->block_name,
+        register_block_type($this->namespace . '/' . $this->name, [
+            'editor_script'   => 'my-' . $this->name,
             'editor_style'    => 'my-block-editor',
             'script'          => 'my-block-script',
             'style'           => 'my-block-style',

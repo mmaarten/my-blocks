@@ -14,9 +14,15 @@ const BreakpointNavigation = ( {
         controls={ [
           {
             icon: 'smartphone',
-            title: __( 'Small Devices' ),
+            title: __( 'Extra Small Devices' ),
             isActive: 'xs' === breakpoint,
             onClick: () => { setState( { breakpoint: 'xs' } ) },
+          },
+          {
+            icon: 'smartphone',
+            title: __( 'Small Devices' ),
+            isActive: 'sm' === breakpoint,
+            onClick: () => { setState( { breakpoint: 'sm' } ) },
           },
           {
             icon: 'tablet',
@@ -29,6 +35,12 @@ const BreakpointNavigation = ( {
             title: __( 'Large Devices' ),
             isActive: 'lg' === breakpoint,
             onClick: () => { setState( { breakpoint: 'lg' } ) },
+          },
+          {
+            icon: 'desktop',
+            title: __( 'Extra Large Devices' ),
+            isActive: 'xl' === breakpoint,
+            onClick: () => { setState( { breakpoint: 'xl' } ) },
           }
         ] }
       />

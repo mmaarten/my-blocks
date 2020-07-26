@@ -8,6 +8,7 @@ import {
   BaseControl,
 	PanelBody,
   SelectControl,
+  ToggleControl,
   Toolbar,
   SVG,
 	Path,
@@ -102,7 +103,7 @@ class RowEdit extends Component {
 
     const {
       container,
-      backgroundImage,
+      noGutters,
     } = attributes;
 
     const classes = classnames( {
@@ -122,6 +123,11 @@ class RowEdit extends Component {
                 { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
                 { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
               ] }
+            />
+            <ToggleControl
+              label={ __( 'No Gutters', 'my-blocks' ) }
+              checked={ noGutters }
+              onChange={ ( noGutters ) => setAttributes( { noGutters } ) }
             />
           </PanelBody>
         </InspectorControls>

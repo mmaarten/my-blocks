@@ -5,7 +5,12 @@ import classnames from 'classnames';
 
 export default ( { ...props } ) => {
   const { attributes, className } = props;
-  const { container } = attributes;
+  const { container, noGutters } = attributes;
+
+  const rowClasses = classnames( {
+    'row': true,
+    'no-gutters': noGutters,
+  } );
 
   const containerClasses = classnames( {
     'container': 'fluid' !== container,
@@ -15,7 +20,7 @@ export default ( { ...props } ) => {
   return (
     <div className={ className }>
       <div className={ containerClasses }>
-        <div className="row">
+        <div className={ rowClasses }>
           <InnerBlocks.Content />
         </div>
       </div>

@@ -1,87 +1,64 @@
 
-$grid-columns: 12;
+/**
+ * Make selection frame fit row dimensions
+ */
 
-$grid-breakpoints: (
-  xs: 0,
-  sm: $break-small,
-  md: $break-medium,
-  lg: $break-large,
-  xl: $break-xlarge,
-);
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"]::before {
+  top: 0;
+  bottom: 0;
+}
 
-$container-max-widths: (
-  sm: map-get($grid-breakpoints, "sm") - 36,
-  md: map-get($grid-breakpoints, "md") - 48,
-  lg: map-get($grid-breakpoints, "lg") - 32,
-  xl: map-get($grid-breakpoints, "xl") - 60,
-);
+.components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/row"] {
+  margin-bottom: -1px;
+}
 
 /**
- * Setup columns container.
+ * Make selection frame fit column dimensions
  */
+
+.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/column"]::before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/column"] {
+  margin-left: 0;
+  margin-bottom: -1px;
+}
+
+/**
+ * Setup container
+ */
+
 .wp-block-my-row {
   > .block-editor-inner-blocks {
-    // Setup container.
-    margin-left: auto;
-    margin-right: auto;
+    @include make-container();
   }
   &.has-fixed-container > .block-editor-inner-blocks {
     @include make-container-max-widths();
   }
 }
 
-.components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/row"] {
-  margin-bottom: -1px;
-  margin-left: -14px;
-}
-
-.components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/row"][data-align="full"] {
-  margin-left: 0;
-}
-
-.components-popover.block-editor-block-list__block-popover .components-popover__content .block-editor-block-contextual-toolbar[data-type="my/column"] {
-  margin-bottom: -1px;
-  margin-left: 0;
-}
-
-.editor-styles-wrapper .block-editor-block-list__block[data-type="my/row"] {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.block-editor-block-list__layout .block-editor-block-list__block[data-type="my/row"]:before {
-  top: 0;
-  bottom: 0;
-}
-
-.wp-block[data-type="my/row"][data-align="full"] .wp-block-my-row > .block-editor-inner-blocks > .block-editor-block-list__layout {
-  margin-left: 0;
-  margin-right: 0;
-}
+/**
+ * Setup grid
+ */
 
 .wp-block-my-row {
-  .block-editor-block-list__block {
-    // Disable max width on all inner blocks.
-    max-width: none !important;
-
-    &:before {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
   > .block-editor-inner-blocks {
     > .block-editor-block-list__layout {
-      @include make-row(30px);
+      @include make-row();
 
       > .wp-block[data-type="my/column"] {
-        @include make-col-ready(30px);
+        @include make-col-ready();
         margin-top: 0;
         margin-bottom: 0;
 
-        // On mobile columns are full width.
-        flex-basis: 100%;
+        // Disable max width on all inner blocks.
+        .wp-block {
+          max-width: none;
+        }
 
         // Loop breakpoints
         @each $breakpoint in map-keys($grid-breakpoints) {
@@ -89,6 +66,7 @@ $container-max-widths: (
 
           // Above breakpoint.
           @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+
             // Make flexbox column.
             &.has-col#{$infix} {
               flex-basis: 0;
@@ -115,15 +93,6 @@ $container-max-widths: (
                 }
               }
             }
-
-            // Vertical alignment
-            // display: flex;
-            // flex-direction: column;
-            // flex: 1;
-            //
-            // &.has-align-items#{$infix}-start    { justify-content: flex-start !important; }
-            // &.has-align-items#{$infix}-center   { justify-content: center !important; }
-            // &.has-align-items#{$infix}-end      { justify-content: flex-end !important; }
           }
         }
       }

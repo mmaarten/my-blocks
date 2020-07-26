@@ -26,6 +26,10 @@ registerBlockType( 'my/row', {
       type: 'string',
       default: 'fixed',
     },
+    noGutters : {
+      type: 'boolean',
+			default: false,
+    },
   },
 	edit,
 	save,
