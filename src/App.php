@@ -48,6 +48,7 @@ final class App
     public function registerBlockTypes()
     {
         $blocks = [
+            'Container',
             'Row',
             'Column',
         ];
@@ -83,8 +84,9 @@ final class App
         );
 
         // Individual blocks.
-        Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
+        Assets::registerScript('my-container', plugins_url('build/container.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
+        Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
     /**

@@ -8,9 +8,9 @@ import {
 import edit from './edit';
 import save from './save';
 
-registerBlockType( 'my/row', {
-	title: __( 'Row', 'my-blocks' ),
-  description: __( 'Displays a row.', 'my-blocks' ),
+registerBlockType( 'my/container', {
+	title: __( 'Container', 'my-blocks' ),
+  description: __( 'Displays a container.', 'my-blocks' ),
 	category: 'common',
 	keywords: [ __( 'My Blocks', 'my-blocks' ) ],
 	supports: {
@@ -22,9 +22,9 @@ registerBlockType( 'my/row', {
       type: 'string',
       default: 'full',
     },
-    noGutters : {
-      type: 'boolean',
-			default: false,
+    type : {
+      type: 'string',
+      default: 'fixed',
     },
   },
 	edit,
