@@ -15,16 +15,22 @@ export default ( { ...props } ) => {
   const containerClasses = classnames( {
     'container': 'fixed' === container,
     'container-fluid': 'fluid' === container,
-    'wp-block-my-row__inner' : true,
   } );
 
   return (
     <div className={ className }>
-      <div className={ containerClasses }>
+      { container && (
+        <div className={ containerClasses }>
+          <div className={ rowClasses }>
+            <InnerBlocks.Content />
+          </div>
+        </div>
+      ) }
+      { ! container && (
         <div className={ rowClasses }>
           <InnerBlocks.Content />
         </div>
-      </div>
+      ) }
     </div>
   );
 };

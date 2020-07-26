@@ -64,7 +64,6 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
           classes[ `has-${ className }` ] = use;
         } );
 
-
         return (
             <BlockListBlock { ...props } className={ classnames( classes ) } />
         );
