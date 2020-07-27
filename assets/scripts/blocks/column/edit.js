@@ -28,7 +28,6 @@ class ColumnEdit extends Component {
       setAttributes,
       className,
       hasChildBlocks,
-      blockIndex,
     } = this.props;
 
     const { width, offset, order, verticalAlignment } = attributes;
@@ -116,7 +115,6 @@ export default compose(
 
     return {
 			hasChildBlocks: getBlockOrder( clientId ).length > 0,
-      blockIndex: getBlockIndex( clientId, rootClientId ),
 		};
 	} ),
   withDispatch( ( dispatch, ownProps, registry ) => ( {
