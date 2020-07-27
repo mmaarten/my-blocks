@@ -10,8 +10,6 @@ import
 
 export default ( { ...props } ) => {
   const { attributes } = props;
-  const { horizontalAlignment, verticalAlignment } = attributes;
-
   const classes = classnames( getColumnClasses( attributes ) );
 
   return (

@@ -4,7 +4,7 @@ export const gridColumns = 12;
 export const gridBreakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
 export const getColumnClasses = ( attributes ) => {
-  const { width, offset, order, horizontalAlignment, verticalAlignment } = attributes;
+  const { width, offset, order, verticalAlignment } = attributes;
   const FALLBACK_CLASS = 'col';
 
   let classes = {};
@@ -19,14 +19,11 @@ export const getColumnClasses = ( attributes ) => {
     const _offset = get( offset, breakpoint );
     const _order = get( order, breakpoint );
     const _verticalAlignment = get( verticalAlignment, breakpoint );
-    const _horizontalAlignment = get( horizontalAlignment, breakpoint );
 
     classes[`col${ slug }-${ kebabCase( _width ) }`] = _width;
     classes[`offset${ slug }-${ kebabCase( _offset ) }`] = _offset;
     classes[`order${ slug }-${ kebabCase( _order ) }`] = _order;
-    classes[`justify-content${ slug }-${ kebabCase( _horizontalAlignment ) }`] = _horizontalAlignment;
-    classes[`align-items${ slug }-${ kebabCase( _verticalAlignment ) }`] = _verticalAlignment;
-    classes[`d${ slug }-flex`] = _horizontalAlignment || _verticalAlignment;
+    classes[`align-self${ slug }-${ kebabCase( _verticalAlignment ) }`] = _verticalAlignment;
 
     // Width is set. Remove `col` class.
     if ( _width && classes[ FALLBACK_CLASS ] ) {

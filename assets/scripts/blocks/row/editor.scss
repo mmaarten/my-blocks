@@ -105,22 +105,10 @@
               }
             }
 
-            // Flex
-            &.has-d#{$infix}-flex { display: flex !important; }
-
-            // Align items
-            &.has-align-items#{$infix}-start    { align-items: flex-start !important; }
-            &.has-align-items#{$infix}-end      { align-items: flex-end !important; }
-            &.has-align-items#{$infix}-center   { align-items: center !important; }
-            &.has-align-items#{$infix}-baseline { align-items: baseline !important; }
-            &.has-align-items#{$infix}-stretch  { align-items: stretch !important; }
-
-            // Justify content
-            &.has-justify-content#{$infix}-start   { justify-content: flex-start !important; }
-            &.has-justify-content#{$infix}-end     { justify-content: flex-end !important; }
-            &.has-justify-content#{$infix}-center  { justify-content: center !important; }
-            &.has-justify-content#{$infix}-between { justify-content: space-between !important; }
-            &.has-justify-content#{$infix}-around  { justify-content: space-around !important; }
+            // Vertical alignment
+            &.has-align-self#{$infix}-start    { align-self: flex-start !important; }
+            &.has-align-self#{$infix}-center   { align-self: center !important; }
+            &.has-align-self#{$infix}-end      { align-self: flex-end !important; }
           }
         }
       }
