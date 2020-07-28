@@ -43,7 +43,7 @@ class SpacerEdit extends Component {
                       size: assign( {}, size, { [ breakpoint ]: value } )
                     } );
                   } }
-                  min={ 0 }
+                  min={ 1 }
                   max={ 5 }
                   allowReset
                 />
