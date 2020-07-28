@@ -1,7 +1,4 @@
 import {
-  InnerBlocks,
-} from '@wordpress/block-editor';
-import {
   getSpacerClasses,
 } from './common';
 import
@@ -13,8 +10,6 @@ export default ( { ...props } ) => {
   const classes = classnames( getSpacerClasses( attributes ) );
 
   return (
-    <div className={ classes }>
-      <InnerBlocks.Content />
-    </div>
+    <div className={ classes } />
   );
 };
