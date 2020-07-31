@@ -1,7 +1,6 @@
 import { map, get, kebabCase } from 'lodash';
 
 export const gridColumns = 12;
-export const gridBreakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
 
 export const getColumnClasses = ( attributes ) => {
   const { width, offset, order, verticalAlignment } = attributes;
@@ -12,7 +11,7 @@ export const getColumnClasses = ( attributes ) => {
   // Add `col` class for when no width is set.
   classes[ FALLBACK_CLASS ] = true;
 
-  map( gridBreakpoints, ( breakpoint ) => {
+  map( myBlocksSettings.gridBreakpoints, ( breakpoint ) => {
     const slug = 'xs' !== breakpoint ? `-${ kebabCase( breakpoint ) }` : '';
 
     const _width = get( width, breakpoint );

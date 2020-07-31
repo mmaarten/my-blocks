@@ -100,7 +100,9 @@ final class App
             return;
         }
 
-        $settings = [];
+        $settings = [
+            'gridBreakpoints' => ['xs', 'sm', 'md', 'lg', 'xl'],
+        ];
 
         printf('<script>var myBlocksSettings = %s</script>', json_encode($settings));
     }
