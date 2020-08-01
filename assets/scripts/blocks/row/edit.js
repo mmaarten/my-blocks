@@ -20,6 +20,8 @@ import {
   InspectorControls,
   InnerBlocks,
   BlockControls,
+  withColors,
+  PanelColorSettings,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -98,18 +100,32 @@ class RowEdit extends Component {
       updateColumns,
       addBlock,
       columns,
+      backgroundColor,
+			setBackgroundColor,
+      textColor,
+			setTextColor,
     } = this.props;
 
     const {
       container,
       noGutters,
+      customTextColor,
+      customBackgroundColor,
     } = attributes;
 
     const classes = classnames( {
       [ className ]: className,
       'has-no-gutters': noGutters,
       [`has-${container}-container`]: container,
+      [backgroundColor.class]: backgroundColor.class,
+      [textColor.class]: textColor.class,
+      'has-background': customBackgroundColor || get( backgroundColor, 'value' ),
     } );
+
+    const styles = {
+			backgroundColor: customBackgroundColor,
+			color: customTextColor,
+		};
 
     return (
       <>
@@ -131,6 +147,21 @@ class RowEdit extends Component {
               onChange={ ( noGutters ) => setAttributes( { noGutters } ) }
             />
           </PanelBody>
+          <PanelColorSettings
+						title={ __('Color Settings', 'my-blocks') }
+						colorSettings={[
+							{
+								label: __('Text Color'),
+								onChange: setTextColor,
+								value: textColor.color,
+							},
+              {
+								label: __('Background Color'),
+								onChange: setBackgroundColor,
+								value: backgroundColor.color,
+							}
+						]}
+					/>
         </InspectorControls>
         <BlockControls>
           <Toolbar controls={
@@ -145,7 +176,7 @@ class RowEdit extends Component {
           }
           />
         </BlockControls>
-        <div className={ classes }>
+        <div className={ classes } style={ styles }>
           { ! columns && (
             <Placeholder
              label={ __( 'Columns', 'my-blocks') }
@@ -182,6 +213,7 @@ class RowEdit extends Component {
 }
 
 export default compose( [
+  withColors( 'backgroundColor', 'textColor' ),
   withSelect( ( select, props ) => {
     const { clientId } = props;
     const { getBlockCount } = select( 'core/block-editor' );
