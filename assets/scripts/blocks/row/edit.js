@@ -119,7 +119,6 @@ class RowEdit extends Component {
       [`has-${container}-container`]: container,
       [backgroundColor.class]: backgroundColor.class,
       [textColor.class]: textColor.class,
-      'has-background': customBackgroundColor || get( backgroundColor, 'value' ),
     } );
 
     const styles = {

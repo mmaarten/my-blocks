@@ -17,7 +17,6 @@ export default ( { ...props } ) => {
     'no-gutters': noGutters,
     [textColorClass] : textColorClass,
     [backgroundColorClass] : backgroundColorClass,
-    'has-background': customBackgroundColor || get( backgroundColor, 'value' ),
   } );
 
   const styles = {
