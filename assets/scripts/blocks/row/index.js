@@ -36,6 +36,12 @@ registerBlockType( 'my/row', {
     textColor : {
       type: 'string'
     },
+    customTextColor : {
+      type : 'string',
+    },
+    customBackgroundColor : {
+      type : 'string',
+    }
   },
 	edit,
 	save,
