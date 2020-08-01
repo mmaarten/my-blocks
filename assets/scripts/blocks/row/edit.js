@@ -147,6 +147,7 @@ class RowEdit extends Component {
             />
           </PanelBody>
           <PanelColorSettings
+            initialOpen={ false }
 						title={ __('Color Settings', 'my-blocks') }
 						colorSettings={[
 							{

@@ -5,9 +5,15 @@ import {
   registerBlockType,
 } from '@wordpress/blocks';
 import {
+  getColorClassName,
+} from '@wordpress/block-editor';
+import {
   getColumnClasses,
 } from './common';
-
+import {
+    merge,
+} from 'lodash';
+getColorClassName
 import edit from './edit';
 import save from './save';
 
@@ -35,6 +41,18 @@ registerBlockType( 'my/column', {
     verticalAlignment: {
       type: 'object',
     },
+    backgroundColor : {
+      type: 'string'
+    },
+    textColor : {
+      type: 'string'
+    },
+    customTextColor : {
+      type : 'string',
+    },
+    customBackgroundColor : {
+      type : 'string',
+    },
   },
 	edit,
 	save,
@@ -52,17 +70,46 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
           return <BlockListBlock { ...props } />
         }
 
+        const {
+          attributes,
+        } = props;
+
+        const {
+          width,
+          offset,
+          order,
+          verticalAlignment,
+          customTextColor,
+          customBackgroundColor,
+          backgroundColor,
+          textColor,
+        } = attributes;
+
+        let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
+
         // Get classes
         const vendorClasses = getColumnClasses( props.attributes );
-
         // Add prefixes
         let classes = {};
         map( vendorClasses, ( use, className ) => {
           classes[ `has-${ className }` ] = use;
         } );
 
+        const textColorClass = getColorClassName( 'text-color', textColor );
+        const backgroundColorClass = getColorClassName( 'background-color', backgroundColor );
+
+        classes = merge( classes, {
+            [textColorClass] : textColorClass,
+            [backgroundColorClass] : backgroundColorClass,
+        } )
+
+        wrapperProps.style = {
+    			backgroundColor: customBackgroundColor,
+    			color: customTextColor,
+    		};
+
         return (
-            <BlockListBlock { ...props } className={ classnames( classes ) } />
+            <BlockListBlock { ...props } className={ classnames( classes ) } wrapperProps={ wrapperProps } />
         );
     };
 }, 'withColumnClasses' );

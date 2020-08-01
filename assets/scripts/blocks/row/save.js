@@ -7,7 +7,14 @@ import { get } from 'lodash';
 
 export default ( { ...props } ) => {
   const { attributes, className } = props;
-  const { container, noGutters, textColor, backgroundColor, customTextColor, customBackgroundColor } = attributes;
+  const {
+    container,
+    noGutters,
+    textColor,
+    backgroundColor,
+    customTextColor,
+    customBackgroundColor,
+  } = attributes;
 
   const textColorClass = getColorClassName( 'text-color', textColor );
 	const backgroundColorClass = getColorClassName( 'background-color', backgroundColor );

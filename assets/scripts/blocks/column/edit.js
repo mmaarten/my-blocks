@@ -10,6 +10,8 @@ import {
 import {
   InspectorControls,
   InnerBlocks,
+  withColors,
+  PanelColorSettings,
 } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
@@ -24,13 +26,24 @@ class ColumnEdit extends Component {
 
   render() {
     const {
-      attributes,
-      setAttributes,
-      className,
-      hasChildBlocks,
+        attributes,
+        setAttributes,
+        className,
+        hasChildBlocks,
+        backgroundColor,
+        setBackgroundColor,
+        textColor,
+        setTextColor,
     } = this.props;
 
-    const { width, offset, order, verticalAlignment } = attributes;
+    const {
+      width,
+      offset,
+      order,
+      verticalAlignment,
+      customTextColor,
+      customBackgroundColor,
+    } = attributes;
 
     return (
       <div className={ className }>
@@ -94,6 +107,22 @@ class ColumnEdit extends Component {
             ) }
           />
           </PanelBody>
+          <PanelColorSettings
+            initialOpen={ false }
+						title={ __('Color Settings', 'my-blocks') }
+						colorSettings={[
+							{
+								label: __('Text Color'),
+								onChange: setTextColor,
+								value: textColor.color,
+							},
+              {
+								label: __('Background Color'),
+								onChange: setBackgroundColor,
+								value: backgroundColor.color,
+							}
+						]}
+					/>
         </InspectorControls>
         <InnerBlocks
           templateLock={ false }
@@ -108,6 +137,7 @@ class ColumnEdit extends Component {
 }
 
 export default compose(
+  withColors( 'backgroundColor', 'textColor' ),
 	withSelect( ( select, ownProps ) => {
 		const { clientId } = ownProps;
 		const { getBlockOrder, getBlockIndex, getBlockRootClientId } = select( 'core/block-editor' );
