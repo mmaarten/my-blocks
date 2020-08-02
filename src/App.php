@@ -50,7 +50,6 @@ final class App
         $blocks = [
             'Row',
             'Column',
-            'Spacer',
         ];
         foreach ($blocks as $class) {
             $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;
@@ -86,7 +85,6 @@ final class App
         // Individual blocks.
         Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
         Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
-        Assets::registerScript('my-spacer', plugins_url('build/spacer.js', MY_BLOCKS_PLUGIN_FILE));
     }
 
     /**

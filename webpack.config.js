@@ -8,6 +8,5 @@ module.exports = {
     'script': './assets/scripts/script.js',
     'row': './assets/scripts/blocks/row/index.js',
     'column': './assets/scripts/blocks/column/index.js',
-    'spacer': './assets/scripts/blocks/spacer/index.js',
   },
 };
