@@ -104,11 +104,6 @@
                 }
               }
             }
-
-            &[class*="has-align-self"] {
-              display: flex;
-              flex-direction: column;
-            }
           }
         }
       }
