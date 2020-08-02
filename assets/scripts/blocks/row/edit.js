@@ -20,8 +20,6 @@ import {
   InspectorControls,
   InnerBlocks,
   BlockControls,
-  withColors,
-  PanelColorSettings,
 } from '@wordpress/block-editor';
 import {
   compose,
@@ -100,17 +98,11 @@ class RowEdit extends Component {
       updateColumns,
       addBlock,
       columns,
-      backgroundColor,
-			setBackgroundColor,
-      textColor,
-			setTextColor,
     } = this.props;
 
     const {
       container,
       noGutters,
-      customTextColor,
-      customBackgroundColor,
       verticalAlignment,
     } = attributes;
 
@@ -118,15 +110,8 @@ class RowEdit extends Component {
       [ className ]: className,
       'has-no-gutters': noGutters,
       [`has-${container}-container`]: container,
-      [backgroundColor.class]: backgroundColor.class,
-      [textColor.class]: textColor.class,
       [`has-align-items-${verticalAlignment}`] : verticalAlignment,
     } );
-
-    const styles = {
-			backgroundColor: customBackgroundColor,
-			color: customTextColor,
-		};
 
     return (
       <>
@@ -159,22 +144,6 @@ class RowEdit extends Component {
               onChange={ ( verticalAlignment ) => setAttributes( { verticalAlignment } ) }
             />
           </PanelBody>
-          <PanelColorSettings
-            initialOpen={ false }
-						title={ __('Color Settings', 'my-blocks') }
-						colorSettings={[
-							{
-								label: __('Text Color'),
-								onChange: setTextColor,
-								value: textColor.color,
-							},
-              {
-								label: __('Background Color'),
-								onChange: setBackgroundColor,
-								value: backgroundColor.color,
-							}
-						]}
-					/>
         </InspectorControls>
         <BlockControls>
           <Toolbar controls={
@@ -189,7 +158,7 @@ class RowEdit extends Component {
           }
           />
         </BlockControls>
-        <div className={ classes } style={ styles }>
+        <div className={ classes }>
           { ! columns && (
             <Placeholder
              label={ __( 'Columns', 'my-blocks') }
@@ -226,7 +195,6 @@ class RowEdit extends Component {
 }
 
 export default compose( [
-  withColors( 'backgroundColor', 'textColor' ),
   withSelect( ( select, props ) => {
     const { clientId } = props;
     const { getBlockCount } = select( 'core/block-editor' );

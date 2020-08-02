@@ -30,18 +30,6 @@ registerBlockType( 'my/row', {
       type: 'boolean',
 			default: false,
     },
-    backgroundColor : {
-      type: 'string'
-    },
-    textColor : {
-      type: 'string'
-    },
-    customTextColor : {
-      type : 'string',
-    },
-    customBackgroundColor : {
-      type : 'string',
-    },
     verticalAlignment : {
       type : 'string',
     }

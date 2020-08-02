@@ -5,15 +5,9 @@ import {
   registerBlockType,
 } from '@wordpress/blocks';
 import {
-  getColorClassName,
-} from '@wordpress/block-editor';
-import {
   getColumnClasses,
 } from './common';
-import {
-    merge,
-} from 'lodash';
-getColorClassName
+
 import edit from './edit';
 import save from './save';
 
@@ -37,18 +31,6 @@ registerBlockType( 'my/column', {
     },
     order : {
       type: 'object',
-    },
-    backgroundColor : {
-      type: 'string'
-    },
-    textColor : {
-      type: 'string'
-    },
-    customTextColor : {
-      type : 'string',
-    },
-    customBackgroundColor : {
-      type : 'string',
     },
   },
 	edit,
@@ -75,10 +57,6 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
           width,
           offset,
           order,
-          customTextColor,
-          customBackgroundColor,
-          backgroundColor,
-          textColor,
         } = attributes;
 
         let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
@@ -91,21 +69,8 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
           classes[ `has-${ className }` ] = use;
         } );
 
-        const textColorClass = getColorClassName( 'text-color', textColor );
-        const backgroundColorClass = getColorClassName( 'background-color', backgroundColor );
-
-        classes = merge( classes, {
-            [textColorClass] : textColorClass,
-            [backgroundColorClass] : backgroundColorClass,
-        } )
-
-        wrapperProps.style = {
-    			backgroundColor: customBackgroundColor,
-    			color: customTextColor,
-    		};
-
         return (
-            <BlockListBlock { ...props } className={ classnames( classes ) } wrapperProps={ wrapperProps } />
+            <BlockListBlock { ...props } className={ classnames( classes ) } />
         );
     };
 }, 'withColumnClasses' );
