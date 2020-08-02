@@ -5,7 +5,6 @@ import {
   Toolbar,
   BaseControl,
   RangeControl,
-  SelectControl,
 } from '@wordpress/components';
 import {
   InspectorControls,
@@ -40,7 +39,6 @@ class ColumnEdit extends Component {
       width,
       offset,
       order,
-      verticalAlignment,
       customTextColor,
       customBackgroundColor,
     } = attributes;
@@ -87,21 +85,6 @@ class ColumnEdit extends Component {
                   min={ 1 }
                   max={ gridColumns }
                   allowReset
-                />
-                <SelectControl
-                  label={ __( 'Vertically Align' ) }
-                  options={ [
-                    { label: __('- Select -', 'my-blocks'), value: '' },
-                    { label: __('Top', 'my-blocks'), value: 'start' },
-                    { label: __('Middle', 'my-blocks'), value: 'center' },
-                    { label: __('Bottom', 'my-blocks'), value: 'end' },
-                  ] }
-                  value={ get( verticalAlignment, breakpoint, '' ) }
-                  onChange={ ( value ) => {
-                    setAttributes( {
-                      verticalAlignment: assign( {}, verticalAlignment, { [ breakpoint ]: value } )
-                    } );
-                  } }
                 />
               </>
             ) }

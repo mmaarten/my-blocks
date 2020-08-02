@@ -14,6 +14,7 @@ export default ( { ...props } ) => {
     backgroundColor,
     customTextColor,
     customBackgroundColor,
+    verticalAlignment,
   } = attributes;
 
   const textColorClass = getColorClassName( 'text-color', textColor );
@@ -24,6 +25,7 @@ export default ( { ...props } ) => {
     'no-gutters': noGutters,
     [textColorClass] : textColorClass,
     [backgroundColorClass] : backgroundColorClass,
+    [`align-items-${verticalAlignment}`] : verticalAlignment,
   } );
 
   const styles = {

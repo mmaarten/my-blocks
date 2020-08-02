@@ -105,14 +105,27 @@
               }
             }
 
-            // Vertical alignment
-            &.has-align-self#{$infix}-start    { align-self: flex-start !important; }
-            &.has-align-self#{$infix}-center   { align-self: center !important; }
-            &.has-align-self#{$infix}-end      { align-self: flex-end !important; }
+            &[class*="has-align-self"] {
+              display: flex;
+              flex-direction: column;
+            }
           }
         }
       }
     }
+  }
+}
+
+// Vertical alignment
+.wp-block-my-row {
+  &.has-align-items-start > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    align-items: flex-start !important;
+  }
+  &.has-align-items-center > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    align-items: center !important;
+  }
+  &.has-align-items-end > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    align-items: flex-end !important;
   }
 }
 

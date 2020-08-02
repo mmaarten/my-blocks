@@ -42,6 +42,9 @@ registerBlockType( 'my/row', {
     customBackgroundColor : {
       type : 'string',
     },
+    verticalAlignment : {
+      type : 'string',
+    }
   },
 	edit,
 	save,

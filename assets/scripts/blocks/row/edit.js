@@ -111,6 +111,7 @@ class RowEdit extends Component {
       noGutters,
       customTextColor,
       customBackgroundColor,
+      verticalAlignment,
     } = attributes;
 
     const classes = classnames( {
@@ -119,6 +120,7 @@ class RowEdit extends Component {
       [`has-${container}-container`]: container,
       [backgroundColor.class]: backgroundColor.class,
       [textColor.class]: textColor.class,
+      [`has-align-items-${verticalAlignment}`] : verticalAlignment,
     } );
 
     const styles = {
@@ -144,6 +146,17 @@ class RowEdit extends Component {
               label={ __( 'No Gutters', 'my-blocks' ) }
               checked={ noGutters }
               onChange={ ( noGutters ) => setAttributes( { noGutters } ) }
+            />
+            <SelectControl
+              label={ __( 'Vertically Align' ) }
+              options={ [
+                { label: __('- Select -', 'my-blocks'), value: '' },
+                { label: __('Top', 'my-blocks'), value: 'start' },
+                { label: __('Middle', 'my-blocks'), value: 'center' },
+                { label: __('Bottom', 'my-blocks'), value: 'end' },
+              ] }
+              value={ verticalAlignment }
+              onChange={ ( verticalAlignment ) => setAttributes( { verticalAlignment } ) }
             />
           </PanelBody>
           <PanelColorSettings

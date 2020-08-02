@@ -38,9 +38,6 @@ registerBlockType( 'my/column', {
     order : {
       type: 'object',
     },
-    verticalAlignment: {
-      type: 'object',
-    },
     backgroundColor : {
       type: 'string'
     },
@@ -78,7 +75,6 @@ const addColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
           width,
           offset,
           order,
-          verticalAlignment,
           customTextColor,
           customBackgroundColor,
           backgroundColor,

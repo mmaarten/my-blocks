@@ -3,7 +3,7 @@ import { map, get, kebabCase } from 'lodash';
 export const gridColumns = 12;
 
 export const getColumnClasses = ( attributes ) => {
-  const { width, offset, order, verticalAlignment } = attributes;
+  const { width, offset, order } = attributes;
   const FALLBACK_CLASS = 'col';
 
   let classes = {};
@@ -17,12 +17,10 @@ export const getColumnClasses = ( attributes ) => {
     const _width = get( width, breakpoint );
     const _offset = get( offset, breakpoint );
     const _order = get( order, breakpoint );
-    const _verticalAlignment = get( verticalAlignment, breakpoint );
 
     classes[`col${ slug }-${ kebabCase( _width ) }`] = _width;
     classes[`offset${ slug }-${ kebabCase( _offset ) }`] = _offset;
     classes[`order${ slug }-${ kebabCase( _order ) }`] = _order;
-    classes[`align-self${ slug }-${ kebabCase( _verticalAlignment ) }`] = _verticalAlignment;
 
     // Width is set. Remove `col` class.
     if ( _width && classes[ FALLBACK_CLASS ] ) {
