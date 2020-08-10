@@ -25,18 +25,11 @@ export default ( { ...props } ) => {
 
   return (
     <div className={ className }>
-      { container && (
-        <div className={ containerClasses }>
-          <div className={ rowClasses }>
-            <InnerBlocks.Content />
-          </div>
-        </div>
-      ) }
-      { ! container && (
+      <div className={ containerClasses }>
         <div className={ rowClasses }>
           <InnerBlocks.Content />
         </div>
-      ) }
+      </div>
     </div>
   );
 };

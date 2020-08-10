@@ -122,7 +122,6 @@ class RowEdit extends Component {
               value={ container }
               onChange={ ( container ) => setAttributes( { container } ) }
               options={ [
-                { label: __( "- Don't Set -", 'my-blocks' ), value: '' },
                 { label: __( 'Fixed Width', 'my-blocks' ), value: 'fixed' },
                 { label: __( 'Full Width', 'my-blocks' ), value: 'fluid' },
               ] }
