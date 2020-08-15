@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/mmaarten/my-blocks/
  * Description:       Block library
  * Version:           1.0
- * Requires at least: 5.0
+ * Requires at least: 5.5
  * Requires PHP:      5.6
  * Author:            Maarten Menten
  * Author URI:        https://profiles.wordpress.org/maartenm/
