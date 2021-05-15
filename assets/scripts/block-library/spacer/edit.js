@@ -3,7 +3,7 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { get, assign } from 'lodash';
 import { BreakpointToolbar } from '../../components';
-import { getClasses } from './common';
+import { getSpacerClasses } from './common';
 import { getSelectOptions, getSetting } from '../../helpers';
 
 export default ( props ) => {
@@ -11,7 +11,7 @@ export default ( props ) => {
   const { sizes } = attributes;
 
   const blockProps = useBlockProps({
-    className: getClasses( attributes ),
+    className: getSpacerClasses( attributes ),
     'aria-hidden': 'true',
   });
 

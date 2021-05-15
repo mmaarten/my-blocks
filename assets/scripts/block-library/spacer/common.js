@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { map, get } from 'lodash';
 import { getBreakpointInfix, getGridBreakpoints } from '../../helpers';
 
-export const getClasses = ( attributes ) => {
+export const getSpacerClasses = ( attributes ) => {
   const { sizes } = attributes;
   let classes = {};
   map( getGridBreakpoints(), ( breakpoint ) => {
