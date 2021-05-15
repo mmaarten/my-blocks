@@ -20,7 +20,7 @@ class ThemeSupport
     public static function get($feature, $default = false)
     {
         if (current_theme_supports($feature)) {
-            return get_theme_support($feature);
+            return current(get_theme_support($feature));
         }
 
         return $default;
