@@ -82,7 +82,7 @@ class App
 
         $settings = [
             'gridColumns'     => ThemeSupport::get('myBlocks/gridColumns', 12),
-            'gridBreakpoints' => ThemeSupport::get('myBlocks/gridColumns', ['xs', 'md', 'xl']),
+            'gridBreakpoints' => ThemeSupport::get('myBlocks/gridBreakpoints', ['xs', 'md', 'xl']),
         ];
 
         printf('<script>var myBlocksSettings = %s</script>', json_encode($settings));
