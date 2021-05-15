@@ -1,11 +1,16 @@
 <?php
+/**
+ * Column
+ *
+ * @package My/Blocks/BlockTypes
+ */
 
 namespace My\Blocks\BlockTypes;
 
 class Column extends AbstractBlock
 {
     /**
-     * Constructor
+     * Construct.
      */
     public function __construct()
     {

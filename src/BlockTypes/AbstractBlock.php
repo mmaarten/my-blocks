@@ -1,11 +1,16 @@
 <?php
+/**
+ * Abstract block
+ *
+ * @package My/Blocks/BlockTypes
+ */
 
 namespace My\Blocks\BlockTypes;
 
 abstract class AbstractBlock
 {
     /**
-     * Block namespace.
+     * Namespace.
      *
      * @var string
      */
@@ -16,28 +21,65 @@ abstract class AbstractBlock
      *
      * @var string
      */
-    protected $name = '';
+    protected $block_name = '';
 
     /**
-     * Constructor
+     * Construct.
      *
-     * @param string $name Block name.
+     * @param string $block_name
      */
-    public function __construct($name)
+    public function __construct($block_name)
     {
-        $this->name = $name;
+        $this->block_name = $block_name;
     }
 
     /**
-     * Registers the block type with WordPress.
+     * Get block type name.
+     *
+     * @return string
      */
-    public function registerBlockType()
+    public function getBlockTypeName()
     {
-        register_block_type($this->namespace . '/' . $this->name, [
-            'editor_script'   => 'my-' . $this->name,
-            'editor_style'    => 'my-block-editor',
-            'script'          => 'my-block-script',
-            'style'           => 'my-block-style',
-        ]);
+        return $this->namespace . '/' . $this->block_name;
+    }
+
+    /**
+     * Get block type script.
+     *
+     * @return string|array
+     */
+    public function getBlockTypeScript()
+    {
+        return 'my-blocks-script';
+    }
+
+    /**
+     * Get block type style.
+     *
+     * @return string|array
+     */
+    public function getBlockTypeStyle()
+    {
+        return 'my-blocks-style';
+    }
+
+    /**
+     * Get block type editor script.
+     *
+     * @return string|array
+     */
+    public function getBlockTypeEditorScript()
+    {
+        return 'my-blocks-editor-script';
+    }
+
+    /**
+     * Get block type editor style.
+     *
+     * @return string|array
+     */
+    public function getBlockTypeEditorStyle()
+    {
+        return 'my-blocks-editor-style';
     }
 }

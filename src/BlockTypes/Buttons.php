@@ -1,19 +1,19 @@
 <?php
 /**
- * Spacer
+ * Buttons
  *
  * @package My/Blocks/BlockTypes
  */
 
 namespace My\Blocks\BlockTypes;
 
-class Spacer extends AbstractBlock
+class Buttons extends AbstractBlock
 {
     /**
      * Construct.
      */
     public function __construct()
     {
-        parent::__construct('spacer');
+        parent::__construct('buttons');
     }
 }

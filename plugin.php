@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name:       My Blocks
- * Plugin URI:        https://github.com/mmaarten/my-blocks/
- * Description:       Block library
- * Version:           1.0
- * Requires at least: 5.5
- * Requires PHP:      5.6
+ * Plugin Name:       My Blocks v2
+ * Plugin URI:        https://github.com/mmaarten/my-blocks
+ * Description:       Block library.
+ * Version:           1.0.0
+ * Requires at least: 5.0
+ * Requires PHP:      7.2
  * Author:            Maarten Menten
  * Author URI:        https://profiles.wordpress.org/maartenm/
  * License:           GPL v2 or later
@@ -14,17 +14,16 @@
  * Domain Path:       /languages
  */
 
-if (version_compare(PHP_VERSION, '5.6.0', '<')) {
-    return;
-}
-
-define('MY_BLOCKS_PLUGIN_FILE', __FILE__);
+/**
+ * Include autoloader.
+ */
 
 $autoloader = __DIR__ . '/vendor/autoload.php';
+
 if (! is_readable($autoloader)) {
     error_log(
         sprintf(
-            /* translators: 1: composer command. 2: plugin directory */
+            /* translators: 1: Composer command. 2: plugin directory */
             esc_html__(
                 'Your installation of the My Blocks plugin is incomplete. Please run %1$s within the %2$s directory.',
                 'my-blocks'
@@ -38,4 +37,13 @@ if (! is_readable($autoloader)) {
 
 require $autoloader;
 
-add_action('plugins_loaded', [\My\Blocks\App::getInstance(), 'init']);
+/**
+ * Define constants.
+ */
+define('MY_BLOCKS_PLUGIN_FILE', __FILE__);
+define('MY_BLOCKS_PLUGIN_VERSION', '1.0.0');
+
+/**
+ * Initialize application.
+ */
+add_action('plugins_loaded', ['My\Blocks\App', 'init']);

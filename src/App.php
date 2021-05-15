@@ -1,105 +1,88 @@
 <?php
+/**
+ * Application
+ *
+ * @package My/Blocks
+ */
 
 namespace My\Blocks;
 
-final class App
+class App
 {
-    /**
-     * Instance.
-     *
-     * @var App
-     */
-    private static $instance = null;
-
-    public static function getInstance()
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
-    /**
-     * Did init.
-     *
-     * @var bool
-     */
-    private $did_init = false;
-
     /**
      * Initialize.
      */
-    public function init()
+    public static function init()
     {
-        if ($this->did_init) {
-            return;
-        }
-
-        $this->did_init = true;
-
-        add_action('init', [$this, 'registerBlockTypes']);
-        add_action('init', [$this, 'registerBlockAssets']);
-        add_action('admin_print_scripts', [$this, 'printBlockSettings'], 1);
+        add_action('init', [__CLASS__, 'registerBlockTypes']);
+        add_action('init', [__CLASS__, 'registerBlockAssets']);
+        add_action('admin_print_scripts', [__CLASS__, 'printBlockSettings'], 1);
     }
 
     /**
      * Register block types.
      */
-    public function registerBlockTypes()
+    public static function registerBlockTypes()
     {
-        $blocks = [
-            'Row',
-            'Column',
-        ];
-        foreach ($blocks as $class) {
-            $class = __NAMESPACE__ . '\\BlockTypes\\' . $class;
+        $blocks = ['Row', 'Column', 'Buttons', 'Button', 'Spacer'];
+
+        foreach ($blocks as $block) {
+            $class = __NAMESPACE__ . '\\BlockTypes\\' . $block;
             $instance = new $class();
-            $instance->registerBlockType();
+
+            register_block_type($instance->getBlockTypeName(), [
+                'script'        => $instance->getBlockTypeScript(),
+                'style'         => $instance->getBlockTypeStyle(),
+                'editor_script' => $instance->getBlockTypeEditorScript(),
+                'editor_style'  => $instance->getBlockTypeEditorStyle(),
+            ]);
         }
     }
 
     /**
      * Register block assets.
      */
-    public function registerBlockAssets()
+    public static function registerBlockAssets()
     {
-        // Common editor styles.
-        Assets::registerStyle(
-            'my-block-editor',
-            plugins_url('build/editor.css', MY_BLOCKS_PLUGIN_FILE),
-            ['wp-edit-blocks']
-        );
-
-        // Common styles for editor and front-end.
-        Assets::registerStyle(
-            'my-block-style',
-            plugins_url('build/style-style.css', MY_BLOCKS_PLUGIN_FILE)
-        );
-
-        // Common scripts for editor and front-end.
         Assets::registerScript(
-            'my-block-script',
-            plugins_url('build/script.js', MY_BLOCKS_PLUGIN_FILE)
+            'my-blocks-editor-script',
+            plugins_url('build/editor-script.js', MY_BLOCKS_PLUGIN_FILE)
         );
 
-        // Individual blocks.
-        Assets::registerScript('my-row', plugins_url('build/row.js', MY_BLOCKS_PLUGIN_FILE));
-        Assets::registerScript('my-column', plugins_url('build/column.js', MY_BLOCKS_PLUGIN_FILE));
+        Assets::registerStyle(
+            'my-blocks-editor-style',
+            plugins_url('build/editor-style.css', MY_BLOCKS_PLUGIN_FILE)
+        );
+
+        Assets::registerScript(
+            'my-blocks-script',
+            plugins_url('build/blocks-script.js', MY_BLOCKS_PLUGIN_FILE)
+        );
+
+        Assets::registerStyle(
+            'my-blocks-style',
+            plugins_url('build/blocks-style.css', MY_BLOCKS_PLUGIN_FILE)
+        );
     }
 
     /**
      * Print block settings.
      */
-    public function printBlockSettings()
+    public static function printBlockSettings()
     {
+        // Check if block editor screen.
+
         $screen = get_current_screen();
 
-        if (!$screen || !$screen->is_block_editor) {
+        if (! $screen || ! $screen->is_block_editor) {
             return;
         }
 
+        // Print settings.
+
         $settings = [
-            'gridBreakpoints' => ['xs', 'sm', 'md', 'lg', 'xl'],
+            'gridColumns'     => ThemeSupport::get('myBlocks/gridColumns', 12),
+            'gridBreakpoints' => ThemeSupport::get('myBlocks/gridColumns', ['xs', 'md', 'xl']),
         ];
 
         printf('<script>var myBlocksSettings = %s</script>', json_encode($settings));

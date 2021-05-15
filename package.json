@@ -1,43 +1,38 @@
 {
   "name": "@my/blocks",
   "version": "1.0.0",
-  "description": "WordPress block library.",
+  "private": true,
   "scripts": {
-    "start": "wp-scripts start --config webpack.config.js",
-    "build": "wp-scripts build --config webpack.config.js",
+    "build": "wp-scripts build",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:md:js": "wp-scripts lint-md-js",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "start": "wp-scripts start",
     "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js"
+    "test:unit": "wp-scripts test-unit-js",
+    "bundle": "dir-archiver --src . --dest ../my-blocks.zip --exclude webpack.config.js .DS_Store .editorconfig .git .gitignore .gitattributes phpcs.xml node_modules composer.json package.json assets"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mmaarten/my-blocks.git"
-  },
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
   "keywords": [
     "wordpress",
-    "wordpress-plugin",
-    "blocks"
+    "plugin",
+    "bootstrap"
   ],
-  "author": "Maarten Menten",
   "license": "GPL-2.0-or-later",
-  "bugs": {
-    "url": "https://github.com/mmaarten/my-blocks/issues"
-  },
-  "homepage": "https://github.com/mmaarten/my-blocks#readme",
   "devDependencies": {
-    "@wordpress/browserslist-config": "^2.7.0",
-    "@wordpress/scripts": "^12.0.0",
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.15"
+    "@wordpress/base-styles": "^3.4.4",
+    "@wordpress/icons": "^3.0.0",
+    "@wordpress/scripts": "^15.0.1",
+    "classnames": "^2.3.1",
+    "dir-archiver": "^1.1.1"
   },
   "dependencies": {
-    "bootstrap": "^4.5.0"
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1"
   }
 }

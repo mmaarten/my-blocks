@@ -1,12 +1,28 @@
 <?php
+/**
+ * Theme support
+ *
+ * @package My/Blocks
+ */
 
 namespace My\Blocks;
 
-final class ThemeSupport
+class ThemeSupport
 {
+    /**
+     * Get feature settings.
+     *
+     * @param string $feature
+     * @param mixed $default
+     *
+     * @return mixed
+     */
     public static function get($feature, $default = false)
     {
-        $theme_support = get_theme_support($feature);
-        return is_array($theme_support) ? $theme_support[0] : $default;
+        if (current_theme_supports($feature)) {
+            return get_theme_support($feature);
+        }
+
+        return $default;
     }
 }
