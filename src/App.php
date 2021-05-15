@@ -54,11 +54,6 @@ class App
             plugins_url('build/editor-style.css', MY_BLOCKS_PLUGIN_FILE)
         );
 
-        Assets::registerScript(
-            'my-blocks-script',
-            plugins_url('build/blocks-script.js', MY_BLOCKS_PLUGIN_FILE)
-        );
-
         Assets::registerStyle(
             'my-blocks-style',
             plugins_url('build/blocks-style.css', MY_BLOCKS_PLUGIN_FILE)
@@ -81,8 +76,25 @@ class App
         // Print settings.
 
         $settings = [
-            'gridColumns'     => ThemeSupport::get('myBlocks/gridColumns', 12),
-            'gridBreakpoints' => ThemeSupport::get('myBlocks/gridBreakpoints', ['xs', 'md', 'xl']),
+            'gridColumns'
+                => ThemeSupport::get('my-blocks/grid-columns', 12),
+            'gridBreakpoints'
+                => ThemeSupport::get('my-blocks/grid-breakpoints', [
+                    'xs',
+                    'md',
+                    'xl'
+                ]),
+            'themeColors'
+                => ThemeSupport::get('my-blocks/theme-colors', [
+                    'primary'   => __('Primary', 'my-blocks'),
+                    'secondary' => __('Secondary', 'my-blocks'),
+                ]),
+            'spacers'
+                => ThemeSupport::get('my-blocks/spacers', [
+                    3 => __('Small', 'my-blocks'),
+                    4 => __('Medium', 'my-blocks'),
+                    5 => __('Large', 'my-blocks'),
+            ]),
         ];
 
         printf('<script>var myBlocksSettings = %s</script>', json_encode($settings));

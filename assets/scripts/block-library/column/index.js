@@ -37,6 +37,7 @@ registerBlockType('my/column', {
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 
+// Add column classes
 const withColumnClasses = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
         if( props.name === 'my/column' ) {

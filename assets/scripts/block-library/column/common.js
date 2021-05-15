@@ -7,9 +7,7 @@ export const getColumnClasses = ( attributes ) => {
   const breakpoints = getGridBreakpoints();
   const FALLBACK_CLASS = 'col';
 
-  let classes = {
-    [ FALLBACK_CLASS ] : true,
-  };
+  let classes = { [ FALLBACK_CLASS ] : true };
 
   map( breakpoints, ( breakpoint ) => {
     let infix = getBreakpointInfix( breakpoint );

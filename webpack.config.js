@@ -5,7 +5,6 @@ module.exports = {
 	entry : {
     'editor-script': './assets/scripts/editor.js',
     'editor-style': './assets/styles/editor.scss',
-    'blocks-script': './assets/scripts/script.js',
-    'blocks-style': './assets/styles/style.scss',
+    'blocks-style': './assets/styles/blocks.scss',
   },
 };

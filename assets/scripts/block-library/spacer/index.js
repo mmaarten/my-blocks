@@ -9,7 +9,14 @@ registerBlockType( 'my/spacer', {
   title: __( 'Spacer', 'my-blocks' ),
   description: __( 'Displays a spacer.', 'my-blocks' ),
   category: 'common',
+  supports: {
+    align: ['wide', 'full'],
+  },
   attributes: {
+    align: {
+      type: 'string',
+      default: 'full',
+    },
     sizes: {
       type: 'object',
       default: { xs: 4 },

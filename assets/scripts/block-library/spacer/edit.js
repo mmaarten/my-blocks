@@ -4,6 +4,7 @@ import { PanelBody, SelectControl } from '@wordpress/components';
 import { get, assign } from 'lodash';
 import { BreakpointToolbar } from '../../components';
 import { getClasses } from './common';
+import { getSelectOptions, getSetting } from '../../helpers';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -14,11 +15,7 @@ export default ( props ) => {
     'aria-hidden': 'true',
   });
 
-  const sizeOptions = [
-    { label: __( 'Small', 'my-blocks' ), value: 3 },
-    { label: __( 'Medium', 'my-blocks' ), value: 4 },
-    { label: __( 'Large', 'my-blocks' ), value: 5 },
-  ];
+  const sizeOptions = getSelectOptions( getSetting( 'spacers' ) );
 
   return (
     <>

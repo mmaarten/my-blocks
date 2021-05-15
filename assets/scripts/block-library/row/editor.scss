@@ -35,17 +35,13 @@
 
 .wp-block-my-row  {
 
-  //
   // Container
-  //
 
   &.has-container > .block-editor-inner-blocks {
     @include make-container-max-widths();
   }
 
-  //
   // No gutters
-  //
 
   &.has-no-gutters > .block-editor-inner-blocks > .block-editor-block-list__layout {
     margin-left: 0;
@@ -57,9 +53,7 @@
     }
   }
 
-  //
   // Vertical alignment
-  //
 
   &.has-align-items-start > .block-editor-inner-blocks > .block-editor-block-list__layout {
     align-items: flex-start;

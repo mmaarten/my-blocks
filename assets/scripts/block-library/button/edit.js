@@ -3,6 +3,7 @@ import { RichText, InspectorControls, useBlockProps } from '@wordpress/block-edi
 import { PanelBody, TextControl, ToggleControl, SelectControl } from '@wordpress/components';
 import { getButtonClasses } from './common';
 import { URLControl } from '../../components';
+import { getSetting, getSelectOptions } from '../../helpers';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -29,12 +30,7 @@ export default ( props ) => {
         <PanelBody title={ __( 'Style Settings', 'my-blocks' ) } initialOpen={ false }>
           <SelectControl
             label={ __( 'Type', 'my-blocks' ) }
-            options={ [
-							{ label: __( 'Primary', 'my-blocks' ), value: 'primary' },
-              { label: __( 'Secondary', 'my-blocks' ), value: 'secondary' },
-              { label: __( 'Light', 'my-blocks' ), value: 'light' },
-              { label: __( 'Dark', 'my-blocks' ), value: 'dark' },
-						] }
+            options={ getSelectOptions( getSetting( 'themeColors' ) ) }
             value={ type }
             onChange={ ( type ) => setAttributes( { type } ) }
           />
