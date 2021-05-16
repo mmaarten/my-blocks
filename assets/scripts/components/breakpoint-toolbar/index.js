@@ -13,9 +13,9 @@ const BreakpointToolbar = ( {
 
   const controls = {
     xs : { icon : mobile, label: __( 'Mobile', 'my-blocks' ) },
-    sm : { icon : tablet, label: __( 'Tablet', 'my-blocks' ) },
+    sm : { icon : tablet, label: __( 'Small Tablet', 'my-blocks' ) },
     md : { icon : tablet, label: __( 'Tablet', 'my-blocks' ) },
-    lg : { icon : desktop, label: __( 'Desktop', 'my-blocks' ) },
+    lg : { icon : desktop, label: __( 'Small Desktop', 'my-blocks' ) },
     xl : { icon : desktop, label: __( 'Desktop', 'my-blocks' ) },
   };
 
