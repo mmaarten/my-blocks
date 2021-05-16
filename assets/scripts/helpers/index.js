@@ -17,9 +17,5 @@ export const getBreakpointInfix = ( breakpoint ) => {
 }
 
 export const getSelectOptions = ( obj ) => {
-  let options = [];
-
-  map( obj, ( label, value ) => options.push( { label, value } ) );
-
-  return options;
+  return map( obj, ( label, value ) => ( { label, value } ) );
 }
