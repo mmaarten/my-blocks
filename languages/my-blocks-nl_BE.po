@@ -1,0 +1,261 @@
+# Copyright (C) 2021 Maarten Menten
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: My Blocks 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/my-blocks\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-05-16 15:35+0200\n"
+"PO-Revision-Date: 2021-05-16 15:40+0200\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Domain: my-blocks\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl_BE\n"
+
+#. Plugin Name of the plugin
+msgid "My Blocks"
+msgstr "Mijn blokken"
+
+#. Plugin URI of the plugin
+msgid "https://github.com/mmaarten/my-blocks"
+msgstr "https://github.com/mmaarten/my-blocks"
+
+#. Description of the plugin
+msgid "Block library."
+msgstr "blok bibliotheek."
+
+#. Author of the plugin
+msgid "Maarten Menten"
+msgstr "Maarten Menten"
+
+#. Author URI of the plugin
+msgid "https://profiles.wordpress.org/maartenm/"
+msgstr "https://profiles.wordpress.org/maartenm/"
+
+#. translators: 1: Composer command. 2: plugin directory
+#: plugin.php:27
+msgid ""
+"Your installation of the My Blocks plugin is incomplete. Please run %1$s "
+"within the %2$s directory."
+msgstr ""
+"Uw installatie van de My Blocks plug-in is onvolledig. Voer %1$s uit in de "
+"directory %2$s."
+
+#: src/App.php:89
+msgid "Primary"
+msgstr "Primair"
+
+#: src/App.php:90
+msgid "Secondary"
+msgstr "Secundair"
+
+#: src/App.php:94 assets/scripts/block-library/button/edit.js:45
+#: build/editor-script.js:199
+msgid "Small"
+msgstr "Klein"
+
+#: src/App.php:95 assets/scripts/block-library/button/edit.js:46
+#: build/editor-script.js:202
+msgid "Medium"
+msgstr "Middelmatig"
+
+#: src/App.php:96 assets/scripts/block-library/button/edit.js:47
+#: build/editor-script.js:205
+msgid "Large"
+msgstr "Groot"
+
+#: assets/scripts/block-library/button/edit.js:18 build/editor-script.js:158
+msgid "Link Settings"
+msgstr "Linkinstellingen"
+
+#: assets/scripts/block-library/button/edit.js:20 build/editor-script.js:161
+msgid "Link"
+msgstr "Link"
+
+#: assets/scripts/block-library/button/edit.js:25 build/editor-script.js:169
+msgid "Open in new window"
+msgstr "Open in nieuw venster"
+
+#: assets/scripts/block-library/button/edit.js:30 build/editor-script.js:177
+msgid "Style Settings"
+msgstr "Stijlinstellingen"
+
+#: assets/scripts/block-library/button/edit.js:32 build/editor-script.js:180
+msgid "Type"
+msgstr "Type"
+
+#: assets/scripts/block-library/button/edit.js:38 build/editor-script.js:189
+msgid "Outline"
+msgstr "Omlijnd"
+
+#: assets/scripts/block-library/button/edit.js:43
+#: assets/scripts/block-library/spacer/edit.js:38 build/editor-script.js:197
+#: build/editor-script.js:1078
+msgid "Size"
+msgstr "Grootte"
+
+#: assets/scripts/block-library/button/edit.js:53
+#: assets/scripts/block-library/row/edit.js:37 build/editor-script.js:215
+#: build/editor-script.js:828
+msgid "Full Width"
+msgstr "Volledige Breedte"
+
+#: assets/scripts/block-library/button/edit.js:58 build/editor-script.js:223
+msgid "Toggle Settings"
+msgstr "Schakel Instellingen"
+
+#: assets/scripts/block-library/button/edit.js:60 build/editor-script.js:226
+msgid "Toggle"
+msgstr "Openen/sluiten"
+
+#: assets/scripts/block-library/button/edit.js:62
+#: assets/scripts/block-library/row/edit.js:48 build/editor-script.js:228
+#: build/editor-script.js:842
+msgid "- Select -"
+msgstr "- Kies -"
+
+#: assets/scripts/block-library/button/edit.js:63 build/editor-script.js:231
+msgid "Modal"
+msgstr "Modal"
+
+#: assets/scripts/block-library/button/edit.js:64 build/editor-script.js:234
+msgid "Collapse"
+msgstr "Invouwen"
+
+#: assets/scripts/block-library/button/edit.js:77 build/editor-script.js:252
+msgid "Button text..."
+msgstr "Knoptekst…"
+
+#: assets/scripts/block-library/button/index.js:9 build/editor-script.js:281
+msgid "Button"
+msgstr "Knop"
+
+#: assets/scripts/block-library/button/index.js:10 build/editor-script.js:282
+msgid "Displays a button."
+msgstr "Geeft een knop weer."
+
+#: assets/scripts/block-library/buttons/edit.js:24 build/editor-script.js:401
+msgid "Justify Content"
+msgstr "Inhoud aanpassen"
+
+#: assets/scripts/block-library/buttons/edit.js:26 build/editor-script.js:403
+msgid "Left"
+msgstr "Links"
+
+#: assets/scripts/block-library/buttons/edit.js:27 build/editor-script.js:406
+msgid "Center"
+msgstr "Midden"
+
+#: assets/scripts/block-library/buttons/edit.js:28 build/editor-script.js:409
+msgid "Right"
+msgstr "Rechts"
+
+#: assets/scripts/block-library/buttons/index.js:9 build/editor-script.js:448
+msgid "Buttons"
+msgstr "Knoppen"
+
+#: assets/scripts/block-library/buttons/index.js:10 build/editor-script.js:449
+msgid "Displays buttons."
+msgstr "Geeft knoppen weer."
+
+#: assets/scripts/block-library/column/edit.js:26 build/editor-script.js:595
+msgid "Width"
+msgstr "Breedte"
+
+#: assets/scripts/block-library/column/edit.js:38 build/editor-script.js:606
+msgid "Offset"
+msgstr "Offset"
+
+#: assets/scripts/block-library/column/edit.js:50 build/editor-script.js:617
+msgid "Order"
+msgstr "Volgorde"
+
+#: assets/scripts/block-library/column/index.js:10 build/editor-script.js:683
+msgid "Column"
+msgstr "Kolom"
+
+#: assets/scripts/block-library/column/index.js:11 build/editor-script.js:684
+msgid "Displays a column."
+msgstr "Geeft een kolom weer."
+
+#: assets/scripts/block-library/row/edit.js:32 build/editor-script.js:817
+msgid "Container"
+msgstr "Container"
+
+#: assets/scripts/block-library/row/edit.js:36 build/editor-script.js:825
+msgid "Fixed Width"
+msgstr "Vaste breedte"
+
+#: assets/scripts/block-library/row/edit.js:41 build/editor-script.js:832
+msgid "No Gutters"
+msgstr "Geen geulen"
+
+#: assets/scripts/block-library/row/edit.js:49 build/editor-script.js:845
+msgid "Top"
+msgstr "Boven"
+
+#: assets/scripts/block-library/row/edit.js:50 build/editor-script.js:848
+msgid "Middle"
+msgstr "Midden"
+
+#: assets/scripts/block-library/row/edit.js:51 build/editor-script.js:851
+msgid "Bottom"
+msgstr "Onder"
+
+#: assets/scripts/block-library/row/edit.js:62 build/editor-script.js:862
+msgid "Add Column"
+msgstr "Kolom toevoegen"
+
+#: assets/scripts/block-library/row/index.js:9 build/editor-script.js:915
+msgid "Row"
+msgstr "Rij"
+
+#: assets/scripts/block-library/row/index.js:10 build/editor-script.js:916
+msgid "Displays a row."
+msgstr "Geeft een rij weer."
+
+#: assets/scripts/block-library/spacer/edit.js:31 build/editor-script.js:1072
+msgid "- Inherit from smaller -"
+msgstr "- Overerven van kleiner -"
+
+#: assets/scripts/block-library/spacer/index.js:9 build/editor-script.js:1114
+msgid "Spacer"
+msgstr "Afstandhouder"
+
+#: assets/scripts/block-library/spacer/index.js:10 build/editor-script.js:1115
+msgid "Displays a spacer."
+msgstr "Geeft een afstandhouder  weer."
+
+#: assets/scripts/components/breakpoint-toolbar/index.js:15
+#: build/editor-script.js:1202
+msgid "Mobile"
+msgstr "Mobiel"
+
+#: assets/scripts/components/breakpoint-toolbar/index.js:16
+#: build/editor-script.js:1206
+msgid "Small Tablet"
+msgstr "Kleine tablet"
+
+#: assets/scripts/components/breakpoint-toolbar/index.js:17
+#: build/editor-script.js:1210
+msgid "Tablet"
+msgstr "Tablet"
+
+#: assets/scripts/components/breakpoint-toolbar/index.js:18
+#: build/editor-script.js:1214
+msgid "Small Desktop"
+msgstr "Klein desktop"
+
+#: assets/scripts/components/breakpoint-toolbar/index.js:19
+#: build/editor-script.js:1218
+msgid "Desktop"
+msgstr "Desktop"
+
+#: assets/scripts/components/breakpoint-toolbar/index.js:26
+#: build/editor-script.js:1223
+msgid "Device navigation"
+msgstr "Apparaatnavigatie"
