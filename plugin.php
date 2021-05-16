@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       My Blocks v2
+ * Plugin Name:       My Blocks
  * Plugin URI:        https://github.com/mmaarten/my-blocks
  * Description:       Block library.
  * Version:           1.0.0
