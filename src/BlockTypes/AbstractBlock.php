@@ -50,7 +50,7 @@ abstract class AbstractBlock
      */
     public function getBlockTypeScript()
     {
-        return 'my-blocks-script';
+        return 'my-theme-script';
     }
 
     /**
@@ -60,7 +60,7 @@ abstract class AbstractBlock
      */
     public function getBlockTypeStyle()
     {
-        return 'my-blocks-style';
+        return 'my-theme-style';
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class AbstractBlock
      */
     public function getBlockTypeEditorScript()
     {
-        return 'my-blocks-editor-script';
+        return 'my-theme-editor-script';
     }
 
     /**
@@ -80,6 +80,6 @@ abstract class AbstractBlock
      */
     public function getBlockTypeEditorStyle()
     {
-        return 'my-blocks-editor-style';
+        return 'my-theme-editor-style';
     }
 }
