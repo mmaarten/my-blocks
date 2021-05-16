@@ -5,7 +5,7 @@
  * Description:       Block library.
  * Version:           1.0.0
  * Requires at least: 5.0
- * Requires PHP:      7.2
+ * Requires PHP:      5.6
  * Author:            Maarten Menten
  * Author URI:        https://profiles.wordpress.org/maartenm/
  * License:           GPL v2 or later
